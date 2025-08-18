@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:netwalking_global/views/screen/Auth/login_screen.dart';
+import 'package:netwalking_global/views/screen/Auth/signup_screen.dart';
 import 'package:netwalking_global/views/screen/SelectLanguage/select_language_screen.dart';
 import 'package:netwalking_global/views/screen/Splash/onboarding_screen.dart';
 
@@ -18,6 +19,7 @@ class AppRoutes{
   static String onboradingScreen="/onboarding_screen";
   static String selectLanguage = "/select_language_screen";
   static String loginScreen = "/login_screen";
+  static String signupScreen = "/signup_screen";
 
 
  static List<GetPage> page=[
@@ -28,6 +30,7 @@ class AppRoutes{
     GetPage(name:onboradingScreen, page: ()=>const OnboardingScreen(),transition: Transition.noTransition),
    GetPage(name: selectLanguage, page: ()=> const SelectLanguageScreen(), transition: Transition.noTransition),
    GetPage(name: loginScreen, page: ()=> const LoginScreen(), transition: Transition.noTransition),
+   GetPage(name: signupScreen, page: ()=> const SignupScreen(), transition: Transition.noTransition),
 
   ];
 
