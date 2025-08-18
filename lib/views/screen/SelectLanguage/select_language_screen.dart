@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:netwalking_global/controllers/language_controller.dart';
 import 'package:netwalking_global/controllers/localization_controller.dart';
+import 'package:netwalking_global/helpers/route.dart';
 import 'package:netwalking_global/models/language_model.dart';
 import 'package:netwalking_global/utils/app_colors.dart';
 import 'package:netwalking_global/utils/app_constants.dart';
@@ -170,7 +171,7 @@ class _SelectLanguageScreenState extends State<SelectLanguageScreen> {
 
             InkWell(
               onTap: (){
-
+                Get.offAllNamed(AppRoutes.loginScreen);
               },
               child: Container(
                 height: 52,

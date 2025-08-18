@@ -28,13 +28,14 @@ class CustomButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           padding: EdgeInsets.zero,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(24.r),
+            borderRadius: BorderRadius.circular(12.r),
           ),
           backgroundColor: Colors.transparent,
           shadowColor: Colors.transparent,
-          minimumSize: Size(width ?? Get.width, height ?? 53.h),
+          minimumSize: Size(width ?? Get.width, height ?? 52.h),
         ),
         child: Ink(
+          height: 52,
           decoration: BoxDecoration(
             gradient: const LinearGradient(
               colors: [
@@ -44,7 +45,7 @@ class CustomButton extends StatelessWidget {
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
             ),
-            borderRadius: BorderRadius.circular(24.r),
+            borderRadius: BorderRadius.circular(12.r),
           ),
           child: Container(
             alignment: Alignment.center,

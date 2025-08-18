@@ -52,58 +52,81 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: widget.controller,
-      keyboardType: widget.keyboardType,
-      obscuringCharacter: widget.obscure!,
-      // validator: widget.validator,
-      validator: widget.validator ??
-          (value) {
-            if (widget.isEmail == null) {
-              if (value!.isEmpty) {
-                return "Please enter ${widget.hintText!.toLowerCase()}";
-              } else if (widget.isPassword) {
-                bool data = AppConstants.passwordValidator.hasMatch(value);
-                if (value.isEmpty) {
-                  return "Please enter ${widget.hintText!.toLowerCase()}";
-                } else if (!data) {
-                  return "Insecure password detected.";
-                }
-              }
-            } else {
-              bool data = AppConstants.emailValidator.hasMatch(value!);
+    return SizedBox(
+      height: 48,
+      child: TextFormField(
+        controller: widget.controller,
+        keyboardType: widget.keyboardType,
+        obscuringCharacter: widget.obscure!,
+        validator: widget.validator ?? (value) {
+          if (widget.isEmail == null) {
+            if (value!.isEmpty) {
+              return "Please enter ${widget.hintText!.toLowerCase()}";
+            } else if (widget.isPassword) {
+              bool data = AppConstants.passwordValidator.hasMatch(value);
               if (value.isEmpty) {
                 return "Please enter ${widget.hintText!.toLowerCase()}";
               } else if (!data) {
-                return "Please check your email!";
+                return "Insecure password detected.";
               }
             }
-            return null;
-          },
-      cursorColor: AppColors.primaryColor,
-      obscureText: widget.isPassword ? obscureText : false,
-      style: TextStyle(color: Colors.white, fontSize: 16.sp),
-      decoration: InputDecoration(
-        contentPadding: EdgeInsets.symmetric(
-            horizontal: widget.contentPaddingHorizontal ?? 20.w,
-            vertical: widget.contentPaddingVertical ?? 20.w),
-        fillColor: widget.filColor,
-        prefixIcon: widget.prefixIcon,
-        suffixIcon: widget.isPassword
-            ? GestureDetector(
-                onTap: toggle,
-                child: _suffixIcon(
-                    obscureText ? Icons.visibility_off : Icons.visibility),
-              )
-            : widget.suffixIcon,
-        prefixIconConstraints: BoxConstraints(minHeight: 24.w, minWidth: 24.w),
-        labelText: widget.labelText,
-        hintText: widget.hintText,
+          } else {
+            bool data = AppConstants.emailValidator.hasMatch(value!);
+            if (value.isEmpty) {
+              return "Please enter ${widget.hintText!.toLowerCase()}";
+            } else if (!data) {
+              return "Please check your email!";
+            }
+          }
+          return null;
+        },
+        cursorColor: AppColors.primaryColor,
+        obscureText: widget.isPassword ? obscureText : false,
+        style: TextStyle(color: AppColors.textColor, fontSize: 14.sp, fontWeight: FontWeight.w400),
+        decoration: InputDecoration(
+          // No border color but keep the border radius
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(color: Colors.transparent),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(color: Colors.transparent),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(color: Colors.transparent),
+          ),
+          contentPadding: EdgeInsets.symmetric(
+            horizontal: widget.contentPaddingHorizontal ?? 20,
+            vertical: widget.contentPaddingVertical ?? 12, // Adjusted for vertical centering
+          ),
+          fillColor: Color(0xFFE6EEF7),
+          filled: true,
+          prefixIcon: widget.prefixIcon,
+          suffixIcon: widget.isPassword
+              ? GestureDetector(
+            onTap: toggle,
+            child: _suffixIcon(
+                obscureText ? Icons.visibility_off : Icons.visibility),
+          )
+              : widget.suffixIcon,
+          prefixIconConstraints: BoxConstraints(minHeight: 24.w, minWidth: 24.w),
+          labelText: widget.labelText,
+          hintText: widget.hintText,
+          hintStyle: TextStyle(
+            color: AppColors.textColor,
+            fontSize: 14.sp,
+            fontWeight: FontWeight.w400,
+          ),
+        ),
       ),
     );
+
   }
 
   _suffixIcon(IconData icon) {
-    return Padding(padding: const EdgeInsets.all(12.0), child: Icon(icon));
+    return Padding(padding: const EdgeInsets.all(12.0), child: Icon(icon,
+    color: Color(0xFF333333),));
   }
 }
