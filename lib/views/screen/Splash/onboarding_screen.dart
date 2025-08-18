@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:netwalking_global/helpers/route.dart';
 import 'package:netwalking_global/utils/app_colors.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -85,6 +87,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       GestureDetector(
                         onTap: () {
                           /// Login screen
+                          Get.toNamed(AppRoutes.selectLanguage);
                         },
                         child:  Text(
                           "Skip",
@@ -190,7 +193,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 onTap: () {
                   if (_currentPage == _onboardingData.length - 1) {
 
-                    Navigator.pushReplacementNamed(context, '/home');
+                    Get.toNamed(AppRoutes.selectLanguage);
                   } else {
                     _pageController.nextPage(
                       duration: const Duration(milliseconds: 300),

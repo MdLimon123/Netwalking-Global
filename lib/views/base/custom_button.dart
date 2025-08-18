@@ -23,20 +23,50 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Padding(
       padding: padding,
-      child: ElevatedButton(onPressed:loading? (){}:onTap,
-          style: ElevatedButton.styleFrom(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(24.r)
-            ),
-            backgroundColor: color??AppColors.primaryColor,
-            minimumSize:Size(width??Get.width, height??53.h),
-
+      child: ElevatedButton(
+        onPressed: loading ? () {} : onTap,
+        style: ElevatedButton.styleFrom(
+          padding: EdgeInsets.zero,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(24.r),
           ),
-          child:loading?  SizedBox(
-            height: 20.h,
-            width: 20.h,
-            child: const CircularProgressIndicator(color: Colors.white,),
-          ):Text(text,style:textStyle?? AppStyles.h3(fontWeight: FontWeight.w500,color:Colors.white),)),
+          backgroundColor: Colors.transparent,
+          shadowColor: Colors.transparent,
+          minimumSize: Size(width ?? Get.width, height ?? 53.h),
+        ),
+        child: Ink(
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              colors: [
+                Color(0xFF094EBE),
+                Color(0xFF15AABA),
+              ],
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+            ),
+            borderRadius: BorderRadius.circular(24.r),
+          ),
+          child: Container(
+            alignment: Alignment.center,
+            child: loading
+                ? SizedBox(
+              height: 20.h,
+              width: 20.h,
+              child: const CircularProgressIndicator(
+                color: Colors.white,
+                strokeWidth: 2,
+              ),
+            )
+                : Text(
+              text,
+              style: textStyle ??
+                  AppStyles.h3(
+                      fontWeight: FontWeight.w500, color: Colors.white),
+            ),
+          ),
+        ),
+      ),
+
     );
   }
 }
