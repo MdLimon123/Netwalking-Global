@@ -4,20 +4,15 @@ import 'package:get/get.dart';
 import 'package:netwalking_global/helpers/route.dart';
 import 'package:netwalking_global/utils/app_colors.dart';
 import 'package:netwalking_global/views/base/custom_button.dart';
-import 'package:netwalking_global/views/base/custom_text_field.dart';
 
-class ResetPasswordScreen extends StatefulWidget {
-  const ResetPasswordScreen({super.key});
+class SuccessfulScreen extends StatefulWidget {
+  const SuccessfulScreen({super.key});
 
   @override
-  State<ResetPasswordScreen> createState() => _ResetPasswordScreenState();
+  State<SuccessfulScreen> createState() => _SuccessfulScreenState();
 }
 
-class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
-
-  final passwordController = TextEditingController();
-  final confirmController = TextEditingController();
-
+class _SuccessfulScreenState extends State<SuccessfulScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,12 +26,12 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 color: Color(0xFFE6EEF7),
                 child: Padding(
                   padding: const EdgeInsets.all(40.0),
-                  child: SvgPicture.asset('assets/icons/reset_password.svg'),
+                  child: SvgPicture.asset('assets/icons/success.svg'),
                 ),
               ),
               SizedBox(height: 36,),
               Center(
-                child: Text("Set New Password",
+                child: Text("Password Changed",
                   style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.w600,
@@ -47,7 +42,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Center(
-                  child: Text("Please Input minimum 6 character password",
+                  child: Text("Your password has been changed successfully",
                     style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w400,
@@ -59,26 +54,10 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
               SizedBox(height: 50,),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: CustomTextField(controller: passwordController,
-                  isPassword: true,
-                  hintText: 'Enter your password',),
-              ),
-              SizedBox(height: 12,),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: CustomTextField(controller: confirmController,
-                  isPassword: true,
-                  hintText: 'Confirm password',),
-              ),
-
-
-              SizedBox(height: 50,),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: CustomButton(onTap: (){
-                  Get.offAllNamed(AppRoutes.successfulScreen);
+                  Get.offAllNamed(AppRoutes.loginScreen);
                 },
-                    text: "Confirm"),
+                    text: "Log In"),
               ),
 
 
