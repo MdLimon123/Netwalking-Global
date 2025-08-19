@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:netwalking_global/helpers/route.dart';
 import 'package:netwalking_global/utils/app_colors.dart';
 import 'package:netwalking_global/views/base/custom_button.dart';
 import 'package:netwalking_global/views/base/custom_dropdown.dart';
@@ -188,13 +190,14 @@ class _DisabilityAccessibilityScreenState extends State<DisabilityAccessibilityS
                       title: "Select Disability",
                       showCheckbox: true,
                       options: checkItem,
-                      showLeadingIcon: false,
                       onChanged: (val){
 
                       }),
 
                   SizedBox(height: 92,),
-                  CustomButton(onTap: (){},
+                  CustomButton(onTap: (){
+                    Get.offAllNamed(AppRoutes.setYourWalkingPrefereneesScreen);
+                  },
                       text: 'Continue')
 
 

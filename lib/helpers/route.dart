@@ -5,8 +5,10 @@ import 'package:netwalking_global/views/screen/Auth/reset_password_screen.dart';
 import 'package:netwalking_global/views/screen/Auth/signup_screen.dart';
 import 'package:netwalking_global/views/screen/Auth/successful_screen.dart';
 import 'package:netwalking_global/views/screen/SelectLanguage/select_language_screen.dart';
+import 'package:netwalking_global/views/screen/SetUpProfile/complete_screen.dart';
 import 'package:netwalking_global/views/screen/SetUpProfile/disability_accessibility_screen.dart';
 import 'package:netwalking_global/views/screen/SetUpProfile/set_up_profile_screen.dart';
+import 'package:netwalking_global/views/screen/SetUpProfile/set_your_walking_preferenees_screen.dart';
 import 'package:netwalking_global/views/screen/Splash/onboarding_screen.dart';
 
 
@@ -30,6 +32,8 @@ class AppRoutes{
   static String successfulScreen = "/successful_screen";
   static String setupProfileScreen = "/setup_profile_screen";
   static String disabilityAccessibilityScreen = "/disability_accessibility_screen";
+  static String setYourWalkingPrefereneesScreen = "/set_your_walking_preferenees_screen";
+  static String completeScreen = "/compete_screen";
 
 
  static List<GetPage> page=[
@@ -46,6 +50,8 @@ class AppRoutes{
    GetPage(name: successfulScreen, page: ()=> const SuccessfulScreen(), transition: Transition.noTransition),
    GetPage(name: setupProfileScreen, page: ()=> const SetUpProfileScreen(), transition: Transition.noTransition),
    GetPage(name: disabilityAccessibilityScreen, page: ()=> const DisabilityAccessibilityScreen(), transition: Transition.noTransition),
+   GetPage(name: setYourWalkingPrefereneesScreen, page: ()=> const SetYourWalkingPrefereneesScreen(), transition: Transition.noTransition),
+   GetPage(name: completeScreen, page: ()=> const CompleteScreen(), transition: Transition.noTransition)
 
 
   ];

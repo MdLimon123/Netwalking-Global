@@ -4,7 +4,7 @@ class CustomDropdownCheckbox extends StatefulWidget {
   final String title;
   final List<String> options;
   final bool showCheckbox;
-  final bool showLeadingIcon;
+
   final Widget? leadingIcon;
   final ValueChanged<List<String>> onChanged;
 
@@ -14,7 +14,7 @@ class CustomDropdownCheckbox extends StatefulWidget {
     required this.options,
     required this.onChanged,
     this.showCheckbox = true,
-    this.showLeadingIcon = false,
+
     this.leadingIcon,
   });
 
@@ -53,7 +53,7 @@ class _CustomDropdownCheckboxState extends State<CustomDropdownCheckbox> {
                 Expanded(
                   child: Row(
                     children: [
-                      if (widget.showLeadingIcon && widget.leadingIcon != null) ...[
+                      if ( widget.leadingIcon != null) ...[
                         widget.leadingIcon!,
                         const SizedBox(width: 8),
                       ],
@@ -83,7 +83,7 @@ class _CustomDropdownCheckboxState extends State<CustomDropdownCheckbox> {
         ),
 
         // Dropdown expanded list
-        AnimatedSwitcher(
+        AnimatedSize(
           duration: const Duration(milliseconds: 300),
           child: _isExpanded
               ? Column(
@@ -94,9 +94,9 @@ class _CustomDropdownCheckboxState extends State<CustomDropdownCheckbox> {
                 dense: true,
                 title: Row(
                   children: [
-                    if (widget.showLeadingIcon && widget.leadingIcon != null)
+                    if ( widget.leadingIcon != null)
                       widget.leadingIcon!,
-                    if (widget.showLeadingIcon && widget.leadingIcon != null)
+                    if ( widget.leadingIcon != null)
                       const SizedBox(width: 8),
                     Text(
                       option,
@@ -112,7 +112,7 @@ class _CustomDropdownCheckboxState extends State<CustomDropdownCheckbox> {
                 onChanged: (bool? value) {
                   setState(() {
                     _selectedValues[option] = value ?? false;
-                    _isExpanded = false; // auto close
+                    _isExpanded = false;
                   });
                   widget.onChanged(
                     _selectedValues.entries
@@ -124,9 +124,7 @@ class _CustomDropdownCheckboxState extends State<CustomDropdownCheckbox> {
               )
                   : ListTile(
                 dense: true,
-                leading: widget.showLeadingIcon
-                    ? widget.leadingIcon
-                    : null,
+                leading: widget.leadingIcon,
                 title: Text(option),
                 onTap: () {
                   setState(() {
@@ -141,8 +139,9 @@ class _CustomDropdownCheckboxState extends State<CustomDropdownCheckbox> {
               );
             }).toList(),
           )
-              : const SizedBox.shrink(
-            key: ValueKey(false),
+              : const SizedBox(
+            width: double.infinity,
+            height: 0,
           ),
         ),
       ],
