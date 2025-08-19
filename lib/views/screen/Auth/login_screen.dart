@@ -93,7 +93,9 @@ class _LoginScreenState extends State<LoginScreen> {
             SizedBox(height: 32,),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: CustomButton(onTap: (){},
+              child: CustomButton(onTap: (){
+                Get.offAllNamed(AppRoutes.setupProfileScreen);
+              },
                   text: "Log In"),
             ),
             SizedBox(height: 12,),

@@ -19,6 +19,8 @@ class CustomTextField extends StatefulWidget {
   final FormFieldValidator? validator;
   final bool isPassword;
   final bool? isEmail;
+  final int? maxLines;
+  final Function(String)? onChanged;
 
   const CustomTextField(
       {super.key,
@@ -35,6 +37,8 @@ class CustomTextField extends StatefulWidget {
       this.obscure = '*',
       this.filColor,
       this.labelText,
+        this.onChanged,
+        this.maxLines = 1,
       this.isPassword = false});
 
   @override
@@ -53,11 +57,13 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 48,
+      height:  widget.maxLines == 1?48: null,
       child: TextFormField(
+        onChanged: widget.onChanged,
         controller: widget.controller,
         keyboardType: widget.keyboardType,
         obscuringCharacter: widget.obscure!,
+        maxLines: widget.maxLines,
         validator: widget.validator ?? (value) {
           if (widget.isEmail == null) {
             if (value!.isEmpty) {
@@ -101,7 +107,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             horizontal: widget.contentPaddingHorizontal ?? 20,
             vertical: widget.contentPaddingVertical ?? 12, // Adjusted for vertical centering
           ),
-          fillColor: Color(0xFFE6EEF7),
+          fillColor:  widget.filColor?? Color(0xFFE6EEF7),
           filled: true,
           prefixIcon: widget.prefixIcon,
           suffixIcon: widget.isPassword
