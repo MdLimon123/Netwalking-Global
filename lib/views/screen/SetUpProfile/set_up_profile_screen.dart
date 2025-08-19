@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:netwalking_global/helpers/route.dart';
 import 'package:netwalking_global/utils/app_colors.dart';
 import 'package:netwalking_global/views/base/custom_button.dart';
 import 'package:netwalking_global/views/base/custom_dropdown.dart';
@@ -421,7 +423,9 @@ class _SetUpProfileScreenState extends State<SetUpProfileScreen> {
                     ),
                   ),
                   SizedBox(height: 33,),
-               CustomButton(onTap: (){},
+               CustomButton(onTap: (){
+                 Get.offAllNamed(AppRoutes.disabilityAccessibilityScreen);
+               },
                    text: "Continue"),
                   SizedBox(height: 20,)
 

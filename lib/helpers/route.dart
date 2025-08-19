@@ -5,6 +5,7 @@ import 'package:netwalking_global/views/screen/Auth/reset_password_screen.dart';
 import 'package:netwalking_global/views/screen/Auth/signup_screen.dart';
 import 'package:netwalking_global/views/screen/Auth/successful_screen.dart';
 import 'package:netwalking_global/views/screen/SelectLanguage/select_language_screen.dart';
+import 'package:netwalking_global/views/screen/SetUpProfile/disability_accessibility_screen.dart';
 import 'package:netwalking_global/views/screen/SetUpProfile/set_up_profile_screen.dart';
 import 'package:netwalking_global/views/screen/Splash/onboarding_screen.dart';
 
@@ -28,6 +29,7 @@ class AppRoutes{
   static String resetPasswordScreen = "/reset_password_screen";
   static String successfulScreen = "/successful_screen";
   static String setupProfileScreen = "/setup_profile_screen";
+  static String disabilityAccessibilityScreen = "/disability_accessibility_screen";
 
 
  static List<GetPage> page=[
@@ -43,6 +45,7 @@ class AppRoutes{
    GetPage(name: resetPasswordScreen, page: ()=> const ResetPasswordScreen(), transition: Transition.noTransition),
    GetPage(name: successfulScreen, page: ()=> const SuccessfulScreen(), transition: Transition.noTransition),
    GetPage(name: setupProfileScreen, page: ()=> const SetUpProfileScreen(), transition: Transition.noTransition),
+   GetPage(name: disabilityAccessibilityScreen, page: ()=> const DisabilityAccessibilityScreen(), transition: Transition.noTransition),
 
 
   ];
