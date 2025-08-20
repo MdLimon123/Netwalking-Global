@@ -8,7 +8,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  const Scaffold(
-      bottomNavigationBar: BottomMenu(2),
+      bottomNavigationBar: BottomMenu(3),
     );
   }
 }

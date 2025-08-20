@@ -83,8 +83,10 @@ class _SignupScreenState extends State<SignupScreen> {
               SizedBox(height: 32,),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: CustomButton(onTap: (){},
-                    text: "Log In"),
+                child: CustomButton(onTap: (){
+                  Get.offAllNamed(AppRoutes.setupProfileScreen);
+                },
+                    text: "Sing up"),
               ),
               SizedBox(height: 12,),
               Center(
