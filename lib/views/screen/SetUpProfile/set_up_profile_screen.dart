@@ -8,6 +8,7 @@ import 'package:netwalking_global/views/base/custom_dropdown.dart';
 import 'package:netwalking_global/views/base/custom_radio_button.dart';
 import 'package:netwalking_global/views/base/custom_switch.dart';
 import 'package:netwalking_global/views/base/custom_text_field.dart';
+import 'package:netwalking_global/views/screen/SetUpProfile/set_up_coach_profile_screen.dart';
 
 class SetUpProfileScreen extends StatefulWidget {
   const SetUpProfileScreen({super.key});
@@ -146,7 +147,12 @@ class _SetUpProfileScreenState extends State<SetUpProfileScreen> {
                     onChanged: (value){
                       setState(() {
                         isSwitch = value;
+
                       });
+
+                      if(value == true){
+                       Get.to(()=> SetUpCoachProfileScreen(), transition: Transition.noTransition);
+                      }
                     })
               ],
             ),

@@ -4,7 +4,7 @@ class CustomDropdownCheckbox extends StatefulWidget {
   final String title;
   final List<String> options;
   final bool showCheckbox;
-
+  final Color? bgColor;
   final Widget? leadingIcon;
   final ValueChanged<List<String>> onChanged;
 
@@ -14,6 +14,7 @@ class CustomDropdownCheckbox extends StatefulWidget {
     required this.options,
     required this.onChanged,
     this.showCheckbox = true,
+    this.bgColor,
 
     this.leadingIcon,
   });
@@ -45,7 +46,7 @@ class _CustomDropdownCheckboxState extends State<CustomDropdownCheckbox> {
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
-              color: const Color(0xFFE6EEF7),
+              color: widget.bgColor,
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

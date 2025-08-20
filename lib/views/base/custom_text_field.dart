@@ -20,6 +20,7 @@ class CustomTextField extends StatefulWidget {
   final bool isPassword;
   final bool? isEmail;
   final int? maxLines;
+  final Color? borderColor;
   final Function(String)? onChanged;
 
   const CustomTextField(
@@ -39,6 +40,7 @@ class CustomTextField extends StatefulWidget {
       this.labelText,
         this.onChanged,
         this.maxLines = 1,
+        this.borderColor,
       this.isPassword = false});
 
   @override
@@ -93,15 +95,15 @@ class _CustomTextFieldState extends State<CustomTextField> {
           // No border color but keep the border radius
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: Colors.transparent),
+            borderSide: BorderSide(color: widget.borderColor ?? Colors.transparent),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: Colors.transparent),
+            borderSide: BorderSide(color: widget.borderColor ?? Colors.transparent),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: Colors.transparent),
+            borderSide: BorderSide(color: widget.borderColor ?? Colors.transparent),
           ),
           contentPadding: EdgeInsets.symmetric(
             horizontal: widget.contentPaddingHorizontal ?? 20,
