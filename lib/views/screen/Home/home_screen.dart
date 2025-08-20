@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:netwalking_global/utils/app_colors.dart';
 import 'package:netwalking_global/views/base/bottom_menu..dart';
 import 'package:netwalking_global/views/base/custom_text_field.dart';
+import 'package:netwalking_global/views/screen/Home/AllSubScreen/search_screen.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -46,6 +48,9 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             CustomTextField(
                 controller: searchController,
+              onTap: (){
+                  Get.to(()=> SearchScreen());
+              },
               hintText: 'Search walk partner or events...',
               filColor: Colors.white,
               suffixIcon: Padding(

@@ -22,6 +22,7 @@ class CustomTextField extends StatefulWidget {
   final int? maxLines;
   final Color? borderColor;
   final Function(String)? onChanged;
+  final Function()? onTap;
 
   const CustomTextField(
       {super.key,
@@ -39,6 +40,7 @@ class CustomTextField extends StatefulWidget {
       this.filColor,
       this.labelText,
         this.onChanged,
+        this.onTap,
         this.maxLines = 1,
         this.borderColor,
       this.isPassword = false});
@@ -61,6 +63,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return SizedBox(
       height:  widget.maxLines == 1?48: null,
       child: TextFormField(
+        onTap: widget.onTap,
         onChanged: widget.onChanged,
         controller: widget.controller,
         keyboardType: widget.keyboardType,
