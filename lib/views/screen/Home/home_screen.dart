@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:netwalking_global/utils/app_colors.dart';
 import 'package:netwalking_global/views/base/bottom_menu..dart';
 import 'package:netwalking_global/views/base/custom_text_field.dart';
+import 'package:netwalking_global/views/screen/Home/AllSubScreen/JointEvent/joint_event_screen.dart';
 import 'package:netwalking_global/views/screen/Home/AllSubScreen/search_screen.dart';
 import 'package:netwalking_global/views/screen/Notification/notification_screen.dart';
 
@@ -68,31 +69,36 @@ class _HomeScreenState extends State<HomeScreen> {
               )
             ),
             SizedBox(height: 20,),
-            Container(
-              width: double.infinity,
-              padding: EdgeInsets.only(top: 10, bottom: 8),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                gradient: LinearGradient(
-                  colors: [
-                    Color(0xFFCC6F36),
-                    Color(0xFFD7BA18)
-                  ]
-                )
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SvgPicture.asset('assets/icons/join.svg'),
-                  SizedBox(height: 8,),
-                  Text("Joint Event",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500
-                  ),)
-                ],
+            InkWell(
+              onTap: (){
+                Get.to(()=> JointEventScreen());
+              },
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.only(top: 10, bottom: 8),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  gradient: LinearGradient(
+                    colors: [
+                      Color(0xFFCC6F36),
+                      Color(0xFFD7BA18)
+                    ]
+                  )
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset('assets/icons/join.svg'),
+                    SizedBox(height: 8,),
+                    Text("Joint Event",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500
+                    ),)
+                  ],
+                ),
               ),
             ),
             SizedBox(height: 10,),
