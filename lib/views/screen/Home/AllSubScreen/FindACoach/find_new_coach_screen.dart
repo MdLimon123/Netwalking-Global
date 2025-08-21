@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:netwalking_global/utils/app_colors.dart';
 import 'package:netwalking_global/views/base/custom_appbar.dart';
 import 'package:netwalking_global/views/base/custom_button.dart';
 import 'package:netwalking_global/views/base/custom_dropdown.dart';
 import 'package:netwalking_global/views/base/custom_dropdown_checkbox.dart';
 import 'package:netwalking_global/views/base/custom_text_field.dart';
+import 'package:netwalking_global/views/screen/Home/AllSubScreen/FindACoach/coach_filter_result_screen.dart';
 
 class FindNewCoachScreen extends StatefulWidget {
   const FindNewCoachScreen({super.key});
@@ -227,7 +229,9 @@ class _FindNewCoachScreenState extends State<FindNewCoachScreen> {
                 ),
               ),
               SizedBox(width: 24,),
-              Expanded(child: CustomButton(onTap: (){},
+              Expanded(child: CustomButton(onTap: (){
+                Get.to(()=>CoachFilterResultScreen());
+              },
                   text: 'Apply Now'))
             ],
           )
