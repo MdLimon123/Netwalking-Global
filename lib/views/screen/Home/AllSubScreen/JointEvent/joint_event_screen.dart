@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:netwalking_global/utils/app_colors.dart';
 import 'package:netwalking_global/views/base/custom_appbar.dart';
 import 'package:netwalking_global/views/base/custom_button.dart';
+import 'package:netwalking_global/views/screen/Home/AllSubScreen/JointEvent/create_new_event_screen.dart';
 import 'package:netwalking_global/views/screen/Home/AllSubScreen/JointEvent/event_details_screen.dart';
 
 class JointEventScreen extends StatefulWidget {
@@ -173,7 +174,9 @@ class _JointEventScreenState extends State<JointEventScreen> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: CustomButton(onTap: (){},
+        child: CustomButton(onTap: (){
+          Get.to(()=> CreateNewEventScreen());
+        },
             text: "Create New Event"),
       ),
     );
