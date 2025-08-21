@@ -4,6 +4,7 @@ import 'package:netwalking_global/utils/app_colors.dart';
 import 'package:netwalking_global/views/base/custom_appbar.dart';
 import 'package:netwalking_global/views/base/custom_button.dart';
 import 'package:netwalking_global/views/base/custom_switch.dart';
+import 'package:netwalking_global/views/screen/Home/AllSubScreen/FindACoach/book_a_coach_screen.dart';
 import 'package:netwalking_global/views/screen/Home/AllSubScreen/FindACoach/find_new_coach_screen.dart';
 
 class FindACoachScreen extends StatefulWidget {
@@ -55,64 +56,69 @@ class _FindACoachScreenState extends State<FindACoachScreen> {
             Expanded(
               child: ListView.separated(
                   itemBuilder: (context, index){
-                    return Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(12)
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
+                    return InkWell(
+                      onTap: (){
+                        Get.to(()=> BookACoachScreen());
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(12)
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
 
-                          Row(
-                            children: [
-                              Container(
-                                height: 24,
-                                width: 24,
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    image: DecorationImage(image: AssetImage('assets/image/profile.jpg'),
-                                        fit: BoxFit.cover)
+                            Row(
+                              children: [
+                                Container(
+                                  height: 24,
+                                  width: 24,
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      image: DecorationImage(image: AssetImage('assets/image/profile.jpg'),
+                                          fit: BoxFit.cover)
 
-                              )),
-                              SizedBox(width: 8,),
-                              Text("Dr. Amela Harper",
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                                color: AppColors.textColor
-                              ),)
-                            ],
-                          ),
-                          SizedBox(height: 6,),
-                          Row(
-                            children: [
-                              Text("Specialty: Communication",
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: Color(0xFF545454)
-                              ),),
-                              Spacer(),
-                              Text("Confirmed",
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: Color(0xFF468A3A)
-                              ),)
-                            ],
-                          ),
-                          SizedBox(height: 6,),
-                          Text("Today 8.00",
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.textColor
-                          ),)
-                        ],
+                                )),
+                                SizedBox(width: 8,),
+                                Text("Dr. Amela Harper",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                  color: AppColors.textColor
+                                ),)
+                              ],
+                            ),
+                            SizedBox(height: 6,),
+                            Row(
+                              children: [
+                                Text("Specialty: Communication",
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                  color: Color(0xFF545454)
+                                ),),
+                                Spacer(),
+                                Text("Confirmed",
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                  color: Color(0xFF468A3A)
+                                ),)
+                              ],
+                            ),
+                            SizedBox(height: 6,),
+                            Text("Today 8.00",
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              color: AppColors.textColor
+                            ),)
+                          ],
+                        ),
                       ),
                     );
 
