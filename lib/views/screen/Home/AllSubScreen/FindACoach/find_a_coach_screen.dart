@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:netwalking_global/utils/app_colors.dart';
 import 'package:netwalking_global/views/base/custom_appbar.dart';
 import 'package:netwalking_global/views/base/custom_button.dart';
 import 'package:netwalking_global/views/base/custom_switch.dart';
+import 'package:netwalking_global/views/screen/Home/AllSubScreen/FindACoach/find_new_coach_screen.dart';
 
 class FindACoachScreen extends StatefulWidget {
   const FindACoachScreen({super.key});
@@ -118,7 +120,9 @@ class _FindACoachScreenState extends State<FindACoachScreen> {
                   separatorBuilder: (__, index)=> SizedBox(height: 8),
                   itemCount: 10),
             ),
-            CustomButton(onTap: (){},
+            CustomButton(onTap: (){
+              Get.to(()=> FindNewCoachScreen());
+            },
                 text: "Find New Coach")
           ],
         ),
