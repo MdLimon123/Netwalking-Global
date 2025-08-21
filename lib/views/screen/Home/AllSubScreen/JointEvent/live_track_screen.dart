@@ -6,6 +6,7 @@ import 'package:netwalking_global/utils/app_colors.dart';
 import 'package:netwalking_global/views/base/custom_appbar.dart';
 import 'package:netwalking_global/views/base/custom_button.dart';
 import 'package:netwalking_global/views/screen/Home/AllSubScreen/JointEvent/emergency_call_screen.dart';
+import 'package:netwalking_global/views/screen/Home/AllSubScreen/JointEvent/safe_walking_guide_screen.dart';
 
 class LiveTrackScreen extends StatefulWidget {
   const LiveTrackScreen({super.key});
@@ -266,12 +267,17 @@ class _LiveTrackScreenState extends State<LiveTrackScreen> {
                             child: SvgPicture.asset('assets/icons/save.svg')
                           ),
                           SizedBox(width: 16,),
-                          Text("Safe Walking Guidelines",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xFF0F171A)
-                          ),)
+                          InkWell(
+                            onTap: (){
+                              Get.to(()=> SafeWalkingGuideScreen());
+                            },
+                            child: Text("Safe Walking Guidelines",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400,
+                              color: Color(0xFF0F171A)
+                            ),),
+                          )
 
                         ],
                       )
