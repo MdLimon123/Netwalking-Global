@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:netwalking_global/views/base/custom_button.dart';
+import 'package:netwalking_global/views/screen/Home/AllSubScreen/JointEvent/morning_walk_screen.dart';
 
 class JointBookACoachScreen extends StatefulWidget {
   const JointBookACoachScreen({super.key});
@@ -18,7 +20,9 @@ class _JointBookACoachScreenState extends State<JointBookACoachScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            CustomButton(onTap: (){}, text: 'Start Now'),
+            CustomButton(onTap: (){
+              Get.to(()=> MorningWalkScreen());
+            }, text: 'Start Now'),
             SizedBox(height: 116,),
             CustomButton(onTap: (){}, text: "Mark as Completed"),
             SizedBox(height: 22,),

@@ -22,6 +22,7 @@ dependencies:
   flutter_svg:
   flutter_spinkit:
   flutter_otp_text_field:
+  google_maps_flutter: ^2.12.3
 
 dev_dependencies:
   flutter_test:
