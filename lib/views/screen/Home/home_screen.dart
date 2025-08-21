@@ -5,6 +5,7 @@ import 'package:netwalking_global/utils/app_colors.dart';
 import 'package:netwalking_global/views/base/bottom_menu..dart';
 import 'package:netwalking_global/views/base/custom_text_field.dart';
 import 'package:netwalking_global/views/screen/Home/AllSubScreen/search_screen.dart';
+import 'package:netwalking_global/views/screen/Notification/notification_screen.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -36,7 +37,11 @@ class _HomeScreenState extends State<HomeScreen> {
               fontWeight: FontWeight.w500
             ),),
             Spacer(),
-            SvgPicture.asset('assets/icons/notification.svg')
+            InkWell(
+              onTap: (){
+                Get.to(()=> NotificationScreen());
+              },
+                child: SvgPicture.asset('assets/icons/notification.svg'))
           ],
         ),
       ),
