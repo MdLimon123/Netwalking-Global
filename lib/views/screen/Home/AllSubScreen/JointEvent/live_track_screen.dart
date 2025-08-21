@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:netwalking_global/utils/app_colors.dart';
 import 'package:netwalking_global/views/base/custom_appbar.dart';
 import 'package:netwalking_global/views/base/custom_button.dart';
+import 'package:netwalking_global/views/screen/Home/AllSubScreen/JointEvent/emergency_call_screen.dart';
 
 class LiveTrackScreen extends StatefulWidget {
   const LiveTrackScreen({super.key});
@@ -285,25 +287,30 @@ class _LiveTrackScreenState extends State<LiveTrackScreen> {
                     ),
                     SizedBox(width: 16,),
                     Expanded(
-                      child: Container(
-                        width: double.infinity,
-                        height: 52,
-                        decoration: BoxDecoration(
-                          color: Color(0xFFD72323),
-                          borderRadius: BorderRadius.circular(12)
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SvgPicture.asset('assets/icons/phone.svg'),
-                            SizedBox(width: 16,),
-                            Text("Emergency",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                              color: Color(0xFFFAFAFA)
-                            ),)
-                          ],
+                      child: InkWell(
+                        onTap: (){
+                          Get.to(()=> EmergencyCallScreen());
+                        },
+                        child: Container(
+                          width: double.infinity,
+                          height: 52,
+                          decoration: BoxDecoration(
+                            color: Color(0xFFD72323),
+                            borderRadius: BorderRadius.circular(12)
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset('assets/icons/phone.svg'),
+                              SizedBox(width: 16,),
+                              Text("Emergency",
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xFFFAFAFA)
+                              ),)
+                            ],
+                          ),
                         ),
                       ),
                     )
