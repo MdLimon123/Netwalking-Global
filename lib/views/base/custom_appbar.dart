@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:netwalking_global/utils/app_colors.dart';
+import 'package:netwalking_global/views/screen/Notification/notification_screen.dart';
 
 class CustomAppbar extends StatelessWidget implements PreferredSizeWidget{
   final String title;
@@ -25,7 +26,11 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget{
             size: 18,),
         ),
       actions: [
-        SvgPicture.asset('assets/icons/notification.svg'),
+        InkWell(
+          onTap: (){
+            Get.to(()=> NotificationScreen());
+          },
+            child: SvgPicture.asset('assets/icons/notification.svg')),
         SizedBox(width: 10,)
       ],
     );
