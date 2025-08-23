@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:netwalking_global/utils/app_colors.dart';
 import 'package:netwalking_global/views/base/custom_appbar.dart';
 import 'package:netwalking_global/views/base/custom_button.dart';
+import 'package:netwalking_global/views/screen/Home/AllSubScreen/FindWalkPartner/find_new_partner_screen.dart';
 
 class FindWalkPartnerScreen extends StatefulWidget {
   const FindWalkPartnerScreen({super.key});
@@ -135,7 +137,9 @@ class _FindWalkPartnerScreenState extends State<FindWalkPartnerScreen> {
                   itemCount: 10),
             ),
 
-            CustomButton(onTap: (){}, text: "Find New Partner")
+            CustomButton(onTap: (){
+              Get.to(()=> FindNewPartnerScreen());
+            }, text: "Find New Partner")
           ],
         ),
       ),
