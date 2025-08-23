@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:netwalking_global/utils/app_colors.dart';
 import 'package:netwalking_global/views/base/bottom_menu..dart';
 import 'package:netwalking_global/views/base/custom_button.dart';
+import 'package:netwalking_global/views/screen/Community/AllSubScreen/community_details_screen.dart';
 import 'package:netwalking_global/views/screen/Notification/notification_screen.dart';
 
 
@@ -64,90 +65,95 @@ class CommunityScreen extends StatelessWidget {
               child:   ListView.separated(
                 physics: AlwaysScrollableScrollPhysics(),
               itemBuilder: (context, index){
-                return Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 20),
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      color: Color(0xFFFFFFFF),
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: Color(0xFFE6E6E6), width: 1)
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Container(
-                              height: 32,
-                              width: 32,
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  image: DecorationImage(image: AssetImage('assets/image/profile.jpg'),
-                                      fit: BoxFit.cover))),
-                          SizedBox(width: 8,),
+                return InkWell(
+                  onTap: (){
+                    Get.to(()=> CommunityDetailsScreen());
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 20),
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        color: Color(0xFFFFFFFF),
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: Color(0xFFE6E6E6), width: 1)
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Container(
+                                height: 32,
+                                width: 32,
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    image: DecorationImage(image: AssetImage('assets/image/profile.jpg'),
+                                        fit: BoxFit.cover))),
+                            SizedBox(width: 8,),
 
-                          Text("Mr.John",
-                            style: TextStyle(
-                              color: Color(0xFF545454),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
+                            Text("Mr.John",
+                              style: TextStyle(
+                                color: Color(0xFF545454),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                              ),
                             ),
-                          ),
-                          SizedBox(width: 14,),
-                          SvgPicture.asset('assets/icons/clock.svg'),
-                          SizedBox(width: 4,),
-                          Text("8:00 AM",
-                            style: TextStyle(
-                              color: Color(0xFF545454),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                            ),)
-                        ],
-                      ),
-                      SizedBox(height: 12,),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("Clean Up Walk - Dhanmondi",
-                            style: TextStyle(
-                              color: AppColors.textColor,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                            ),),
-                          Container(
-                            width: 60,
-                            height: 60,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                                image: DecorationImage(image: AssetImage('assets/image/profile.jpg'),
-                                    fit: BoxFit.cover)
-                            ),
-                          )
-                        ],
-                      ),
-                      SizedBox(height: 10,),
-                      Row(
-                        children: [
-                          Icon(Icons.favorite,
-                            color: Colors.red,),
-                          Text("25",
-                            style: TextStyle(
-                              color: AppColors.textColor,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                            ),),
-                          SizedBox(width: 15,),
-                          SvgPicture.asset('assets/icons/comment.svg'),
-                          Text("25",
-                            style: TextStyle(
-                              color: AppColors.textColor,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                            ),),
-                        ],
-                      )
-                    ],
+                            SizedBox(width: 14,),
+                            SvgPicture.asset('assets/icons/clock.svg'),
+                            SizedBox(width: 4,),
+                            Text("8:00 AM",
+                              style: TextStyle(
+                                color: Color(0xFF545454),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                              ),)
+                          ],
+                        ),
+                        SizedBox(height: 12,),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Clean Up Walk - Dhanmondi",
+                              style: TextStyle(
+                                color: AppColors.textColor,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                              ),),
+                            Container(
+                              width: 60,
+                              height: 60,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  image: DecorationImage(image: AssetImage('assets/image/profile.jpg'),
+                                      fit: BoxFit.cover)
+                              ),
+                            )
+                          ],
+                        ),
+                        SizedBox(height: 10,),
+                        Row(
+                          children: [
+                            Icon(Icons.favorite,
+                              color: Colors.red,),
+                            Text("25",
+                              style: TextStyle(
+                                color: AppColors.textColor,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                              ),),
+                            SizedBox(width: 15,),
+                            SvgPicture.asset('assets/icons/comment.svg'),
+                            Text("25",
+                              style: TextStyle(
+                                color: AppColors.textColor,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                              ),),
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 );
               },
