@@ -5,7 +5,7 @@ import 'package:netwalking_global/views/screen/Auth/reset_password_screen.dart';
 import 'package:netwalking_global/views/screen/Auth/signup_screen.dart';
 import 'package:netwalking_global/views/screen/Auth/successful_screen.dart';
 import 'package:netwalking_global/views/screen/Chat/inbox_screen.dart';
-import 'package:netwalking_global/views/screen/Community/wallet_screen.dart';
+import 'package:netwalking_global/views/screen/Community/community_screen.dart';
 import 'package:netwalking_global/views/screen/SelectLanguage/select_language_screen.dart';
 import 'package:netwalking_global/views/screen/SetUpProfile/complete_screen.dart';
 import 'package:netwalking_global/views/screen/SetUpProfile/disability_accessibility_screen.dart';
