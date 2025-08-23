@@ -5,6 +5,7 @@ import 'package:netwalking_global/utils/app_colors.dart';
 import 'package:netwalking_global/views/base/bottom_menu..dart';
 import 'package:netwalking_global/views/base/custom_button.dart';
 import 'package:netwalking_global/views/screen/Community/AllSubScreen/community_details_screen.dart';
+import 'package:netwalking_global/views/screen/Community/AllSubScreen/create_post_screen.dart';
 import 'package:netwalking_global/views/screen/Notification/notification_screen.dart';
 
 
@@ -47,7 +48,7 @@ class CommunityScreen extends StatelessWidget {
                   SizedBox(width: 8),
                   _customCategories(textKey: "Projects"),
                   SizedBox(width: 8),
-                  _customCategories(textKey: " Resilience Hubs"),
+                  _customCategories(textKey: "Resilience Hubs"),
                   SizedBox(width: 8),
                   _customCategories(textKey: "Skill Sharing"),
                   SizedBox(width: 8),
@@ -160,7 +161,9 @@ class CommunityScreen extends StatelessWidget {
               separatorBuilder: (__, index) => SizedBox(height: 10,),
               itemCount: 5)),
 
-            CustomButton(onTap: (){},
+            CustomButton(onTap: (){
+              Get.to(()=> CreatePostScreen());
+            },
                 text: "Create a Post")
 
           ],
