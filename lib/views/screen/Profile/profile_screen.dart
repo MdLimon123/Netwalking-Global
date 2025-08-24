@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:netwalking_global/utils/app_colors.dart';
 import 'package:netwalking_global/views/base/custom_switch.dart';
 import 'package:netwalking_global/views/screen/Notification/notification_screen.dart';
+import 'package:netwalking_global/views/screen/Profile/AllSubScreen/change_password_screen.dart';
 import 'package:netwalking_global/views/screen/Profile/AllSubScreen/edit_profile_screen.dart';
 
 import '../../base/bottom_menu..dart';
@@ -213,7 +214,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   _customRow(
                     image: 'assets/icons/lock.svg',
                     text: 'Change Password',
-                    onTa: (){}
+                    onTa: (){
+                      Get.to(()=> ChangePasswordScreen());
+                    }
                   ),
                   SizedBox(height: 16,),
                   _customRow(

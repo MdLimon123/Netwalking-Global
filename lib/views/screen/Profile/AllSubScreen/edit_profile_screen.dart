@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:netwalking_global/utils/app_colors.dart';
+import 'package:netwalking_global/views/base/custom_appbar.dart';
 import 'package:netwalking_global/views/base/custom_button.dart';
 import 'package:netwalking_global/views/base/custom_dropdown.dart';
 import 'package:netwalking_global/views/base/custom_radio_button.dart';
@@ -54,6 +55,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CustomAppbar(title: "Edit Profile"),
       body: SingleChildScrollView(
         physics: AlwaysScrollableScrollPhysics(),
         child: Column(
@@ -64,13 +66,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               padding: EdgeInsets.only(top: 60),
               child: Column(
                 children: [
-                  Text("1 Of 3",
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.primaryColor
-                    ),),
-                  SizedBox(height: 20,),
+
                   Stack(
                     alignment: Alignment.center,
                     children: [
@@ -108,6 +104,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       )
                     ],
                   ),
+                  SizedBox(height: 30,)
                   // SizedBox(height: 20,),
                   // Text("Set Up Your Profile",
                   //   style: TextStyle(
