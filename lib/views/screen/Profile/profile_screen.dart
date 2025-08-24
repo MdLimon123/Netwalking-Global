@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:netwalking_global/utils/app_colors.dart';
 import 'package:netwalking_global/views/base/custom_switch.dart';
 import 'package:netwalking_global/views/screen/Notification/notification_screen.dart';
+import 'package:netwalking_global/views/screen/Profile/AllSubScreen/change_language_screen.dart';
 import 'package:netwalking_global/views/screen/Profile/AllSubScreen/change_password_screen.dart';
 import 'package:netwalking_global/views/screen/Profile/AllSubScreen/edit_profile_screen.dart';
 
@@ -222,7 +223,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   _customRow(
                       image: 'assets/icons/change_language.svg',
                       text: 'Change Language',
-                      onTa: (){}
+                      onTa: (){
+                        Get.to(()=> ChangeLanguageScreen());
+                      }
                   ),
                   SizedBox(height: 16,),
                   _customRow(
