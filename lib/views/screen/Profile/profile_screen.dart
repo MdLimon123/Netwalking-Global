@@ -7,6 +7,7 @@ import 'package:netwalking_global/views/screen/Notification/notification_screen.
 import 'package:netwalking_global/views/screen/Profile/AllSubScreen/change_language_screen.dart';
 import 'package:netwalking_global/views/screen/Profile/AllSubScreen/change_password_screen.dart';
 import 'package:netwalking_global/views/screen/Profile/AllSubScreen/edit_profile_screen.dart';
+import 'package:netwalking_global/views/screen/Profile/AllSubScreen/report_problem_screen.dart';
 import 'package:netwalking_global/views/screen/Profile/AllSubScreen/subscription_screen.dart';
 
 import '../../base/bottom_menu..dart';
@@ -252,7 +253,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   _customRow(
                       image: 'assets/icons/report.svg',
                       text: 'Report a Problem',
-                      onTa: (){}),
+                      onTa: (){
+                        Get.to(()=> ReportProblemScreen());
+                      }),
                   SizedBox(height: 16,),
                   _customRow(
                       image: 'assets/icons/terms.svg',
@@ -388,15 +391,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
         });
   }
 
-   _customRow({
-     required String image,
-     required String text,
-     required Function()? onTa
+   _customRow({required String image, required String text, required Function()? onTa
    }) {
     return InkWell(
       onTap: onTa,
       child: Row(
-                    children: [
+         children: [
                       SvgPicture.asset(image),
                       SizedBox(width: 13,),
                       Text(text,
