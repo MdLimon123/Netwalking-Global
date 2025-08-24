@@ -149,7 +149,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
                 color: AppColors.textColor
-              ),),
+              ),
+              textAlign: TextAlign.center,),
             ),
           ),
           SizedBox(height: 12,),
@@ -239,7 +240,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   _customRow(
                       image: 'assets/icons/delete.svg',
                       text: 'Delete my account',
-                      onTa: (){}),
+                      onTa: (){
+                        
+                        _customDeleteAccount(context,
+                            Color(0xFFC31037),
+                            Color(0xFFD23317),
+                        'Are you sure you want to delete account?');
+                        
+                      }),
                   SizedBox(height: 16,),
                   _customRow(
                       image: 'assets/icons/report.svg',
@@ -261,18 +269,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       text: 'About us',
                       onTa: (){}),
                   SizedBox(height: 16,),
-                  Row(
-                    children: [
-                      SvgPicture.asset('assets/icons/logout.svg'),
-                      SizedBox(width: 13,),
-                      Text('Logout',
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
-                            color: Color(0xFFF04B4C)
-                        ),),
+                  InkWell(
+                    onTap: (){
+                      _customDeleteAccount(context,
+                          Color(0xFF094EBE),
+                          Color(0xFF15AABA),
+                          'Are you sure you want to logout?');
+                    },
+                    child: Row(
+                      children: [
+                        SvgPicture.asset('assets/icons/logout.svg'),
+                        SizedBox(width: 13,),
+                        Text('Logout',
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                              color: Color(0xFFF04B4C)
+                          ),),
 
-                    ],
+                      ],
+                    ),
                   )
 
 
@@ -285,6 +301,91 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
       bottomNavigationBar: BottomMenu(3),
     );
+  }
+
+   _customDeleteAccount(BuildContext context, Color startColor, Color endColor, String text) {
+     showDialog(
+        context: context,
+        builder: (context){
+      return AlertDialog(
+        backgroundColor: Colors.transparent,
+        content: Container(
+          padding: EdgeInsets.symmetric(horizontal: 8,vertical: 20),
+          width: double.infinity,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            gradient: LinearGradient(
+              colors: [
+                startColor,
+                endColor
+
+              ]
+            )
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(text,
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white
+                ),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(height: 30,),
+              Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      height: 40,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: Color(0xFFFFFFFF),
+                        width: 1)
+                      ),
+                      child: Center(
+                        child: Text("Yes",
+                        style: TextStyle(
+                          fontSize:16,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500
+                        ),),
+                      )
+                    ),
+                  ),
+                  SizedBox(width: 24,),
+                  Expanded(
+                    child: InkWell(
+                      onTap: (){
+                        Get.back();
+                      },
+                      child: Container(
+                          height: 40,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                              borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Center(
+                            child: Text("No",
+                              style: TextStyle(
+                                  fontSize:16,
+                                  color: AppColors.textColor,
+                                  fontWeight: FontWeight.w500
+                              ),),
+                          )
+                      ),
+                    ),
+                  )
+                ],
+              )
+            ],
+          ),
+        ),
+      );
+        });
   }
 
    _customRow({

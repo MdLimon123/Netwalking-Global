@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:netwalking_global/utils/app_colors.dart';
 import 'package:netwalking_global/views/base/custom_appbar.dart';
 import 'package:netwalking_global/views/base/custom_dropdown_checkbox.dart';
 import 'package:netwalking_global/views/base/custom_text_field.dart';
+import 'package:netwalking_global/views/screen/Profile/AllSubScreen/user_profile_screen.dart';
 
 class FindNewPartnerScreen extends StatefulWidget {
   const FindNewPartnerScreen({super.key});
@@ -220,14 +222,19 @@ class _FindNewPartnerScreenState extends State<FindNewPartnerScreen> {
 
                                 Spacer(),
 
-                                Text("See Profile",
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                  decoration: TextDecoration.underline,
-                                  decorationColor: AppColors.textColor,
-                                  color: AppColors.textColor
-                                ),),
+                                InkWell(
+                                  onTap: (){
+                                    Get.to(()=> UserProfileScreen());
+                                  },
+                                  child: Text("See Profile",
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                    decoration: TextDecoration.underline,
+                                    decorationColor: AppColors.textColor,
+                                    color: AppColors.textColor
+                                  ),),
+                                ),
                                 SizedBox(width: 16,),
                                 Container(
                                   width: 60,
