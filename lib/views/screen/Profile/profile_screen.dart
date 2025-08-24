@@ -9,6 +9,7 @@ import 'package:netwalking_global/views/screen/Profile/AllSubScreen/change_passw
 import 'package:netwalking_global/views/screen/Profile/AllSubScreen/edit_profile_screen.dart';
 import 'package:netwalking_global/views/screen/Profile/AllSubScreen/report_problem_screen.dart';
 import 'package:netwalking_global/views/screen/Profile/AllSubScreen/subscription_screen.dart';
+import 'package:netwalking_global/views/screen/Profile/AllSubScreen/terms_of_service_screen.dart';
 
 import '../../base/bottom_menu..dart';
 
@@ -260,7 +261,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   _customRow(
                       image: 'assets/icons/terms.svg',
                       text: 'Terms of service',
-                      onTa: (){}),
+                      onTa: (){
+                        Get.to(()=> TermsOfServiceScreen());
+                      }),
                   SizedBox(height: 16,),
                   _customRow(
                       image: 'assets/icons/privacy.svg',
