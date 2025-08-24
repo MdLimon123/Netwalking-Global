@@ -7,6 +7,7 @@ import 'package:netwalking_global/views/screen/Notification/notification_screen.
 import 'package:netwalking_global/views/screen/Profile/AllSubScreen/change_language_screen.dart';
 import 'package:netwalking_global/views/screen/Profile/AllSubScreen/change_password_screen.dart';
 import 'package:netwalking_global/views/screen/Profile/AllSubScreen/edit_profile_screen.dart';
+import 'package:netwalking_global/views/screen/Profile/AllSubScreen/subscription_screen.dart';
 
 import '../../base/bottom_menu..dart';
 
@@ -231,7 +232,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   _customRow(
                       image: 'assets/icons/subcriptions.svg',
                       text: 'Manage Subscription',
-                      onTa: (){}),
+                      onTa: (){
+                        Get.to(()=> SubscriptionScreen());
+                      }),
                   SizedBox(height: 16,),
                   _customRow(
                       image: 'assets/icons/delete.svg',
