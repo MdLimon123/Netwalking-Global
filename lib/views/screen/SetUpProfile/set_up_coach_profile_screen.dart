@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:netwalking_global/utils/app_colors.dart';
 import 'package:netwalking_global/utils/style.dart';
 import 'package:netwalking_global/views/base/custom_appbar.dart';
@@ -7,6 +8,7 @@ import 'package:netwalking_global/views/base/custom_button.dart';
 import 'package:netwalking_global/views/base/custom_dropdown_checkbox.dart';
 import 'package:netwalking_global/views/base/custom_switch.dart';
 import 'package:netwalking_global/views/base/custom_text_field.dart';
+import 'package:netwalking_global/views/screen/Coach/coach_view_all_users_screen.dart';
 
 class SetUpCoachProfileScreen extends StatefulWidget {
   const SetUpCoachProfileScreen({super.key});
@@ -447,7 +449,9 @@ class _SetUpCoachProfileScreenState extends State<SetUpCoachProfileScreen> {
             hintText: 'Set price',
             filColor: Colors.white,),
             SizedBox(height: 24,),
-            CustomButton(onTap: (){},
+            CustomButton(onTap: (){
+              Get.to(()=> CoachViewAllUsersScreen());
+            },
                 text: "Save Now")
 
 
