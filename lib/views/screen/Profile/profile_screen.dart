@@ -7,6 +7,7 @@ import 'package:netwalking_global/views/screen/Notification/notification_screen.
 import 'package:netwalking_global/views/screen/Profile/AllSubScreen/change_language_screen.dart';
 import 'package:netwalking_global/views/screen/Profile/AllSubScreen/change_password_screen.dart';
 import 'package:netwalking_global/views/screen/Profile/AllSubScreen/edit_profile_screen.dart';
+import 'package:netwalking_global/views/screen/Profile/AllSubScreen/privace_policy_screen.dart';
 import 'package:netwalking_global/views/screen/Profile/AllSubScreen/report_problem_screen.dart';
 import 'package:netwalking_global/views/screen/Profile/AllSubScreen/subscription_screen.dart';
 import 'package:netwalking_global/views/screen/Profile/AllSubScreen/terms_of_service_screen.dart';
@@ -268,7 +269,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   _customRow(
                       image: 'assets/icons/privacy.svg',
                       text: 'Privacy Policy',
-                      onTa: (){}),
+                      onTa: (){
+                        Get.to(()=> PrivacyPolicyScreen());
+                      }),
                   SizedBox(height: 16,),
                   _customRow(
                       image: 'assets/icons/about.svg',
