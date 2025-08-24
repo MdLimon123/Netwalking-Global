@@ -137,7 +137,6 @@ class _SetUpCoachProfileScreenState extends State<SetUpCoachProfileScreen> {
                     value: true,
                     onChanged: (value){
                       setState(() {
-
                       });
 
 
