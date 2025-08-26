@@ -30,29 +30,33 @@ class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
                 child: SvgPicture.asset('assets/icons/otp.svg'),
               ),
             ),
-            SizedBox(height: 36,),
+            SizedBox(height: 36),
             Center(
-              child: Text("Enter OTP",
+              child: Text(
+                "enter_otp".tr,
                 style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.textColor
-                ),),
+                  fontSize: 24,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.textColor,
+                ),
+              ),
             ),
-            SizedBox(height: 8,),
+            SizedBox(height: 8),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Center(
-                child: Text("Please input the code, Check your mail",
+                child: Text(
+                  "otp_instruction".tr,
                   style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      color: AppColors.textColor
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.textColor,
                   ),
-                  textAlign: TextAlign.center,),
+                  textAlign: TextAlign.center,
+                ),
               ),
             ),
-            SizedBox(height: 50,),
+            SizedBox(height: 50),
             OtpTextField(
               numberOfFields: 6,
               borderColor: Color(0xFFE6EEF7),
@@ -63,24 +67,25 @@ class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
               fieldWidth: 45,
               fieldHeight: 45,
               borderRadius: BorderRadius.circular(100),
-              textStyle: TextStyle(fontSize: 12, color: AppColors.textColor,
-                  fontWeight: FontWeight.w400),
+              textStyle: TextStyle(
+                fontSize: 12,
+                color: AppColors.textColor,
+                fontWeight: FontWeight.w400,
+              ),
               fillColor: Color(0xFFE6EEF7),
-              onCodeChanged: (String code) {
-
-              },
-              onSubmit: (String verificationCode) {
-              },
+              onCodeChanged: (String code) {},
+              onSubmit: (String verificationCode) {},
             ),
-            SizedBox(height: 50,),
-
+            SizedBox(height: 50),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: CustomButton(onTap: (){
-                Get.offAllNamed(AppRoutes.resetPasswordScreen);
-              },
-                  text: "Submit Now"),
-            )
+              child: CustomButton(
+                onTap: () {
+                  Get.offAllNamed(AppRoutes.resetPasswordScreen);
+                },
+                text: "submit_now".tr,
+              ),
+            ),
           ],
         ),
       ),

@@ -16,54 +16,58 @@ class _SuccessfulScreenState extends State<SuccessfulScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                height: 250,
-                padding: EdgeInsets.only(top: 40),
-                width: double.infinity,
-                color: Color(0xFFE6EEF7),
-                child: Padding(
-                  padding: const EdgeInsets.all(40.0),
-                  child: SvgPicture.asset('assets/icons/success.svg'),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              height: 250,
+              padding: const EdgeInsets.only(top: 40),
+              width: double.infinity,
+              color: const Color(0xFFE6EEF7),
+              child: Padding(
+                padding: const EdgeInsets.all(40.0),
+                child: SvgPicture.asset('assets/icons/success.svg'),
+              ),
+            ),
+            const SizedBox(height: 36),
+            Center(
+              child: Text(
+                "password_changed".tr,
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.textColor,
                 ),
               ),
-              SizedBox(height: 36,),
-              Center(
-                child: Text("Password Changed",
+            ),
+            const SizedBox(height: 8),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Center(
+                child: Text(
+                  "password_changed_success".tr,
                   style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.textColor
-                  ),),
-              ),
-              SizedBox(height: 8,),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Center(
-                  child: Text("Your password has been changed successfully",
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                        color: AppColors.textColor
-                    ),
-                    textAlign: TextAlign.center,),
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.textColor,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
               ),
-              SizedBox(height: 50,),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: CustomButton(onTap: (){
+            ),
+            const SizedBox(height: 50),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: CustomButton(
+                onTap: () {
                   Get.offAllNamed(AppRoutes.loginScreen);
                 },
-                    text: "Log In"),
+                text: "login".tr,
               ),
-
-
-            ],
-          ),
-        )
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

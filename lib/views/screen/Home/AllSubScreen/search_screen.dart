@@ -14,191 +14,187 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-
   final searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
-      appBar: CustomAppbar(title: "Search"),
+      appBar: CustomAppbar(title: "search".tr),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CustomTextField(
-                controller: searchController,
-                onTap: (){
-
-                },
-                hintText: 'Search walk partner or events...',
-                filColor: Colors.white,
-                suffixIcon: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: InkWell(
-                    onTap: (){
-                      Get.to(()=> FilterScreen());
-                    },
-                      child: SvgPicture.asset('assets/icons/filter.svg')),
+              controller: searchController,
+              hintText: 'search_placeholder'.tr,
+              filColor: Colors.white,
+              onTap: () {},
+              suffixIcon: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: InkWell(
+                  onTap: () {
+                    Get.to(() => FilterScreen());
+                  },
+                  child: SvgPicture.asset('assets/icons/filter.svg'),
                 ),
-                prefixIcon: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: SvgPicture.asset('assets/icons/search.svg'),
-                )
+              ),
+              prefixIcon: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: SvgPicture.asset('assets/icons/search.svg'),
+              ),
             ),
-            SizedBox(height: 20,),
+            SizedBox(height: 20),
             Row(
               children: [
-                _customCategories(textKey: "#Clean Up "),
-                SizedBox(width: 16,),
-                _customCategories(textKey: "#Dog Walk "),
-                SizedBox(width: 16,),
-                _customCategories(textKey: "#Mindful Walk")
+                _customCategories(textKey: "#Clean Up ".tr),
+                SizedBox(width: 16),
+                _customCategories(textKey: "#Dog Walk ".tr),
+                SizedBox(width: 16),
+                _customCategories(textKey: "#Mindful Walk".tr),
               ],
             ),
-            SizedBox(height: 20,),
-            Text("Matches",
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-              color: AppColors.textColor
-            ),),
-            SizedBox(height: 12,),
+            SizedBox(height: 20),
+            Text(
+              "matches".tr,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                color: AppColors.textColor,
+              ),
+            ),
+            SizedBox(height: 12),
             Expanded(
               child: ListView.separated(
                 physics: BouncingScrollPhysics(),
-                  shrinkWrap: true,
-                  itemBuilder: (context, index){
-                    return  Container(
-                        width: double.infinity,
-                        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 15),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(12)
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                itemCount: 10,
+                itemBuilder: (context, index) {
+                  return Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 15),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
                           children: [
-                            Row(
-                              children: [
-                                Container(
-                                  height: 24,
-                                  width: 24,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: SvgPicture.asset('assets/icons/show.svg',
-                                    fit: BoxFit.cover,),
-                                ),
-                                SizedBox(width: 8,),
-                                Text("Morning Walking",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600,
-                                      color: AppColors.textColor
-                                  ),)
-                              ],
+                            Container(
+                              height: 24,
+                              width: 24,
+                              child: SvgPicture.asset(
+                                'assets/icons/show.svg',
+                                fit: BoxFit.cover,
+                              ),
                             ),
-                            SizedBox(height: 8,),
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 32),
-                              child: Text("Today: 8.00",
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColors.textColor
-                                ),),
+                            SizedBox(width: 8),
+                            Text(
+                              "morning_walking".tr,
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.textColor,
+                              ),
                             ),
-                            SizedBox(height: 8,),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "With group",
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColors.textColor,
-                                  ),
-                                ),
-                                SizedBox(width: 8),
-                                SizedBox(
-                                  height: 32,
-                                  width: 90, //
-                                  child: Stack(
-                                    clipBehavior: Clip.none,
-                                    children: [
-                                      // 1st avatar
-                                      Positioned(
-                                        left: 0,
-                                        child: CircleAvatar(
-                                          radius: 16,
-                                          backgroundImage: AssetImage("assets/image/profile.jpg"),
-                                        ),
-                                      ),
-              
-                                      // 2nd avatar (overlap)
-                                      Positioned(
-                                        left: 20,
-                                        child: CircleAvatar(
-                                          radius: 16,
-                                          backgroundImage: AssetImage("assets/image/profile.jpg"),
-                                        ),
-                                      ),
-              
-                                      // Badge (12+)
-                                      Positioned(
-                                        left: 40,
-                                        child: Container(
-                                          height: 32,
-                                          width: 32,
-                                          decoration: BoxDecoration(
-                                            color: Color(0xFFE59A2F), // গোল্ডেন ব্যাকগ্রাউন্ড
-                                            shape: BoxShape.circle,
-                                            border: Border.all(color: Colors.white, width: 2), // border যেন সুন্দর লাগে
-                                          ),
-                                          child: Center(
-                                            child: Text(
-                                              "12+",
-                                              style: TextStyle(
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w600,
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-              
-                                Spacer(),
-                                Text("Message Now",
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400,
-                                      color: AppColors.textColor,
-                                      decoration: TextDecoration.underline
-                                  ),)
-                              ],
-                            )
-              
-              
                           ],
-                        )
-                    );
-                  },
-                  separatorBuilder: (__, index)=> SizedBox(height: 8,),
-                  itemCount: 10),
-            )
+                        ),
+                        SizedBox(height: 8),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 32),
+                          child: Text(
+                            "today_8".tr,
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              color: AppColors.textColor,
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              "with_group".tr,
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.textColor,
+                              ),
+                            ),
+                            SizedBox(width: 8),
+                            SizedBox(
+                              height: 32,
+                              width: 90,
+                              child: Stack(
+                                clipBehavior: Clip.none,
+                                children: [
+                                  Positioned(
+                                    left: 0,
+                                    child: CircleAvatar(
+                                      radius: 16,
+                                      backgroundImage:
+                                      AssetImage("assets/image/profile.jpg"),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    left: 20,
+                                    child: CircleAvatar(
+                                      radius: 16,
+                                      backgroundImage:
+                                      AssetImage("assets/image/profile.jpg"),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    left: 40,
+                                    child: Container(
+                                      height: 32,
+                                      width: 32,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xFFE59A2F),
+                                        shape: BoxShape.circle,
+                                        border: Border.all(color: Colors.white, width: 2),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          "12+",
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Spacer(),
+                            Text(
+                              "message_now".tr,
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.textColor,
+                                decoration: TextDecoration.underline,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  );
+                },
+                separatorBuilder: (context, index) => SizedBox(height: 8),
+              ),
+            ),
           ],
         ),
       ),
-     
     );
   }
 
@@ -208,7 +204,8 @@ class _SearchScreenState extends State<SearchScreen> {
       height: 40,
       decoration: BoxDecoration(
         color: Color(0xFFFFFFFF),
-          borderRadius: BorderRadius.circular(8)),
+        borderRadius: BorderRadius.circular(8),
+      ),
       child: Text(
         textKey,
         style: TextStyle(
@@ -216,7 +213,6 @@ class _SearchScreenState extends State<SearchScreen> {
           fontSize: 14,
           fontWeight: FontWeight.w500,
         ),
-     
       ),
     );
   }

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:netwalking_global/utils/app_colors.dart';
-import 'package:netwalking_global/views/base/custom_appbar.dart';
 import 'package:netwalking_global/views/base/custom_button.dart';
+import 'package:netwalking_global/views/base/custom_appbar.dart';
 import 'package:netwalking_global/views/screen/Home/AllSubScreen/JointEvent/create_new_event_screen.dart';
 import 'package:netwalking_global/views/screen/Home/AllSubScreen/JointEvent/event_details_screen.dart';
 
@@ -19,38 +19,37 @@ class _JointEventScreenState extends State<JointEventScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
-      appBar: CustomAppbar(title: "Joint a Event"),
+      appBar: CustomAppbar(title: "joint_an_event".tr),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Event List",
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w500,
-              color: AppColors.textColor
-            ),),
-            SizedBox(height: 20,),
+            Text(
+              "event_list".tr,
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w500,
+                color: AppColors.textColor,
+              ),
+            ),
+            SizedBox(height: 20),
             Expanded(
-              child:   ListView.separated(
+              child: ListView.separated(
                   shrinkWrap: true,
                   physics: AlwaysScrollableScrollPhysics(),
-                  itemBuilder: (context, index){
-                    return  InkWell(
-                      onTap: (){
-                        Get.to(()=> EventDetailsScreen());
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      onTap: () {
+                        Get.to(() => EventDetailsScreen());
                       },
                       child: Container(
                           width: double.infinity,
                           padding: EdgeInsets.symmetric(horizontal: 8, vertical: 15),
                           decoration: BoxDecoration(
                               color: Colors.white,
-                              borderRadius: BorderRadius.circular(12)
-                          ),
+                              borderRadius: BorderRadius.circular(12)),
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
@@ -58,37 +57,38 @@ class _JointEventScreenState extends State<JointEventScreen> {
                                   Container(
                                     height: 24,
                                     width: 24,
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
+                                    child: SvgPicture.asset(
+                                      'assets/icons/show.svg',
+                                      fit: BoxFit.cover,
                                     ),
-                                    child: SvgPicture.asset('assets/icons/show.svg',
-                                      fit: BoxFit.cover,),
                                   ),
-                                  SizedBox(width: 8,),
-                                  Text("Morning Walking",
+                                  SizedBox(width: 8),
+                                  Text(
+                                    "morning_walking".tr,
                                     style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w600,
-                                        color: AppColors.textColor
-                                    ),)
+                                        color: AppColors.textColor),
+                                  )
                                 ],
                               ),
-                              SizedBox(height: 8,),
+                              SizedBox(height: 8),
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 32),
-                                child: Text("Today: 8.00",
+                                child: Text(
+                                  "today_8am".tr,
                                   style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w400,
-                                      color: AppColors.textColor
-                                  ),),
+                                      color: AppColors.textColor),
+                                ),
                               ),
-                              SizedBox(height: 8,),
+                              SizedBox(height: 8),
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Text(
-                                    "With group",
+                                    "with_group".tr,
                                     style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w400,
@@ -98,38 +98,36 @@ class _JointEventScreenState extends State<JointEventScreen> {
                                   SizedBox(width: 8),
                                   SizedBox(
                                     height: 32,
-                                    width: 90, //
+                                    width: 90,
                                     child: Stack(
                                       clipBehavior: Clip.none,
                                       children: [
-                                        // 1st avatar
                                         Positioned(
                                           left: 0,
                                           child: CircleAvatar(
                                             radius: 16,
-                                            backgroundImage: AssetImage("assets/image/profile.jpg"),
+                                            backgroundImage:
+                                            AssetImage("assets/image/profile.jpg"),
                                           ),
                                         ),
-
-                                        // 2nd avatar (overlap)
                                         Positioned(
                                           left: 20,
                                           child: CircleAvatar(
                                             radius: 16,
-                                            backgroundImage: AssetImage("assets/image/profile.jpg"),
+                                            backgroundImage:
+                                            AssetImage("assets/image/profile.jpg"),
                                           ),
                                         ),
-
-                                        // Badge (12+)
                                         Positioned(
                                           left: 40,
                                           child: Container(
                                             height: 32,
                                             width: 32,
                                             decoration: BoxDecoration(
-                                              color: Color(0xFFE59A2F), // গোল্ডেন ব্যাকগ্রাউন্ড
+                                              color: Color(0xFFE59A2F),
                                               shape: BoxShape.circle,
-                                              border: Border.all(color: Colors.white, width: 2), // border যেন সুন্দর লাগে
+                                              border: Border.all(
+                                                  color: Colors.white, width: 2),
                                             ),
                                             child: Center(
                                               child: Text(
@@ -146,38 +144,36 @@ class _JointEventScreenState extends State<JointEventScreen> {
                                       ],
                                     ),
                                   ),
-
                                   Spacer(),
-                                  Text("Completed",
+                                  Text(
+                                    "completed".tr,
                                     style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400,
-                                        color: Color(0xFF366B2D),
-                                    ),)
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                      color: Color(0xFF366B2D),
+                                    ),
+                                  )
                                 ],
                               )
-
-
                             ],
-                          )
-                      ),
+                          )),
                     );
                   },
-                  separatorBuilder: (__, index)=> SizedBox(height: 8,),
+                  separatorBuilder: (__, index) => SizedBox(height: 8),
                   itemCount: 20),
             ),
-
-
           ],
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: CustomButton(onTap: (){
-          Get.to(()=> CreateNewEventScreen());
-        },
-            text: "Create New Event"),
+        child: CustomButton(
+          onTap: () {
+            Get.to(() => CreateNewEventScreen());
+          },
+          text: "create_new_event".tr,
+        ),
       ),
     );
   }

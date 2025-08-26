@@ -20,13 +20,22 @@ class _JointBookACoachScreenState extends State<JointBookACoachScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            CustomButton(onTap: (){
-              Get.to(()=> MorningWalkScreen());
-            }, text: 'Start Now'),
-            SizedBox(height: 116,),
-            CustomButton(onTap: (){}, text: "Mark as Completed"),
-            SizedBox(height: 22,),
-            CustomButton(onTap: (){}, text: "Delete ")
+            CustomButton(
+              onTap: () {
+                Get.to(() => MorningWalkScreen());
+              },
+              text: 'start_now'.tr, // localization
+            ),
+            SizedBox(height: 116),
+            CustomButton(
+              onTap: () {},
+              text: 'mark_as_completed'.tr, // localization
+            ),
+            SizedBox(height: 22),
+            CustomButton(
+              onTap: () {},
+              text: 'delete'.tr, // localization
+            )
           ],
         ),
       ),

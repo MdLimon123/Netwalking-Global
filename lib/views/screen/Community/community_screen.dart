@@ -8,180 +8,193 @@ import 'package:netwalking_global/views/screen/Community/AllSubScreen/community_
 import 'package:netwalking_global/views/screen/Community/AllSubScreen/create_post_screen.dart';
 import 'package:netwalking_global/views/screen/Notification/notification_screen.dart';
 
-
-class CommunityScreen extends StatelessWidget {
+class CommunityScreen extends StatefulWidget {
   const CommunityScreen({super.key});
 
   @override
+  State<CommunityScreen> createState() => _CommunityScreenState();
+}
+
+class _CommunityScreenState extends State<CommunityScreen> {
+  @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       backgroundColor: AppColors.backgroundColor,
-       appBar:  AppBar(
-          backgroundColor:Colors.white,
-          elevation: 0,
-          title: Text("Community",style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-              color: AppColors.textColor
-          ),),
-          automaticallyImplyLeading: false,
-          actions: [
-            InkWell(
-                onTap: (){
-                  Get.to(()=> NotificationScreen());
-                },
-                child: SvgPicture.asset('assets/icons/notification.svg')),
-            SizedBox(width: 10,)
-          ],
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        title: Text(
+          "community".tr,
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w400,
+            color: AppColors.textColor,
+          ),
         ),
+        automaticallyImplyLeading: false,
+        actions: [
+          InkWell(
+              onTap: () {
+                Get.to(() => NotificationScreen());
+              },
+              child: SvgPicture.asset('assets/icons/notification.svg')),
+          const SizedBox(width: 10)
+        ],
+      ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 18, vertical: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 20),
         child: Column(
           children: [
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
-                  _customCategories(textKey: "Biodiversity Awareness"),
-                  SizedBox(width: 8),
-                  _customCategories(textKey: "Eco-Conscious Living"),
-                  SizedBox(width: 8),
-                  _customCategories(textKey: "Projects"),
-                  SizedBox(width: 8),
-                  _customCategories(textKey: "Resilience Hubs"),
-                  SizedBox(width: 8),
-                  _customCategories(textKey: "Skill Sharing"),
-                  SizedBox(width: 8),
-                  _customCategories(textKey: "Professional Growth"),
-                  SizedBox(width: 8),
-                  _customCategories(textKey: "Professional Networking"),
-                  SizedBox(width: 8),
-                  _customCategories(textKey: "Wellness")
+                  _customCategories(textKey: "biodiversity_awareness"),
+                  const SizedBox(width: 8),
+                  _customCategories(textKey: "eco_conscious_living"),
+                  const SizedBox(width: 8),
+                  _customCategories(textKey: "projects"),
+                  const SizedBox(width: 8),
+                  _customCategories(textKey: "resilience_hubs"),
+                  const SizedBox(width: 8),
+                  _customCategories(textKey: "skill_sharing"),
+                  const SizedBox(width: 8),
+                  _customCategories(textKey: "professional_growth"),
+                  const SizedBox(width: 8),
+                  _customCategories(textKey: "professional_networking"),
+                  const SizedBox(width: 8),
+                  _customCategories(textKey: "wellness"),
                 ],
               ),
             ),
-            SizedBox(height: 26,),
-
-          Expanded(
-              child:   ListView.separated(
-                physics: AlwaysScrollableScrollPhysics(),
-              itemBuilder: (context, index){
-                return InkWell(
-                  onTap: (){
-                    Get.to(()=> CommunityDetailsScreen());
-                  },
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 20),
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        color: Color(0xFFFFFFFF),
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: Color(0xFFE6E6E6), width: 1)
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Container(
-                                height: 32,
-                                width: 32,
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    image: DecorationImage(image: AssetImage('assets/image/profile.jpg'),
-                                        fit: BoxFit.cover))),
-                            SizedBox(width: 8,),
-
-                            Text("Mr.John",
-                              style: TextStyle(
-                                color: Color(0xFF545454),
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
+            const SizedBox(height: 26),
+            Expanded(
+                child: ListView.separated(
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () {
+                          Get.to(() => CommunityDetailsScreen());
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 20),
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(color: const Color(0xFFE6E6E6), width: 1)),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Container(
+                                      height: 32,
+                                      width: 32,
+                                      decoration: const BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          image: DecorationImage(
+                                              image: AssetImage('assets/image/profile.jpg'),
+                                              fit: BoxFit.cover))),
+                                  const SizedBox(width: 8),
+                                  Text(
+                                    "mr_john".tr,
+                                    style: const TextStyle(
+                                      color: Color(0xFF545454),
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 14),
+                                  SvgPicture.asset('assets/icons/clock.svg'),
+                                  const SizedBox(width: 4),
+                                  Text(
+                                    "8:00 AM",
+                                    style: const TextStyle(
+                                      color: Color(0xFF545454),
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  )
+                                ],
                               ),
-                            ),
-                            SizedBox(width: 14,),
-                            SvgPicture.asset('assets/icons/clock.svg'),
-                            SizedBox(width: 4,),
-                            Text("8:00 AM",
-                              style: TextStyle(
-                                color: Color(0xFF545454),
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                              ),)
-                          ],
-                        ),
-                        SizedBox(height: 12,),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text("Clean Up Walk - Dhanmondi",
-                              style: TextStyle(
-                                color: AppColors.textColor,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                              ),),
-                            Container(
-                              width: 60,
-                              height: 60,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
-                                  image: DecorationImage(image: AssetImage('assets/image/profile.jpg'),
-                                      fit: BoxFit.cover)
+                              const SizedBox(height: 12),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "clean_up_walk".tr,
+                                    style: TextStyle(
+                                      color: AppColors.textColor,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 60,
+                                    height: 60,
+                                    decoration: const BoxDecoration(
+                                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                                        image: DecorationImage(
+                                            image: AssetImage('assets/image/profile.jpg'),
+                                            fit: BoxFit.cover)),
+                                  )
+                                ],
                               ),
-                            )
-                          ],
+                              const SizedBox(height: 10),
+                              Row(
+                                children: [
+                                  const Icon(
+                                    Icons.favorite,
+                                    color: Colors.red,
+                                  ),
+                                  Text(
+                                    "25",
+                                    style: TextStyle(
+                                      color: AppColors.textColor,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 15),
+                                  SvgPicture.asset('assets/icons/comment.svg'),
+                                  Text(
+                                    "25",
+                                    style: TextStyle(
+                                      color: AppColors.textColor,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
                         ),
-                        SizedBox(height: 10,),
-                        Row(
-                          children: [
-                            Icon(Icons.favorite,
-                              color: Colors.red,),
-                            Text("25",
-                              style: TextStyle(
-                                color: AppColors.textColor,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                              ),),
-                            SizedBox(width: 15,),
-                            SvgPicture.asset('assets/icons/comment.svg'),
-                            Text("25",
-                              style: TextStyle(
-                                color: AppColors.textColor,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                              ),),
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                );
-              },
-              separatorBuilder: (__, index) => SizedBox(height: 10,),
-              itemCount: 5)),
-
-            CustomButton(onTap: (){
-              Get.to(()=> CreatePostScreen());
-            },
-                text: "Create a Post")
-
+                      );
+                    },
+                    separatorBuilder: (__, index) => const SizedBox(height: 10),
+                    itemCount: 5)),
+            CustomButton(
+                onTap: () {
+                  Get.to(() => CreatePostScreen());
+                },
+                text: "create_a_post".tr)
           ],
         ),
       ),
-      bottomNavigationBar: BottomMenu(1),
+      bottomNavigationBar: const BottomMenu(1),
     );
   }
 
   _customCategories({required String textKey}) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 7, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 8),
       height: 34,
-      decoration: BoxDecoration(
-        color: Color(0xFFFFFFFF),
-          borderRadius: BorderRadius.circular(4)),
+      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4)),
       child: Text(
-        textKey,
+        textKey.tr,
         style: TextStyle(
           color: AppColors.textColor,
           fontSize: 14,
@@ -192,5 +205,3 @@ class CommunityScreen extends StatelessWidget {
     );
   }
 }
-
-

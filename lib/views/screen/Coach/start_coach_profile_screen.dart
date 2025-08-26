@@ -18,54 +18,57 @@ class _StartCoachProfileScreenState extends State<StartCoachProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
-      appBar: CustomAppbar(title: 'Coach'),
+      appBar: CustomAppbar(title: 'coach'.tr),
       body: ListView(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 11),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 11),
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-
-
-              Text("As a Coach",
+              Text(
+                "as_a_coach".tr,
                 style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.textColor
-                ),),
-              SizedBox(width: 8,),
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  color: AppColors.textColor,
+                ),
+              ),
+              const SizedBox(width: 8),
               CustomSwitch(
-                  value: true,
-                  onChanged: (val){
-
-                  })
+                value: true,
+                onChanged: (val) {},
+              )
             ],
           ),
-          SizedBox(height: 100,),
+          const SizedBox(height: 100),
           Center(
-            child: Text("Oops!",
+            child: Text(
+              "oops".tr,
+              style: const TextStyle(
+                fontSize: 56,
+                fontWeight: FontWeight.w600,
+                color: Color(0xFF329983),
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            "oops_description".tr,
             style: TextStyle(
-              fontSize: 56,
-              fontWeight: FontWeight.w600,
-              color: Color(0xFF329983)
-
-            ),),
-          ),
-          SizedBox(height: 16,),
-          Text("Oops! You haven’t set up your profile yet. Please start setting it up from here",
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w400,
-            color: AppColors.textColor
-          ),
+              fontSize: 16,
+              fontWeight: FontWeight.w400,
+              color: AppColors.textColor,
+            ),
             textAlign: TextAlign.center,
           ),
-          SizedBox(height: 75,),
-          CustomButton(onTap: (){
-            Get.to(()=> SetUpCoachProfileScreen());
-          },
-              text: "Start Profile Setup")
-        ]
+          const SizedBox(height: 75),
+          CustomButton(
+            onTap: () {
+              Get.to(() => const SetUpCoachProfileScreen());
+            },
+            text: "start_profile_setup".tr,
+          )
+        ],
       ),
     );
   }

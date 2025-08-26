@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:netwalking_global/helpers/route.dart';
 import 'package:netwalking_global/utils/app_colors.dart';
-import 'package:netwalking_global/utils/app_constants.dart';
 import 'package:netwalking_global/views/base/custom_button.dart';
 
 class CompleteScreen extends StatefulWidget {

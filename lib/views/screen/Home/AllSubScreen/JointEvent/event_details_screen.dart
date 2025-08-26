@@ -18,11 +18,10 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
-      appBar: CustomAppbar(title: "Event Details"),
+      appBar: CustomAppbar(title: "event_details".tr),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
@@ -35,33 +34,21 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
                 ),
               ),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Public Event",
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.white,
-                            ),
+                            "public_event".tr,
+                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: Colors.white),
                           ),
                           SizedBox(height: 4),
                           Text(
-                            "Morning Walk at Central Park",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white,
-                            ),
+                            "morning_walk_central_park".tr,
+                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white),
                           ),
                         ],
                       ),
@@ -71,32 +58,22 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
                         width: 60,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          image: DecorationImage(
-                            image: AssetImage('assets/image/image1.png'),
-                          ),
+                          image: DecorationImage(image: AssetImage('assets/image/image1.png')),
                         ),
                       ),
                     ],
                   ),
                   SizedBox(height: 8),
                   Text(
-                    "Join us for a relaxing walk around the park. Open to all leveles and perfect for meeting new people while staying active",
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.white,
-                    ),
+                    "join_us_relaxing_walk".tr,
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: Colors.white),
                   ),
                   SizedBox(height: 16),
                   Row(
                     children: [
                       Text(
-                        "Tomorrow, 7.00 AM",
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.white,
-                        ),
+                        "tomorrow_7am".tr,
+                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: Colors.white),
                       ),
                       SizedBox(width: 20),
                       Container(
@@ -104,24 +81,17 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
                         width: 10,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          gradient: LinearGradient(
-                            colors: [Color(0xFFD38656), Color(0xFFF9AC69)],
-                          ),
+                          gradient: LinearGradient(colors: [Color(0xFFD38656), Color(0xFFF9AC69)]),
                         ),
                       ),
                       SizedBox(width: 6),
-
                       Text(
-                        "Host- Karim",
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.white,
-                        ),
+                        "host_karim".tr,
+                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: Colors.white),
                       ),
                       SizedBox(width: 8),
                       Text(
-                        "12 Join",
+                        "join_count".tr,
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
@@ -138,30 +108,16 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
             SizedBox(height: 20),
             Row(
               children: [
-                _customContainer(
-                  text: 'Central Park',
-                  image: 'assets/icons/location.svg',
-                ),
+                _customContainer(text: "central_park".tr, image: 'assets/icons/location.svg'),
                 SizedBox(width: 12),
                 Expanded(
                   child: Container(
                     padding: EdgeInsets.all(12),
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Color(0xFFFFFFFF),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
+                    decoration: BoxDecoration(color: Color(0xFFFFFFFF), borderRadius: BorderRadius.circular(8)),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          'Direction',
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.textColor,
-                          ),
-                        ),
+                        Text("direction".tr, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: AppColors.textColor)),
                         SvgPicture.asset('assets/icons/direction.svg'),
                       ],
                     ),
@@ -175,26 +131,12 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
                 Expanded(
                   child: Container(
                     padding: EdgeInsets.all(12),
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Color(0xFFFFFFFF),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
+                    decoration: BoxDecoration(color: Color(0xFFFFFFFF), borderRadius: BorderRadius.circular(8)),
                     child: Row(
                       children: [
-                        SvgPicture.asset(
-                          'assets/icons/walk.svg',
-                          height: 20,
-                          width: 20,
-                        ),
-                        Text(
-                          'Casual Walking',
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.textColor,
-                          ),
-                        ),
+                        SvgPicture.asset('assets/icons/walk.svg', height: 20, width: 20),
+                        SizedBox(width: 8),
+                        Text("casual_walking".tr, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: AppColors.textColor)),
                       ],
                     ),
                   ),
@@ -203,69 +145,46 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
                 Expanded(
                   child: Container(
                     padding: EdgeInsets.all(12),
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Color(0xFFFFFFFF),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
+                    decoration: BoxDecoration(color: Color(0xFFFFFFFF), borderRadius: BorderRadius.circular(8)),
                     child: Row(
                       children: [
-                        SvgPicture.asset(
-                          'assets/icons/language.svg',
-                          height: 20,
-                          width: 20,
-                        ),
-                        Text(
-                          'English',
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.textColor,
-                          ),
-                        ),
+                        SvgPicture.asset('assets/icons/language.svg', height: 20, width: 20),
+                        SizedBox(width: 8),
+                        Text("english".tr, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: AppColors.textColor)),
                       ],
                     ),
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 12,),
+            SizedBox(height: 12),
             Row(
               children: [
-                _customContainer(text: "Free", image: 'assets/icons/cost.svg'),
-                SizedBox(width: 12,),
-                _customContainer(text: "No", image: 'assets/icons/man.svg')
+                _customContainer(text: "free".tr, image: 'assets/icons/cost.svg'),
+                SizedBox(width: 12),
+                _customContainer(text: "no".tr, image: 'assets/icons/man.svg')
               ],
             ),
-            SizedBox(height: 80,),
+            SizedBox(height: 80),
             Container(
               height: 48,
               width: double.infinity,
               decoration: BoxDecoration(
                 color: Color(0xFFFFFFFF),
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: Color(0xFF8EB2D8), width: 0.5)
+                border: Border.all(color: Color(0xFF8EB2D8), width: 0.5),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SvgPicture.asset('assets/icons/chat.svg'),
-                  SizedBox(width: 8,),
-                  Text("Chat Now",
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.textColor
-                  ),)
+                  SizedBox(width: 8),
+                  Text("chat_now".tr, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: AppColors.textColor))
                 ],
               ),
             ),
-            SizedBox(height: 24,),
-            CustomButton(onTap: (){
-              Get.to(()=> JointBookACoachScreen());
-            },
-                text: "Joint Event")
+            SizedBox(height: 24),
+            CustomButton(onTap: () { Get.to(() => JointBookACoachScreen()); }, text: "joint_event".tr),
           ],
         ),
       ),
@@ -276,22 +195,12 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
     return Expanded(
       child: Container(
         padding: EdgeInsets.all(12),
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: Color(0xFFFFFFFF),
-          borderRadius: BorderRadius.circular(8),
-        ),
+        decoration: BoxDecoration(color: Color(0xFFFFFFFF), borderRadius: BorderRadius.circular(8)),
         child: Row(
           children: [
             SvgPicture.asset(image),
-            Text(
-              text,
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-                color: AppColors.textColor,
-              ),
-            ),
+            SizedBox(width: 8),
+            Text(text, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: AppColors.textColor)),
           ],
         ),
       ),

@@ -23,29 +23,28 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-
-   bool isSwitch = false;
+  bool isSwitch = false;
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       backgroundColor: AppColors.backgroundColor,
-      appBar:  AppBar(
-        backgroundColor:Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
         elevation: 0,
-        title: Text("Profile",style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w400,
-            color: AppColors.textColor
-        ),),
+        title: Text("profile".tr,
+            style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+                color: AppColors.textColor)),
         automaticallyImplyLeading: false,
         actions: [
           InkWell(
-              onTap: (){
-                Get.to(()=> NotificationScreen());
+              onTap: () {
+                Get.to(() => NotificationScreen());
               },
               child: SvgPicture.asset('assets/icons/notification.svg')),
-          SizedBox(width: 10,)
+          SizedBox(width: 10)
         ],
       ),
       body: ListView(
@@ -60,19 +59,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 topLeft: Radius.circular(8),
                 topRight: Radius.circular(8),
               ),
-
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     GestureDetector(
                       onTap: () {
-                        Get.to(()=> EditProfileScreen());
+                        Get.to(() => EditProfileScreen());
                       },
                       child: Container(
                         height: 24,
@@ -80,7 +77,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         decoration: BoxDecoration(
                           color: Colors.white,
                           shape: BoxShape.circle,
-                          border: Border.all(color: Color(0xFFE6EEF7), width: 1),
+                          border:
+                          Border.all(color: Color(0xFFE6EEF7), width: 1),
                         ),
                         child: Icon(
                           Icons.edit,
@@ -91,30 +89,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ],
                 ),
-
                 const SizedBox(height: 8),
-
-                // Profile Image
                 CircleAvatar(
                   radius: 36,
                   backgroundImage: AssetImage("assets/image/profile.jpg"),
                 ),
-
-                 SizedBox(height: 8),
-
-                // Name
+                SizedBox(height: 8),
                 Text(
                   "Sophia Carter",
                   style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.textColor
-                  ),
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textColor),
                 ),
-
                 const SizedBox(height: 4),
-
-                // Role
                 Text(
                   "Wellness Enthusiast",
                   style: TextStyle(
@@ -123,188 +111,158 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     color: Color(0xFF545454),
                   ),
                 ),
-
                 const SizedBox(height: 4),
-
-                // Email
                 Text(
                   "SophiaCarter123@gmail.com",
                   style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: Color(0xFF0957AA)
-                  ),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xFF0957AA)),
                 ),
               ],
             ),
           ),
-          SizedBox(height: 12,),
+          SizedBox(height: 12),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Container(
               width: double.infinity,
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
               decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8)
+                  color: Colors.white, borderRadius: BorderRadius.circular(8)),
+              child: Text(
+                "bio".tr,
+                style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.textColor),
+                textAlign: TextAlign.center,
               ),
-              child: Text("I love mindful walks, reading relationship psychology books, and connecting with people who believe in emotional growth",
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-                color: AppColors.textColor
-              ),
-              textAlign: TextAlign.center,),
             ),
           ),
-          SizedBox(height: 12,),
+          SizedBox(height: 12),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Row(
               children: [
-                _customContainer(
-                  count: '10',
-                  text: 'Events'
-                ),
-                SizedBox(width: 10,),
-                _customContainer(
-                    count: '25',
-                    text: 'Walks'
-                ),
-                SizedBox(width: 10,),
-                _customContainer(
-                    count: '200',
-                    text: 'Day Streak'
-                ),
-
-
+                _customContainer(count: '10', text: 'events'.tr),
+                SizedBox(width: 10),
+                _customContainer(count: '25', text: 'walks'.tr),
+                SizedBox(width: 10),
+                _customContainer(count: '200', text: 'day_streak'.tr),
               ],
             ),
           ),
-          SizedBox(height: 12,),
+          SizedBox(height: 12),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Container(
               width: double.infinity,
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
               decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(16)
-              ),
+                  color: Colors.white, borderRadius: BorderRadius.circular(16)),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-
                   Row(
                     children: [
                       SvgPicture.asset('assets/icons/notification.svg'),
-                      SizedBox(width: 13,),
-                      Text("Push Notification",
+                      SizedBox(width: 13),
+                      Text(
+                        "push_notification".tr,
                         style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w400,
-                            color: AppColors.textColor
-                        ),),
-                      SizedBox(width: 90,),
+                            color: AppColors.textColor),
+                      ),
+                      SizedBox(width: 90),
                       CustomSwitch(
                           value: isSwitch,
-                          onChanged: (val){
+                          onChanged: (val) {
                             setState(() {
                               isSwitch = val;
                             });
                           }),
-
                     ],
                   ),
-                  SizedBox(height: 16,),
+                  SizedBox(height: 16),
                   _customRow(
-                    image: 'assets/icons/lock.svg',
-                    text: 'Change Password',
-                    onTa: (){
-                      Get.to(()=> ChangePasswordScreen());
-                    }
-                  ),
-                  SizedBox(height: 16,),
+                      image: 'assets/icons/lock.svg',
+                      text: 'change_password'.tr,
+                      onTa: () {
+                        Get.to(() => ChangePasswordScreen());
+                      }),
+                  SizedBox(height: 16),
                   _customRow(
                       image: 'assets/icons/change_language.svg',
-                      text: 'Change Language',
-                      onTa: (){
-                        Get.to(()=> ChangeLanguageScreen());
-                      }
-                  ),
-                  SizedBox(height: 16,),
+                      text: 'change_language'.tr,
+                      onTa: () {
+                        Get.to(() => ChangeLanguageScreen());
+                      }),
+                  SizedBox(height: 16),
                   _customRow(
                       image: 'assets/icons/subcriptions.svg',
-                      text: 'Manage Subscription',
-                      onTa: (){
-                        Get.to(()=> SubscriptionScreen());
+                      text: 'manage_subscription'.tr,
+                      onTa: () {
+                        Get.to(() => SubscriptionScreen());
                       }),
-                  SizedBox(height: 16,),
+                  SizedBox(height: 16),
                   _customRow(
                       image: 'assets/icons/delete.svg',
-                      text: 'Delete my account',
-                      onTa: (){
-                        
-                        _customDeleteAccount(context,
-                            Color(0xFFC31037),
-                            Color(0xFFD23317),
-                        'Are you sure you want to delete account?');
-                        
+                      text: 'delete_my_account'.tr,
+                      onTa: () {
+                        _customDeleteAccount(context, Color(0xFFC31037),
+                            Color(0xFFD23317), 'Are you sure you want to delete account?');
                       }),
-                  SizedBox(height: 16,),
+                  SizedBox(height: 16),
                   _customRow(
                       image: 'assets/icons/report.svg',
-                      text: 'Report a Problem',
-                      onTa: (){
-                        Get.to(()=> ReportProblemScreen());
+                      text: 'report_problem'.tr,
+                      onTa: () {
+                        Get.to(() => ReportProblemScreen());
                       }),
-                  SizedBox(height: 16,),
+                  SizedBox(height: 16),
                   _customRow(
                       image: 'assets/icons/terms.svg',
-                      text: 'Terms of service',
-                      onTa: (){
-                        Get.to(()=> TermsOfServiceScreen());
+                      text: 'terms_of_service'.tr,
+                      onTa: () {
+                        Get.to(() => TermsOfServiceScreen());
                       }),
-                  SizedBox(height: 16,),
+                  SizedBox(height: 16),
                   _customRow(
                       image: 'assets/icons/privacy.svg',
-                      text: 'Privacy Policy',
-                      onTa: (){
-                        Get.to(()=> PrivacyPolicyScreen());
+                      text: 'privacy_policy'.tr,
+                      onTa: () {
+                        Get.to(() => PrivacyPolicyScreen());
                       }),
-                  SizedBox(height: 16,),
+                  SizedBox(height: 16),
                   _customRow(
                       image: 'assets/icons/about.svg',
-                      text: 'About us',
-                      onTa: (){
-                        Get.to(()=> AboutUsScreen());
+                      text: 'about_us'.tr,
+                      onTa: () {
+                        Get.to(() => AboutUsScreen());
                       }),
-                  SizedBox(height: 16,),
+                  SizedBox(height: 16),
                   InkWell(
-                    onTap: (){
-                      _customDeleteAccount(context,
-                          Color(0xFF094EBE),
-                          Color(0xFF15AABA),
-                          'Are you sure you want to logout?');
+                    onTap: () {
+                      _customDeleteAccount(context, Color(0xFF094EBE),
+                          Color(0xFF15AABA), 'Are you sure you want to logout?');
                     },
                     child: Row(
                       children: [
                         SvgPicture.asset('assets/icons/logout.svg'),
-                        SizedBox(width: 13,),
-                        Text('Logout',
+                        SizedBox(width: 13),
+                        Text(
+                          'logout'.tr,
                           style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w500,
-                              color: Color(0xFFF04B4C)
-                          ),),
-
+                              color: Color(0xFFF04B4C)),
+                        ),
                       ],
                     ),
-                  )
-
-
-
+                  ),
                 ],
               ),
             ),
@@ -315,142 +273,135 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-   _customDeleteAccount(BuildContext context, Color startColor, Color endColor, String text) {
-     showDialog(
+  _customDeleteAccount(
+      BuildContext context, Color startColor, Color endColor, String text) {
+    showDialog(
         context: context,
-        builder: (context){
-      return AlertDialog(
-        backgroundColor: Colors.transparent,
-        content: Container(
-          padding: EdgeInsets.symmetric(horizontal: 8,vertical: 20),
-          width: double.infinity,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            gradient: LinearGradient(
-              colors: [
-                startColor,
-                endColor
-
-              ]
-            )
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(text,
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white
-                ),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(height: 30,),
-              Row(
+        builder: (context) {
+          return AlertDialog(
+            backgroundColor: Colors.transparent,
+            content: Container(
+              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 20),
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  gradient: LinearGradient(colors: [startColor, endColor])),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Expanded(
-                    child: Container(
-                      height: 40,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: Color(0xFFFFFFFF),
-                        width: 1)
-                      ),
-                      child: Center(
-                        child: Text("Yes",
-                        style: TextStyle(
-                          fontSize:16,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500
-                        ),),
-                      )
-                    ),
+                  Text(
+                    text,
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white),
+                    textAlign: TextAlign.center,
                   ),
-                  SizedBox(width: 24,),
-                  Expanded(
-                    child: InkWell(
-                      onTap: (){
-                        Get.back();
-                      },
-                      child: Container(
-                          height: 40,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                              borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Center(
-                            child: Text("No",
-                              style: TextStyle(
-                                  fontSize:16,
-                                  color: AppColors.textColor,
-                                  fontWeight: FontWeight.w500
-                              ),),
-                          )
+                  SizedBox(height: 30),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                            height: 40,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                border:
+                                Border.all(color: Color(0xFFFFFFFF), width: 1)),
+                            child: Center(
+                              child: Text(
+                                "yes".tr,
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            )),
                       ),
-                    ),
+                      SizedBox(width: 24),
+                      Expanded(
+                        child: InkWell(
+                          onTap: () {
+                            Get.back();
+                          },
+                          child: Container(
+                              height: 40,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  "no".tr,
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      color: AppColors.textColor,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              )),
+                        ),
+                      )
+                    ],
                   )
                 ],
-              )
-            ],
-          ),
-        ),
-      );
+              ),
+            ),
+          );
         });
   }
 
-   _customRow({required String image, required String text, required Function()? onTa
-   }) {
+  _customRow(
+      {required String image, required String text, required Function()? onTa}) {
     return InkWell(
       onTap: onTa,
       child: Row(
-         children: [
-                      SvgPicture.asset(image),
-                      SizedBox(width: 13,),
-                      Text(text,
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.textColor
-                        ),),
-                      Spacer(),
-                      SvgPicture.asset('assets/icons/arrow_right.svg',
-                      color: Color(0xFF000000),),
-                    ],
-                  ),
+        children: [
+          SvgPicture.asset(image),
+          SizedBox(width: 13),
+          Text(
+            text,
+            style: TextStyle(
+                fontSize: 16, fontWeight: FontWeight.w400, color: AppColors.textColor),
+          ),
+          Spacer(),
+          SvgPicture.asset(
+            'assets/icons/arrow_right.svg',
+            color: Color(0xFF000000),
+          ),
+        ],
+      ),
     );
   }
 
-   _customContainer({required String count, required String text}) {
+  _customContainer({required String count, required String text}) {
     return Expanded(
-              child: Container(
-                padding: EdgeInsets.only(top: 10),
-                width: double.infinity,
-                height: 80,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(8)
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(count,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                      color: Color(0xFF0F171A)
-                    ),),
-                    Text(text,
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: AppColors.textColor
-                    ),)
-                  ],
-                )
+      child: Container(
+          padding: EdgeInsets.only(top: 10),
+          width: double.infinity,
+          height: 80,
+          decoration: BoxDecoration(
+              color: Colors.white, borderRadius: BorderRadius.circular(8)),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                count,
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF0F171A)),
               ),
-            );
+              Text(
+                text,
+                style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.textColor),
+              )
+            ],
+          )),
+    );
   }
 }
