@@ -26,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
         backgroundColor: Colors.white,
+        automaticallyImplyLeading: false,
         title: Row(
           children: [
             Image.asset(

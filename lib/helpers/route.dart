@@ -45,7 +45,6 @@ class AppRoutes{
    GetPage(name: selectLanguage, page: ()=> const SelectLanguageScreen(), transition: Transition.noTransition),
    GetPage(name: loginScreen, page: ()=> const LoginScreen(), transition: Transition.noTransition),
    GetPage(name: signupScreen, page: ()=> const SignupScreen(), transition: Transition.noTransition),
-   GetPage(name: otoVerifyScreen, page: ()=> const OtpVerifyScreen(), transition: Transition.noTransition),
    GetPage(name: resetPasswordScreen, page: ()=> const ResetPasswordScreen(), transition: Transition.noTransition),
    GetPage(name: successfulScreen, page: ()=> const SuccessfulScreen(), transition: Transition.noTransition),
    GetPage(name: setupProfileScreen, page: ()=> const SetUpProfileScreen(), transition: Transition.noTransition),

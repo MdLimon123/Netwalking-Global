@@ -14,7 +14,7 @@ class _TermsOfServiceScreenState extends State<TermsOfServiceScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
-      appBar: CustomAppbar(title: "Terms of service"),
+      appBar: CustomAppbar(title: "Terms of services"),
       body: ListView(
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 17),
         children: [

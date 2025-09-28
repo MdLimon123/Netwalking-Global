@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../utils/app_colors.dart';
 import '../../utils/style.dart';
@@ -53,11 +54,10 @@ class CustomButton extends StatelessWidget {
                 ? SizedBox(
               height: 20.h,
               width: 20.h,
-              child: const CircularProgressIndicator(
+              child: LoadingAnimationWidget.threeArchedCircle(
                 color: Colors.white,
-                strokeWidth: 2,
-              ),
-            )
+                size: 70,
+              ))
                 : Text(
               text,
               style: textStyle ??

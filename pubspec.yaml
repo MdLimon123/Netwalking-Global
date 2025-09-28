@@ -23,6 +23,11 @@ dependencies:
   flutter_spinkit:
   flutter_otp_text_field:
   google_maps_flutter: ^2.12.3
+  image_picker: ^1.1.2
+  image_cropper:
+  web_socket_client:
+  web_socket_channel:
+  loading_animation_widget: ^1.3.0
 
 dev_dependencies:
   flutter_test:

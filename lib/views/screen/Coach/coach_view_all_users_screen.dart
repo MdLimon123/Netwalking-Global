@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:netwalking_global/controllers/coach_profile_setup_controller.dart';
 import 'package:netwalking_global/utils/app_colors.dart';
 import 'package:netwalking_global/views/base/custom_appbar.dart';
 import 'package:netwalking_global/views/base/custom_switch.dart';
@@ -12,6 +13,9 @@ class CoachViewAllUsersScreen extends StatefulWidget {
 }
 
 class _CoachViewAllUsersScreenState extends State<CoachViewAllUsersScreen> {
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

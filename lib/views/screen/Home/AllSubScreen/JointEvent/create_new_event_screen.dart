@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:netwalking_global/controllers/join_event_cpntroller.dart';
 import 'package:netwalking_global/utils/app_colors.dart';
 import 'package:netwalking_global/views/base/custom_appbar.dart';
 import 'package:netwalking_global/views/base/custom_button.dart';
@@ -16,6 +18,8 @@ class CreateNewEventScreen extends StatefulWidget {
 class _CreateNewEventScreenState extends State<CreateNewEventScreen> {
 
   final eventTitleController = TextEditingController();
+
+  final _joinEventController = Get.put(JoinEventController());
 
   List<String> type = [
     "Professional Networking Event",
@@ -94,23 +98,37 @@ class _CreateNewEventScreenState extends State<CreateNewEventScreen> {
                 ),),
                 SizedBox(height: 12,),
 
-                Stack(
-                  alignment: Alignment.center,
-                  children: [
+                Obx(
+                  () {
+                    final file = _joinEventController.bannerImage.value;
+                      return Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              _joinEventController.pickBannerImage(
+                                  fromCamera: false);
+                            },
+                            child: Container(
+                              width: double.infinity,
+                              height: 80,
+                              decoration: BoxDecoration(
+                                color: Color(0xFFF2F2F2),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: file != null? Image.file(file,
+                              fit: BoxFit.cover,): null,
+                            ),
+                          ),
+                          if(file == null)
+                            Positioned(
+                              child: SvgPicture.asset(
+                                  'assets/icons/upload.svg'),
+                            )
+                        ],
+                      );
 
-                    Container(
-                      width: double.infinity,
-                      height: 80,
-                      decoration: BoxDecoration(
-                        color: Color(0xFFF2F2F2),
-                        borderRadius: BorderRadius.circular(4)
-                      ),
-                    ),
-                    Positioned(
-                      child: SvgPicture.asset('assets/icons/upload.svg'),
-                    )
-                  ],
-                )
+                    })
                 
               ]
             ),

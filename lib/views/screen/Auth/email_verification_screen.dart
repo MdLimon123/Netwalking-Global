@@ -7,18 +7,19 @@ import 'package:netwalking_global/helpers/route.dart';
 import 'package:netwalking_global/utils/app_colors.dart';
 import 'package:netwalking_global/views/base/custom_button.dart';
 
-class OtpVerifyScreen extends StatefulWidget {
+class EmailVerificationScreen extends StatefulWidget {
+
   final String email;
-  const OtpVerifyScreen({super.key, required this.email});
+
+  const EmailVerificationScreen({super.key, required this.email});
 
   @override
-  State<OtpVerifyScreen> createState() => _OtpVerifyScreenState();
+  State<EmailVerificationScreen> createState() => _EmailVerificationScreenState();
 }
 
-class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
+class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
 
   final _authController = Get.put(AuthController());
-
 
   @override
   Widget build(BuildContext context) {
@@ -89,9 +90,9 @@ class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Obx(
                 ()=> CustomButton(
-                  loading: _authController.isEmailForgetLoading.value,
+                  loading: _authController.isOtpLoading.value,
                   onTap: () {
-                    _authController.emailForgetVerification(email: widget.email);
+                    _authController.emailVerification(email: widget.email);
                   },
                   text: "submit_now".tr,
                 ),

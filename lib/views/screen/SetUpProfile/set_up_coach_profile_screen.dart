@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:netwalking_global/controllers/coach_profile_setup_controller.dart';
 import 'package:netwalking_global/utils/app_colors.dart';
 import 'package:netwalking_global/views/base/custom_appbar.dart';
 import 'package:netwalking_global/views/base/custom_button.dart';
@@ -17,6 +18,8 @@ class SetUpCoachProfileScreen extends StatefulWidget {
 }
 
 class _SetUpCoachProfileScreenState extends State<SetUpCoachProfileScreen> {
+
+  final _coachProfileSetupController = Get.put(CoachProfileSetupProfile());
   
   final nameController = TextEditingController();
   String selected = "Virtual";
@@ -41,9 +44,6 @@ class _SetUpCoachProfileScreenState extends State<SetUpCoachProfileScreen> {
   };
 
   final List<String> dayShorts = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
-
-
-
 
   final Map<String, List<String>> categories = {
     "Business & Entrepreneurship Coaching": [
@@ -208,8 +208,6 @@ class _SetUpCoachProfileScreenState extends State<SetUpCoachProfileScreen> {
       "Transition to Adulthood",
     ],
   };
-
-
   final List<String> selectedCategories = [];
 
   final List<String> selectedSubcategories = [];
@@ -243,36 +241,47 @@ class _SetUpCoachProfileScreenState extends State<SetUpCoachProfileScreen> {
               child: Stack(
                 alignment: Alignment.center,
                 children: [
-                  Container(
-                    height: 100,
-                    width: 100,
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        gradient: LinearGradient(
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                            colors: [
-                              Color(0xFF094EBE),
-                              Color(0xFF15AABA)
-                            ]
-                        )
+                  Obx(
+                  ()=> Container(
+                      height: 100,
+                      width: 100,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          gradient: LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: [
+                                Color(0xFF094EBE),
+                                Color(0xFF15AABA)
+                              ]
+                          )
+                      ),
+                      child: ClipOval(child: _coachProfileSetupController.coachImageFile.value != null?
+                      Image.file(_coachProfileSetupController.coachImageFile.value!,
+                      fit: BoxFit.cover,):
+                      Image.asset('assets/image/user.png',
+                      fit: BoxFit.cover,)),
                     ),
-                    child: Image.asset('assets/image/user.png'),
                   ),
                   Positioned(
                     right: 1,
                     bottom: 4,
-                    child: Container(
-                        height: 28,
-                        width: 28,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.white
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: SvgPicture.asset('assets/icons/camera.svg'),
-                        )
+                    child: InkWell(
+                      onTap: (){
+                        _coachProfileSetupController.pickCoachImage();
+                      },
+                      child: Container(
+                          height: 28,
+                          width: 28,
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.white
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: SvgPicture.asset('assets/icons/camera.svg'),
+                          )
+                      ),
                     ),
                   )
                 ],

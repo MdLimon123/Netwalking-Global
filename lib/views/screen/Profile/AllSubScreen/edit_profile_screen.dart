@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:netwalking_global/controllers/profile_controller.dart';
 import 'package:netwalking_global/utils/app_colors.dart';
 import 'package:netwalking_global/views/base/custom_appbar.dart';
 import 'package:netwalking_global/views/base/custom_button.dart';
@@ -18,6 +19,8 @@ class EditProfileScreen extends StatefulWidget {
 class _EditProfileScreenState extends State<EditProfileScreen> {
   bool isSwitch = false;
   List<bool> isCheck = List.generate(11, (_) => false);
+
+  final _profileController = Get.put(ProfileController());
 
   List<String> ethnicity = [
     "ethnicity_african".tr,
@@ -67,33 +70,47 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   Stack(
                     alignment: Alignment.center,
                     children: [
-                      Container(
-                        height: 100,
-                        width: 100,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            gradient: LinearGradient(
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                                colors: [
-                                  Color(0xFF094EBE),
-                                  Color(0xFF15AABA)
-                                ])),
-                        child: Image.asset('assets/image/user.png'),
+                      Obx(()=>
+                          Container(
+                              height: 100,
+                              width: 100,
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  gradient: LinearGradient(
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.bottomRight,
+                                      colors: [
+                                        Color(0xFF094EBE),
+                                        Color(0xFF15AABA)
+                                      ]
+                                  )
+                              ),
+                              child: ClipOval(
+                                child:  _profileController.profileImage.value != null? Image.file(_profileController.profileImage.value!,
+                                  fit: BoxFit.cover,
+                                  height: 90,
+                                  width: 90,): Image.asset('assets/image/user.png'),
+                              )
+                          ),
                       ),
                       Positioned(
                         right: 1,
                         bottom: 4,
-                        child: Container(
-                            height: 28,
-                            width: 28,
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.white),
-                            child: Padding(
-                              padding: const EdgeInsets.all(5.0),
-                              child: SvgPicture.asset('assets/icons/camera.svg'),
-                            )),
+                        child: InkWell(
+                          onTap: (){
+                            _profileController.pickProfileImage(fromCamera: false);
+                          },
+                          child: Container(
+                              height: 28,
+                              width: 28,
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.white),
+                              child: Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: SvgPicture.asset('assets/icons/camera.svg'),
+                              )),
+                        ),
                       )
                     ],
                   ),
@@ -230,7 +247,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     );
   }
 
-  Row _publicRow(int index) {
+   _publicRow(int index) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [

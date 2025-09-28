@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:netwalking_global/controllers/community_controller.dart';
 import 'package:netwalking_global/utils/app_colors.dart';
 import 'package:netwalking_global/views/base/custom_appbar.dart';
 import 'package:netwalking_global/views/base/custom_button.dart';
@@ -17,6 +18,8 @@ class CreatePostScreen extends StatefulWidget {
 class _CreatePostScreenState extends State<CreatePostScreen> {
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
+
+  final _communityController = Get.put(CommunityController());
 
   List<String> categories = [
     "biodiversity_awareness".tr,
@@ -110,43 +113,59 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
             ),
           ),
           SizedBox(height: 12),
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(vertical: 20),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  "add_image".tr,
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Color(0xFF000000),
-                    fontWeight: FontWeight.w400,
-                  ),
+          Obx(() {
+            final file = _communityController.postImageFile.value;
+              return InkWell(
+                onTap: (){
+                  _communityController.pickPostImage(fromCamera: false);
+                },
+                child: Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(8),
                 ),
-                const SizedBox(height: 10),
-                Container(
-                  height: 42,
-                  width: 42,
-                  decoration: const BoxDecoration(
-                    color: Color(0xFF045962),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(6.0),
-                    child: SvgPicture.asset(
-                      "assets/icons/default_image.svg",
-                      color: Colors.white,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if(file == null)...[
+                    Text(
+                      "add_image".tr,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Color(0xFF000000),
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
-                  ),
+                    const SizedBox(height: 10),
+                    Container(
+                      height: 42,
+                      width: 42,
+                      decoration: const BoxDecoration(
+                        color: Color(0xFF045962),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(6.0),
+                        child: SvgPicture.asset(
+                          "assets/icons/default_image.svg",
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                      ] else ...[
+                        Image.file(file,
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                        height: 150,)
+                    ]
+                  ],
                 ),
-              ],
-            ),
-          ),
+                            ),
+              );
+
+          }),
           SizedBox(height: 24),
           CustomButton(
             onTap: () {},
