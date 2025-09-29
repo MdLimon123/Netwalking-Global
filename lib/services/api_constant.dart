@@ -11,6 +11,7 @@ class ApiConstant{
   static String loginEndPoint = "/api/v1/auth/login/";
   static String sendOtpEndPoint = "/api/v1/auth/send-otp/";
   static String resetPasswordEndPoint = "/api/v1/auth/reset-password/";
+  static String profileSetupEndPoint = "/api/v1/auth/profile/";
 
 
 }

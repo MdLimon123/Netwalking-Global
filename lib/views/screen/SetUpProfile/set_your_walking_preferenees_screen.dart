@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:netwalking_global/controllers/setup_profile_controller.dart';
 import 'package:netwalking_global/helpers/route.dart';
 import 'package:netwalking_global/utils/app_colors.dart';
 import 'package:netwalking_global/views/base/custom_button.dart';
@@ -22,6 +23,7 @@ class _SetYourWalkingPrefereneesScreenState extends State<SetYourWalkingPreferen
     "Dyslexic",
     "Evening",
   ];
+  final _setupProfileController = Get.put(SetupProfileController());
 
   List<String> distance = [
      '1 -3 KM',
@@ -89,38 +91,52 @@ class _SetYourWalkingPrefereneesScreenState extends State<SetYourWalkingPreferen
               child:Column(
                 children: [
 
-                  CustomDropdownCheckbox(
-                      title: "Availability",
-                      showCheckbox: false,
-                      options: availability,
-                      leadingIcon: SvgPicture.asset('assets/icons/sun.svg'),
-                      onChanged: (val){
+                 CustomDropdownCheckbox(
+                        title: "Availability",
+                        showCheckbox: false,
+                        options: availability,
+                        leadingIcon: SvgPicture.asset('assets/icons/sun.svg'),
+                        onChanged: (val){
+                          if (val.isNotEmpty) {
+                            _setupProfileController.walkingAvailability.value = val.first;
 
-                      }),
+                          }
+
+                        }),
+
                   SizedBox(height: 16,),
-                  CustomDropdownCheckbox(
-                      title: "Walking Distance",
-                      showCheckbox: false,
-                      options: distance,
-                      leadingIcon: SvgPicture.asset('assets/icons/distance.svg'),
-                      onChanged: (val){
-
-                      }),
+                 CustomDropdownCheckbox(
+                        title: "Walking Distance",
+                        showCheckbox: false,
+                        options: distance,
+                        leadingIcon: SvgPicture.asset('assets/icons/distance.svg'),
+                        onChanged: (val){
+                          if (val.isNotEmpty) {
+                            _setupProfileController.walkingDistance.value = val.first;
+                          }
+                        }),
                   SizedBox(height: 16,),
-                  CustomDropdownCheckbox(
-                      title: "Pace Selection",
-                      showCheckbox: false,
-                      options: pace,
-                      leadingIcon: SvgPicture.asset('assets/icons/pace.svg'),
-                      onChanged: (val){
+                CustomDropdownCheckbox(
+                        title: "Pace Selection",
+                        showCheckbox: false,
+                        options: pace,
+                        leadingIcon: SvgPicture.asset('assets/icons/pace.svg'),
+                        onChanged: (val){
+                          if (val.isNotEmpty) {
+                            _setupProfileController.paceSelection.value = val.first;
+                          }
+                        }),
 
-                      }),
 
                   SizedBox(height: 102,),
-                  CustomButton(onTap: (){
-                    Get.offAllNamed(AppRoutes.completeScreen);
-                  },
-                      text: "Continue")
+                  Obx(
+                     ()=> CustomButton(
+                      loading: _setupProfileController.isWalkingLoading.value,
+                        onTap: (){
+                     _setupProfileController.submitWalkingPreferences();
+                    },
+                        text: "Continue"),
+                  )
                 ],
               ),
             )

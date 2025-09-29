@@ -54,11 +54,8 @@ class _SetUpProfileScreenState extends State<SetUpProfileScreen> {
   ];
 
 
-
-
-  final nameController = TextEditingController();
-
   final _setupProfileController = Get.put(SetupProfileController());
+
 
 
   @override
@@ -66,7 +63,7 @@ class _SetUpProfileScreenState extends State<SetUpProfileScreen> {
     return Scaffold(
       body: SingleChildScrollView(
         physics: AlwaysScrollableScrollPhysics(),
-        child: Column(
+        child: Obx(()=> Column(
           children: [
             Container(
               width: double.infinity,
@@ -75,37 +72,37 @@ class _SetUpProfileScreenState extends State<SetUpProfileScreen> {
               child: Column(
                 children: [
                   Text("1 Of 3",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.primaryColor
-                  ),),
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.primaryColor
+                    ),),
                   SizedBox(height: 20,),
                   Stack(
                     alignment: Alignment.center,
                     children: [
                       Obx(()=>
-                           Container(
-                          height: 100,
-                          width: 100,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            gradient: LinearGradient(
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                              colors: [
-                                Color(0xFF094EBE),
-                                Color(0xFF15AABA)
-                              ]
-                            )
+                          Container(
+                              height: 100,
+                              width: 100,
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  gradient: LinearGradient(
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.bottomRight,
+                                      colors: [
+                                        Color(0xFF094EBE),
+                                        Color(0xFF15AABA)
+                                      ]
+                                  )
+                              ),
+                              child: ClipOval(
+                                child:  _setupProfileController.imageFile.value != null? Image.file(_setupProfileController.imageFile.value!,
+                                  fit: BoxFit.cover,
+                                  height: 90,
+                                  width: 90,): Image.asset('assets/image/user.png'),
+                              )
                           ),
-                          child: ClipOval(
-                            child:  _setupProfileController.imageFile.value != null? Image.file(_setupProfileController.imageFile.value!,
-                              fit: BoxFit.cover,
-                              height: 90,
-                              width: 90,): Image.asset('assets/image/user.png'),
-                          )
-                        ),
                       ),
                       Positioned(
                         right: 1,
@@ -115,16 +112,16 @@ class _SetUpProfileScreenState extends State<SetUpProfileScreen> {
                             _setupProfileController.pickImage(fromCamera: false);
                           },
                           child: Container(
-                            height: 28,
-                            width: 28,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors.white
-                            ),
-                                                 child: Padding(
-                           padding: const EdgeInsets.all(5.0),
-                           child: SvgPicture.asset('assets/icons/camera.svg'),
-                                                 )
+                              height: 28,
+                              width: 28,
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.white
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: SvgPicture.asset('assets/icons/camera.svg'),
+                              )
                           ),
                         ),
                       )
@@ -132,18 +129,18 @@ class _SetUpProfileScreenState extends State<SetUpProfileScreen> {
                   ),
                   SizedBox(height: 20,),
                   Text("Set Up Your Profile",
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.textColor
-                  ),),
+                    style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.textColor
+                    ),),
                   SizedBox(height: 8,),
                   Text("Tell us about yourself to connect better",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.textColor
-                  ),),
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.textColor
+                    ),),
                   SizedBox(height: 10,)
                 ],
               ),
@@ -154,11 +151,11 @@ class _SetUpProfileScreenState extends State<SetUpProfileScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text("As a Coach",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.primaryColor
-                ),),
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.primaryColor
+                  ),),
                 SizedBox(width: 8,),
                 CustomSwitch(
                     value: isSwitch,
@@ -169,7 +166,7 @@ class _SetUpProfileScreenState extends State<SetUpProfileScreen> {
                       });
 
                       if(value == true){
-                       Get.to(()=> SetUpCoachProfileScreen(), transition: Transition.noTransition);
+                        Get.to(()=> SetUpCoachProfileScreen(), transition: Transition.noTransition);
                       }
                     })
               ],
@@ -179,35 +176,32 @@ class _SetUpProfileScreenState extends State<SetUpProfileScreen> {
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 children: [
-                  CustomTextField(controller: nameController,
-                  prefixIcon: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: SvgPicture.asset('assets/icons/right.svg'),
-                  ),
-                  hintText: "Enter your full name",),
+                  CustomTextField(controller: _setupProfileController.nameController,
+                    prefixIcon: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: SvgPicture.asset('assets/icons/right.svg'),
+                    ),
+                    hintText: "Enter your full name",),
                   SizedBox(height: 12,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Text("Public",
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: AppColors.textColor
-                      ),),
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: AppColors.textColor
+                        ),),
                       SizedBox(width: 8,),
                       CustomRadioButton(
-                          value: isCheck[0],
+                          value: _setupProfileController.isCheck[0],
                           onChanged: (value){
-                            setState(() {
-                              isCheck[0] = value;
-                            });
-
+                            _setupProfileController.isCheck[0] = value;
                           })
                     ],
                   ),
                   SizedBox(height: 8,),
-                  CustomTextField(controller: nameController,
+                  CustomTextField(controller: _setupProfileController.locationController,
                     prefixIcon: Padding(
                       padding: const EdgeInsets.only(left: 8.0),
                       child: SvgPicture.asset('assets/icons/location.svg'),
@@ -230,18 +224,16 @@ class _SetUpProfileScreenState extends State<SetUpProfileScreen> {
                         ),),
                       SizedBox(width: 8,),
                       CustomRadioButton(
-                          value: isCheck[1],
+                          value:   _setupProfileController.isCheck[1],
                           onChanged: (value){
-                            setState(() {
-                              isCheck[1] = value;
-                            });
+                            _setupProfileController.isCheck[1] = value;
 
                           })
                     ],
                   ),
                   SizedBox(height: 8,),
                   CustomTextField(
-                    controller: nameController,
+                    controller: _setupProfileController.professionController,
                     prefixIcon: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: SvgPicture.asset('assets/icons/right.svg'),
@@ -260,48 +252,46 @@ class _SetUpProfileScreenState extends State<SetUpProfileScreen> {
                         ),),
                       SizedBox(width: 8,),
                       CustomRadioButton(
-                          value: isCheck[2],
+                          value: _setupProfileController.isCheck[2],
                           onChanged: (value){
-                            setState(() {
-                              isCheck[2] = value;
-                            });
+                            _setupProfileController.isCheck[2] = value;
 
                           })
                     ],
                   ),
+                  // SizedBox(height: 8,),
+                  // CustomTextField(
+                  //   controller: nameController,
+                  //   prefixIcon: Padding(
+                  //     padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  //     child: SvgPicture.asset('assets/icons/right.svg'),
+                  //   ),
+                  //   hintText: "Add Bio (Optional)",
+                  // ),
+                  // SizedBox(height: 12,),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.end,
+                  //   children: [
+                  //     Text("Public",
+                  //       style: TextStyle(
+                  //           fontSize: 14,
+                  //           fontWeight: FontWeight.w400,
+                  //           color: AppColors.textColor
+                  //       ),),
+                  //     SizedBox(width: 8,),
+                  //     CustomRadioButton(
+                  //         value: isCheck[3],
+                  //         onChanged: (value){
+                  //           setState(() {
+                  //             isCheck[3] = value;
+                  //           });
+                  //
+                  //         })
+                  //   ],
+                  // ),
                   SizedBox(height: 8,),
                   CustomTextField(
-                    controller: nameController,
-                    prefixIcon: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: SvgPicture.asset('assets/icons/right.svg'),
-                    ),
-                    hintText: "Add Bio (Optional)",
-                  ),
-                  SizedBox(height: 12,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text("Public",
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.textColor
-                        ),),
-                      SizedBox(width: 8,),
-                      CustomRadioButton(
-                          value: isCheck[3],
-                          onChanged: (value){
-                            setState(() {
-                              isCheck[3] = value;
-                            });
-
-                          })
-                    ],
-                  ),
-                  SizedBox(height: 8,),
-                  CustomTextField(
-                    controller: nameController,
+                    controller: _setupProfileController.ageController,
                     prefixIcon: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: SvgPicture.asset('assets/icons/people.svg'),
@@ -320,11 +310,9 @@ class _SetUpProfileScreenState extends State<SetUpProfileScreen> {
                         ),),
                       SizedBox(width: 8,),
                       CustomRadioButton(
-                          value: isCheck[4],
+                          value: _setupProfileController.isCheck[3],
                           onChanged: (value){
-                            setState(() {
-                              isCheck[4] = value;
-                            });
+                            _setupProfileController.isCheck[3] = value;
 
                           })
                     ],
@@ -334,7 +322,7 @@ class _SetUpProfileScreenState extends State<SetUpProfileScreen> {
                       options: gender,
                       title: 'Enter your gender',
                       onChanged: (val){
-
+                        _setupProfileController.selectedGender.value = val;
                       }),
                   SizedBox(height: 12,),
                   Row(
@@ -348,11 +336,9 @@ class _SetUpProfileScreenState extends State<SetUpProfileScreen> {
                         ),),
                       SizedBox(width: 8,),
                       CustomRadioButton(
-                          value: isCheck[5],
+                          value:   _setupProfileController.isCheck[4],
                           onChanged: (value){
-                            setState(() {
-                              isCheck[5] = value;
-                            });
+                            _setupProfileController.isCheck[4] = value;
 
                           })
                     ],
@@ -362,7 +348,7 @@ class _SetUpProfileScreenState extends State<SetUpProfileScreen> {
                       options: ethnicity,
                       title: 'Select your ethnicity (optional)',
                       onChanged: (val){
-
+                        _setupProfileController.selectedEthnicity.value = val;
                       }),
                   SizedBox(height: 12,),
                   Row(
@@ -376,12 +362,9 @@ class _SetUpProfileScreenState extends State<SetUpProfileScreen> {
                         ),),
                       SizedBox(width: 8,),
                       CustomRadioButton(
-                          value: isCheck[6],
+                          value:   _setupProfileController.isCheck[5],
                           onChanged: (value){
-                            setState(() {
-                              isCheck[6] = value;
-                            });
-
+                            _setupProfileController.isCheck[5] = value;
                           })
                     ],
                   ),
@@ -390,7 +373,7 @@ class _SetUpProfileScreenState extends State<SetUpProfileScreen> {
                       title: 'Sexual Orientation',
                       options: sexualOrientation,
                       onChanged: (val){
-
+                        _setupProfileController.selectedOrientation.value = val;
                       }),
                   SizedBox(height: 8,),
                   Row(
@@ -404,11 +387,9 @@ class _SetUpProfileScreenState extends State<SetUpProfileScreen> {
                         ),),
                       SizedBox(width: 8,),
                       CustomRadioButton(
-                          value: isCheck[7],
+                          value:   _setupProfileController.isCheck[6],
                           onChanged: (value){
-                            setState(() {
-                              isCheck[7] = value;
-                            });
+                            _setupProfileController.isCheck[6] = value;
 
                           })
                     ],
@@ -418,8 +399,8 @@ class _SetUpProfileScreenState extends State<SetUpProfileScreen> {
                     width: double.infinity,
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
                     decoration: BoxDecoration(
-                      color: Color(0xFFE6EEF7),
-                      borderRadius: BorderRadius.circular(8)
+                        color: Color(0xFFE6EEF7),
+                        borderRadius: BorderRadius.circular(8)
                     ),
                     child: Column(
                       children: [
@@ -428,11 +409,11 @@ class _SetUpProfileScreenState extends State<SetUpProfileScreen> {
                             SvgPicture.asset('assets/icons/bio.svg'),
                             SizedBox(width: 12,),
                             Text("Bio",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              color: AppColors.textColor
-                            ),),
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                  color: AppColors.textColor
+                              ),),
 
                           ],
                         ),
@@ -440,25 +421,49 @@ class _SetUpProfileScreenState extends State<SetUpProfileScreen> {
                         CustomTextField(
                           maxLines: 5,
                           hintText: 'Write here',
-                          controller: nameController,
-                        filColor: Colors.white,
-                        )
+                          controller: _setupProfileController.bioController,
+                          filColor: Colors.white,
+                        ),
+
+                        SizedBox(height: 8,),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text("Public",
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                  color: AppColors.textColor
+                              ),),
+                            SizedBox(width: 8,),
+                            CustomRadioButton(
+                                value:   _setupProfileController.isCheck[7],
+                                onChanged: (value){
+                                  _setupProfileController.isCheck[7] = value;
+
+                                })
+                          ],
+                        ),
                       ],
                     ),
                   ),
                   SizedBox(height: 33,),
-               CustomButton(onTap: (){
-                 Get.offAllNamed(AppRoutes.disabilityAccessibilityScreen);
-               },
-                   text: "Continue"),
+                  Obx(
+                      ()=> CustomButton(
+                      loading: _setupProfileController.isSubmitLoading.value,
+                        onTap: (){
+                      _setupProfileController.submitProfile(profileImage: _setupProfileController.imageFile.value?.path ?? '');
+                    },
+                        text: "Continue"),
+                  ),
                   SizedBox(height: 20,)
 
                 ],
               ),
             )
           ],
-        ),
-      ),
-    );
+        )),
+
+      ));
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:netwalking_global/controllers/setup_profile_controller.dart';
 import 'package:netwalking_global/helpers/route.dart';
 import 'package:netwalking_global/utils/app_colors.dart';
 import 'package:netwalking_global/views/base/custom_button.dart';
@@ -21,6 +22,8 @@ class _DisabilityAccessibilityScreenState extends State<DisabilityAccessibilityS
   bool _isYesChecked  = false;
   
   final selfDescribeController = TextEditingController();
+
+  final _setProfileController = Get.put(SetupProfileController());
 
 
   List<String> checkItem = [
@@ -195,10 +198,16 @@ class _DisabilityAccessibilityScreenState extends State<DisabilityAccessibilityS
                       }),
 
                   SizedBox(height: 92,),
-                  CustomButton(onTap: (){
-                    Get.offAllNamed(AppRoutes.setYourWalkingPrefereneesScreen);
-                  },
-                      text: 'Continue')
+                  Obx(
+                      ()=> CustomButton(
+                      loading: _setProfileController.isAccessLoading.value,
+                        onTap: (){
+                          _setProfileController.submitAccessibility(
+                            selectedDisability: checkItem.map((e) => e.toString()).toList(),
+                          );
+                    },
+                        text: 'Continue'),
+                  )
 
 
              ] ),

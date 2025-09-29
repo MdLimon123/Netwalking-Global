@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:netwalking_global/utils/app_colors.dart';
 import 'package:netwalking_global/views/base/custom_text_field.dart';
 
 class CustomDropdown extends StatefulWidget {
-
   final List<String> options;
   final ValueChanged<String?> onChanged;
   final String title;
@@ -23,6 +21,21 @@ class _CustomDropdownState extends State<CustomDropdown> {
   String? _selectedValue;
   final TextEditingController _controller = TextEditingController();
 
+  void _sendValue() {
+
+    if (_selectedValue != null && _selectedValue!.isNotEmpty) {
+      if (_selectedValue == 'Self-describe' && _controller.text.trim().isNotEmpty) {
+        widget.onChanged(_controller.text.trim());
+      } else {
+        widget.onChanged(_selectedValue);
+      }
+    } else if (_controller.text.trim().isNotEmpty) {
+      widget.onChanged(_controller.text.trim());
+    } else {
+      widget.onChanged(null);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,58 +43,43 @@ class _CustomDropdownState extends State<CustomDropdown> {
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        color: Color(0xFFE6EEF7),
-
+        color: const Color(0xFFE6EEF7),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-
-
-          /// Dropdown Options
           DropdownButtonFormField<String>(
             value: _selectedValue,
             decoration: const InputDecoration.collapsed(hintText: ''),
-            hint:  Text(widget.title,
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-              color: AppColors.textColor
-            ),),
+            hint: Text(
+              widget.title,
+              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+            ),
             items: widget.options.map((e) {
               return DropdownMenuItem(
                 value: e,
                 child: Text(e,
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: AppColors.textColor
-                  ),),
+                    style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
               );
             }).toList(),
             onChanged: (val) {
               setState(() {
                 _selectedValue = val;
               });
-              widget.onChanged(val);
+              _sendValue();
             },
           ),
 
-          /// Self-describe TextField
-          if (_selectedValue == "Self-describe") ...[
-            const SizedBox(height: 12),
 
-            CustomTextField(
-              controller: _controller,
-              maxLines: 4,
-              onChanged: (val){
-                widget.onChanged(val);
-              },
-              hintText: 'Write here',
-            )
-
-
-          ],
+          const SizedBox(height: 12),
+          CustomTextField(
+            controller: _controller,
+            maxLines: 2,
+            onChanged: (val) {
+              _sendValue();
+            },
+            hintText: 'Write here (optional)',
+          ),
         ],
       ),
     );
