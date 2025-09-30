@@ -1,16 +1,42 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:netwalking_global/models/my_event_model.dart';
 import 'package:netwalking_global/services/api_client.dart';
 import 'package:netwalking_global/services/api_constant.dart';
 import 'package:netwalking_global/utils/image_utils.dart';
 import 'package:netwalking_global/views/base/custom_snackbar.dart';
+import 'package:netwalking_global/views/screen/Home/AllSubScreen/JointEvent/AllTabsScreen/Widgets/all_event_screen.dart';
+import 'package:netwalking_global/views/screen/Home/AllSubScreen/JointEvent/AllTabsScreen/Widgets/my_event_screen.dart';
 
 class JoinEventController extends GetxController{
 
   final isJoinEventLoading = false.obs;
 
+  final isMyEventLoading = false.obs;
+
+  RxList<MyEventData> myEventList = <MyEventData>[].obs;
+
+  var tabIndex = 0.obs;
   Rx<File?> bannerImage = Rx<File?>(null);
+
+  List<String> tabList = [
+    'All Event',
+    'My Event',
+  ].obs;
+
+  List<Widget> tabSections = [
+    AllEventScreen(),
+    MyEventScreen(),
+  ].obs;
+
+  bool isTabSelected(int index){
+    if(tabIndex == index){
+      return true;
+    }
+    return false;
+  }
 
   Future<void> pickBannerImage({bool fromCamera = false})async{
 
@@ -22,6 +48,22 @@ class JoinEventController extends GetxController{
 
   }
 
+
+  Future<void> fetchMyEvent()async{
+
+    isMyEventLoading(true);
+
+    final response = await ApiClient.getData(ApiConstant.myEventEndPoint);
+    if(response.statusCode == 200 || response.statusCode == 201){
+      MyEventModel myEventModel = MyEventModel.fromJson(response.body);
+      myEventList.value = myEventModel.data;
+
+    }else{
+      showCustomSnackBar(response.body['message'], isError: true);
+    }
+    isMyEventLoading(false);
+
+  }
 
   Future<void> joinEvent({
     required String bannerImage,
