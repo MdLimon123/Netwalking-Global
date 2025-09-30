@@ -5,6 +5,7 @@ import 'package:netwalking_global/controllers/join_event_controller.dart';
 import 'package:netwalking_global/utils/app_colors.dart';
 import 'package:netwalking_global/views/base/custom_network_image.dart';
 import 'package:netwalking_global/views/base/custom_page_loading.dart';
+import 'package:netwalking_global/views/base/custom_snackbar.dart';
 import 'package:netwalking_global/views/base/formate_even_time.dart';
 import 'package:netwalking_global/views/base/time_date.dart';
 import 'package:netwalking_global/views/screen/Home/AllSubScreen/JointEvent/event_details_screen.dart';
@@ -62,7 +63,14 @@ class _MyEventScreenState extends State<MyEventScreen> {
                     final myEvent = _joinEventController.myEventList[index];
                     return InkWell(
                       onTap: () {
-                        Get.to(() => EventDetailsScreen());
+                        if(myEvent.status == 'join now'){
+                          Get.to(() => EventDetailsScreen(
+                            id: myEvent.id,
+                          ));
+                        }else{
+
+                        }
+
                       },
                       child: Container(
                           width: double.infinity,

@@ -31,6 +31,8 @@ dependencies:
   cached_network_image:
   shimmer:
   intl: ^0.20.2
+  geocoding: ^2.0.5
+  url_launcher: ^6.1.10
 
 dev_dependencies:
   flutter_test:

@@ -16,5 +16,7 @@ class ApiConstant{
   static String addEventEndPoint = "/api/v1/event/events/";
   static String myEventEndPoint = "/api/v1/event/my_events/";
   static String allEventEndPoint = "/api/v1/event/events/";
+  static String eventDetails({required int id}) => "/api/v1/event/events/$id/";
+  static String joinEventEndPoint({required int id}) => "/api/v1/event/events/join/$id/";
 
 }

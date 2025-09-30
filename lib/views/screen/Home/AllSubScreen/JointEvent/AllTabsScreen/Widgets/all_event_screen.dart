@@ -63,7 +63,16 @@ class _AllEventScreenState extends State<AllEventScreen> {
                   final allEvent = _joinEventController.allEventList[index];
                   return InkWell(
                     onTap: () {
-                      Get.to(() => EventDetailsScreen());
+
+                      if(allEvent.status == 'join now'){
+                        Get.to(() => EventDetailsScreen(
+                          id: allEvent.id,
+                        ));
+                      }else{
+
+                      }
+
+
                     },
                     child: Container(
                         width: double.infinity,

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netwalking_global/models/all_event_model.dart';
+import 'package:netwalking_global/models/event_details_model.dart';
 import 'package:netwalking_global/models/my_event_model.dart';
 import 'package:netwalking_global/services/api_client.dart';
 import 'package:netwalking_global/services/api_constant.dart';
@@ -10,17 +11,23 @@ import 'package:netwalking_global/utils/image_utils.dart';
 import 'package:netwalking_global/views/base/custom_snackbar.dart';
 import 'package:netwalking_global/views/screen/Home/AllSubScreen/JointEvent/AllTabsScreen/Widgets/all_event_screen.dart';
 import 'package:netwalking_global/views/screen/Home/AllSubScreen/JointEvent/AllTabsScreen/Widgets/my_event_screen.dart';
+import 'package:netwalking_global/views/screen/Home/AllSubScreen/JointEvent/joint_book_a_coach_screen.dart';
 
 class JoinEventController extends GetxController{
 
   final isJoinEventLoading = false.obs;
 
+  final isJoinLoading = false.obs;
+
   final isMyEventLoading = false.obs;
 
   final  isAllEventLoading = false.obs;
 
+  final isEventDetailsLoading = false.obs;
+
   RxList<MyEventData> myEventList = <MyEventData>[].obs;
   RxList<AllEventData> allEventList = <AllEventData>[].obs;
+  RxList<EventDetailsModel> eventDetailsList = <EventDetailsModel>[].obs;
 
   var tabIndex = 0.obs;
   Rx<File?> bannerImage = Rx<File?>(null);
@@ -53,6 +60,23 @@ class JoinEventController extends GetxController{
   }
 
 
+  /// fetch event details
+
+  Future<void> fetchEventDetails({required int id})async{
+
+    isEventDetailsLoading(true);
+    final response = await ApiClient.getData(ApiConstant.eventDetails(id: id));
+    if(response.statusCode == 200 || response.statusCode == 201){
+      EventDetailsModel eventDetailsModel = EventDetailsModel.fromJson(response.body['data']);
+      eventDetailsList.value = [eventDetailsModel];
+    }else{
+      showCustomSnackBar(response.body['message'], isError: true);
+    }
+    isEventDetailsLoading(false);
+
+  }
+
+/// fetch all event
   Future<void> fetchAllEvent()async{
     isAllEventLoading(true);
 
@@ -68,7 +92,7 @@ class JoinEventController extends GetxController{
     isAllEventLoading(false);
   }
 
-
+/// fetch my event
   Future<void> fetchMyEvent()async{
 
     isMyEventLoading(true);
@@ -85,6 +109,8 @@ class JoinEventController extends GetxController{
 
   }
 
+
+  /// submit event
   Future<void> joinEvent({
     required String bannerImage,
     required List<String> eventType,
@@ -129,6 +155,21 @@ class JoinEventController extends GetxController{
       showCustomSnackBar(response.body['message'], isError: true);
     }
     isJoinEventLoading(false);
+
+  }
+
+  Future<void> joinEventNow({required int id})async{
+    isJoinLoading(true);
+
+    final response = await ApiClient.postData(ApiConstant.joinEventEndPoint(id: id), null);
+    if(response.statusCode == 200 || response.statusCode == 201){
+      showCustomSnackBar(response.body['data']['message'], isError: false);
+      Get.to(() => JointBookACoachScreen());
+    }else{
+      showCustomSnackBar(response.body['data']['message'], isError: true);
+
+    }
+    isJoinLoading(false);
 
   }
 
