@@ -27,6 +27,9 @@ class CommonData{
   static const subscriptionEnd = 'subscriptionEnd';
   static const dateJoined = 'dateJoined';
   static const lastLogin = 'lastLogin';
+  static const totalEventJoin = 'totalEventJoin';
+  static const totalWalk = "totalWalk";
+  static const totalDayStreak = "total_day_streak";
 
   ///coach data
 

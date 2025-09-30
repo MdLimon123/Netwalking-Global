@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:netwalking_global/controllers/data_controller.dart';
+import 'package:netwalking_global/helpers/route.dart';
+import 'package:netwalking_global/services/prefs_helper.dart';
 import 'package:netwalking_global/utils/app_colors.dart';
+import 'package:netwalking_global/utils/app_constants.dart';
+import 'package:netwalking_global/views/base/custom_network_image.dart';
 import 'package:netwalking_global/views/base/custom_switch.dart';
 import 'package:netwalking_global/views/screen/Notification/notification_screen.dart';
 import 'package:netwalking_global/views/screen/Profile/AllSubScreen/about_us_screen.dart';
@@ -24,6 +29,14 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   bool isSwitch = false;
+
+  final _dataController = Get.put(DataController());
+
+  @override
+  void initState() {
+    _dataController.getUserData();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -90,34 +103,47 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ],
                 ),
                 const SizedBox(height: 8),
-                CircleAvatar(
+                _dataController.profileImage.value != null?  Obx(
+                      ()=> CustomNetworkImage(
+                    height: 50,
+                    width: 50,
+                    imageUrl: _dataController.profileImage.value,
+                    boxShape: BoxShape.circle,
+                  ),
+                ):CircleAvatar(
                   radius: 36,
                   backgroundImage: AssetImage("assets/image/profile.jpg"),
                 ),
                 SizedBox(height: 8),
-                Text(
-                  "Sophia Carter",
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.textColor),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  "Wellness Enthusiast",
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: Color(0xFF545454),
+                Obx(()=>
+                   Text(
+                    _dataController.name.value,
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.textColor),
                   ),
                 ),
                 const SizedBox(height: 4),
-                Text(
-                  "SophiaCarter123@gmail.com",
-                  style: TextStyle(
+                Obx(
+                  ()=> Text(
+                    _dataController.profession.value,
+                    style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
-                      color: Color(0xFF0957AA)),
+                      color: Color(0xFF545454),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Obx(
+                  ()=> Text(
+                    _dataController.email.value,
+                    style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xFF0957AA)),
+                  ),
                 ),
               ],
             ),
@@ -130,27 +156,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
               decoration: BoxDecoration(
                   color: Colors.white, borderRadius: BorderRadius.circular(8)),
-              child: Text(
-                "bio".tr,
-                style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.textColor),
-                textAlign: TextAlign.center,
+              child: Obx(
+                ()=> Text(
+                  _dataController.bio.value,
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.textColor),
+                  textAlign: TextAlign.center,
+                ),
               ),
             ),
           ),
           SizedBox(height: 12),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Row(
-              children: [
-                _customContainer(count: '10', text: 'events'.tr),
-                SizedBox(width: 10),
-                _customContainer(count: '25', text: 'walks'.tr),
-                SizedBox(width: 10),
-                _customContainer(count: '200', text: 'day_streak'.tr),
-              ],
+            child: Obx(
+                ()=> Row(
+                children: [
+                  _customContainer(count: _dataController.totalEventJoin.value, text: 'Events'),
+                  SizedBox(width: 10),
+                  _customContainer(count: _dataController.totalWalk.value, text: 'Walks'),
+                  SizedBox(width: 10),
+                  _customContainer(count: _dataController.totalDayStreak.value, text: 'Day Streak'),
+                ],
+              ),
             ),
           ),
           SizedBox(height: 12),
@@ -176,7 +206,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             fontWeight: FontWeight.w400,
                             color: AppColors.textColor),
                       ),
-                      SizedBox(width: 90),
+                      Spacer(),
                       CustomSwitch(
                           value: isSwitch,
                           onChanged: (val) {
@@ -301,22 +331,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Row(
                     children: [
                       Expanded(
-                        child: Container(
-                            height: 40,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                                border:
-                                Border.all(color: Color(0xFFFFFFFF), width: 1)),
-                            child: Center(
-                              child: Text(
-                                "yes".tr,
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            )),
+                        child: InkWell(
+                          onTap: ()async{
+                            await PrefsHelper.remove(AppConstants.bearerToken);
+                            Get.offAllNamed(AppRoutes.splashScreen);
+                          },
+                          child: Container(
+                              height: 40,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  border:
+                                  Border.all(color: Color(0xFFFFFFFF), width: 1)),
+                              child: Center(
+                                child: Text(
+                                  "yes".tr,
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              )),
+                        ),
                       ),
                       SizedBox(width: 24),
                       Expanded(
@@ -374,7 +410,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  _customContainer({required String count, required String text}) {
+  _customContainer({required int count, required String text}) {
     return Expanded(
       child: Container(
           padding: EdgeInsets.only(top: 10),
@@ -387,7 +423,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                count,
+                count.toString(),
                 style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w600,

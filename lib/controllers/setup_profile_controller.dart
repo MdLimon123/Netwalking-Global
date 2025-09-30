@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:netwalking_global/controllers/data_controller.dart';
 import 'package:netwalking_global/helpers/route.dart';
 import 'package:netwalking_global/services/api_client.dart';
 import 'package:netwalking_global/services/api_constant.dart';
@@ -28,6 +29,8 @@ class SetupProfileController extends GetxController{
   final selectedGender = RxnString();
   final selectedEthnicity = RxnString();
   final selectedOrientation = RxnString();
+
+  final _dataController = Get.put(DataController());
 
   final isSubmitLoading = false.obs;
 
@@ -230,6 +233,7 @@ class SetupProfileController extends GetxController{
 
     if (response.statusCode == 200 || response.statusCode == 201) {
       final data = jsonDecode(response.body);
+      await _dataController.setUserData(data['data'] ?? {});
       showCustomSnackBar(data['message'], isError: false);
       Get.offAllNamed(AppRoutes.completeScreen);
     } else {
