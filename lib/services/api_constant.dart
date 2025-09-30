@@ -15,5 +15,6 @@ class ApiConstant{
   static String getProfileEndPoint = "/api/v1/auth/profile/";
   static String addEventEndPoint = "/api/v1/event/events/";
   static String myEventEndPoint = "/api/v1/event/my_events/";
+  static String allEventEndPoint = "/api/v1/event/events/";
 
 }

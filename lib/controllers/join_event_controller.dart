@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:netwalking_global/models/all_event_model.dart';
 import 'package:netwalking_global/models/my_event_model.dart';
 import 'package:netwalking_global/services/api_client.dart';
 import 'package:netwalking_global/services/api_constant.dart';
@@ -16,7 +17,10 @@ class JoinEventController extends GetxController{
 
   final isMyEventLoading = false.obs;
 
+  final  isAllEventLoading = false.obs;
+
   RxList<MyEventData> myEventList = <MyEventData>[].obs;
+  RxList<AllEventData> allEventList = <AllEventData>[].obs;
 
   var tabIndex = 0.obs;
   Rx<File?> bannerImage = Rx<File?>(null);
@@ -46,6 +50,22 @@ class JoinEventController extends GetxController{
       bannerImage.value = pickedFile;
     }
 
+  }
+
+
+  Future<void> fetchAllEvent()async{
+    isAllEventLoading(true);
+
+    final response = await ApiClient.getData(ApiConstant.allEventEndPoint);
+
+    if(response.statusCode == 200 || response.statusCode == 201){
+      AllEventModel allEventModel = AllEventModel.fromJson(response.body);
+      allEventList.value = allEventModel.data;
+
+    }else{
+      showCustomSnackBar(response.body['message'], isError: true);
+    }
+    isAllEventLoading(false);
   }
 
 
