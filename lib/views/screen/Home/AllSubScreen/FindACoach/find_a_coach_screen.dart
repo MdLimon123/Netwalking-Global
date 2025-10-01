@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:netwalking_global/controllers/find_book_coach_controller.dart';
 import 'package:netwalking_global/utils/app_colors.dart';
 import 'package:netwalking_global/views/base/custom_appbar.dart';
 import 'package:netwalking_global/views/base/custom_button.dart';
+import 'package:netwalking_global/views/base/custom_network_image.dart';
+import 'package:netwalking_global/views/base/custom_page_loading.dart';
 import 'package:netwalking_global/views/base/custom_switch.dart';
+import 'package:netwalking_global/views/base/custom_time_date_event.dart';
+import 'package:netwalking_global/views/base/formate_even_time.dart';
+import 'package:netwalking_global/views/base/time_date.dart';
 import 'package:netwalking_global/views/screen/Coach/start_coach_profile_screen.dart';
 import 'package:netwalking_global/views/screen/Home/AllSubScreen/FindACoach/book_a_coach_screen.dart';
+import 'package:netwalking_global/views/screen/Home/AllSubScreen/FindACoach/coach_profile_details.dart';
 import 'package:netwalking_global/views/screen/Home/AllSubScreen/FindACoach/find_new_coach_screen.dart';
 
 class FindACoachScreen extends StatefulWidget {
@@ -18,6 +25,14 @@ class FindACoachScreen extends StatefulWidget {
 class _FindACoachScreenState extends State<FindACoachScreen> {
 
    bool isSwitched = false;
+
+   final _findBookingCoachController = Get.put(FindBookCoachController());
+
+   @override
+  void initState() {
+    _findBookingCoachController.fetchFindBookingCoach();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,12 +73,16 @@ class _FindACoachScreenState extends State<FindACoachScreen> {
               ],
             ),
             SizedBox(height: 16,),
+            Obx(()=> _findBookingCoachController.isFindCoachLoading.value ?
+            Center(child: CustomPageLoading(),) :
             Expanded(
               child: ListView.separated(
                   itemBuilder: (context, index){
+                    final coach = _findBookingCoachController.findBookingCoachList[index];
                     return InkWell(
                       onTap: (){
-                        Get.to(()=> BookACoachScreen());
+                        /// session details screen
+
                       },
                       child: Container(
                         width: double.infinity,
@@ -79,58 +98,56 @@ class _FindACoachScreenState extends State<FindACoachScreen> {
 
                             Row(
                               children: [
-                                Container(
-                                  height: 24,
-                                  width: 24,
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      image: DecorationImage(image: AssetImage('assets/image/profile.jpg'),
-                                          fit: BoxFit.cover)
 
-                                )),
+                                CustomNetworkImage(
+                                    imageUrl: coach.coachImage,
+                                    boxShape: BoxShape.circle,
+                                    height: 24,
+                                    width: 24),
+
                                 SizedBox(width: 8,),
-                                Text("Dr. Amela Harper",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                  color: AppColors.textColor
-                                ),)
+                                Text(coach.coachName,
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                      color: AppColors.textColor
+                                  ),)
                               ],
                             ),
                             SizedBox(height: 6,),
                             Row(
                               children: [
-                                Text("Specialty: Communication",
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                  color: Color(0xFF545454)
-                                ),),
+                                Text("Specialty: ${coach.coachingAreaName}",
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                      color: Color(0xFF545454)
+                                  ),),
                                 Spacer(),
-                                Text("Confirmed",
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                  color: Color(0xFF468A3A)
-                                ),)
+                                Text(coach.status,
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                      color: Color(0xFF468A3A)
+                                  ),)
                               ],
                             ),
                             SizedBox(height: 6,),
-                            Text("Today 8.00",
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              color: AppColors.textColor
-                            ),)
+                            Text("${customTimeDateEvent(coach.sessionDate)} ${customTimeDateEvent(coach.sessionTime)}",
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                  color: AppColors.textColor
+                              ),)
                           ],
                         ),
                       ),
                     );
 
                   },
-                  separatorBuilder: (__, index)=> SizedBox(height: 8),
-                  itemCount: 10),
-            ),
+                  separatorBuilder: (_, index)=> SizedBox(height: 8),
+                  itemCount: _findBookingCoachController.findBookingCoachList.length),
+            ),),
             CustomButton(onTap: (){
               Get.to(()=> FindNewCoachScreen());
             },

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:netwalking_global/utils/app_colors.dart';
 import 'package:netwalking_global/views/base/custom_appbar.dart';
+import 'package:netwalking_global/views/screen/Home/AllSubScreen/FindACoach/coach_profile_details.dart';
 
 class CoachFilterResultScreen extends StatefulWidget {
   const CoachFilterResultScreen({super.key});
@@ -30,66 +32,71 @@ class _CoachFilterResultScreenState extends State<CoachFilterResultScreen> {
             Expanded(
               child: ListView.separated(
                   itemBuilder: (context, index){
-                    return Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(12)
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-              
-                          Row(
-                            children: [
-                              Container(
-                                  height: 24,
-                                  width: 24,
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      image: DecorationImage(image: AssetImage('assets/image/profile.jpg'),
-                                          fit: BoxFit.cover)
-              
-                                  )),
-                              SizedBox(width: 8,),
-                              Text("Dr. Amela Harper",
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                    color: AppColors.textColor
-                                ),)
-                            ],
-                          ),
-                          SizedBox(height: 6,),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Text("Specialty: Communication & Conflict Resolution",
+                    return InkWell(
+                      onTap: (){
+                        Get.to(()=> CoachProfileDetailsScreen());
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(12)
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+
+                            Row(
+                              children: [
+                                Container(
+                                    height: 24,
+                                    width: 24,
+                                    decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        image: DecorationImage(image: AssetImage('assets/image/profile.jpg'),
+                                            fit: BoxFit.cover)
+
+                                    )),
+                                SizedBox(width: 8,),
+                                Text("Dr. Amela Harper",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                      color: AppColors.textColor
+                                  ),)
+                              ],
+                            ),
+                            SizedBox(height: 6,),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Text("Specialty: Communication & Conflict Resolution",
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400,
+                                        color: Color(0xFF545454)
+                                    ),),
+                                ),
+                                Spacer(),
+                                Text("Book Now",
                                   style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w400,
-                                      color: Color(0xFF545454)
-                                  ),),
-                              ),
-                              Spacer(),
-                              Text("Book Now",
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    decoration: TextDecoration.underline,
-                                    decorationColor:  AppColors.textColor,
-                                    color: AppColors.textColor
-                                ),)
-                            ],
-                          ),
+                                      decoration: TextDecoration.underline,
+                                      decorationColor:  AppColors.textColor,
+                                      color: AppColors.textColor
+                                  ),)
+                              ],
+                            ),
 
-                        ],
+                          ],
+                        ),
                       ),
                     );
                   },
-                  separatorBuilder: (__, _)=>SizedBox(height: 12,) ,
+                  separatorBuilder: (_, _)=>SizedBox(height: 12,) ,
                   itemCount: 10),
             )
           ],

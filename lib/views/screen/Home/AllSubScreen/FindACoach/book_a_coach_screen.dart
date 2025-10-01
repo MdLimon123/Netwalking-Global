@@ -94,7 +94,7 @@ class _BookACoachScreenState extends State<BookACoachScreen> {
           SizedBox(height: 135,),
           InkWell(
             onTap: (){
-              Get.to(()=> CoachProfileDetailsScreen());
+
             },
             child: Container(
               height: 52,

@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:netwalking_global/controllers/community_controller.dart';
 import 'package:netwalking_global/utils/app_colors.dart';
 import 'package:netwalking_global/views/base/bottom_menu..dart';
 import 'package:netwalking_global/views/base/custom_button.dart';
+import 'package:netwalking_global/views/base/custom_network_image.dart';
+import 'package:netwalking_global/views/base/custom_page_loading.dart';
+import 'package:netwalking_global/views/base/custom_time_date_event.dart';
 import 'package:netwalking_global/views/screen/Community/AllSubScreen/community_details_screen.dart';
 import 'package:netwalking_global/views/screen/Community/AllSubScreen/create_post_screen.dart';
 import 'package:netwalking_global/views/screen/Notification/notification_screen.dart';
@@ -16,6 +20,15 @@ class CommunityScreen extends StatefulWidget {
 }
 
 class _CommunityScreenState extends State<CommunityScreen> {
+
+
+  final _communityController = Get.put(CommunityController());
+  @override
+  void initState() {
+   _communityController.fetchAllCommunityPosts();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,114 +81,124 @@ class _CommunityScreenState extends State<CommunityScreen> {
               ),
             ),
             const SizedBox(height: 26),
-            Expanded(
-                child: ListView.separated(
-                    physics: const AlwaysScrollableScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                        onTap: () {
-                          Get.to(() => CommunityDetailsScreen());
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 20),
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(8),
-                              border: Border.all(color: const Color(0xFFE6E6E6), width: 1)),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  Container(
-                                      height: 32,
-                                      width: 32,
-                                      decoration: const BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          image: DecorationImage(
-                                              image: AssetImage('assets/image/profile.jpg'),
-                                              fit: BoxFit.cover))),
-                                  const SizedBox(width: 8),
-                                  Text(
-                                    "mr_john".tr,
-                                    style: const TextStyle(
-                                      color: Color(0xFF545454),
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 14),
-                                  SvgPicture.asset('assets/icons/clock.svg'),
-                                  const SizedBox(width: 4),
-                                  Text(
-                                    "8:00 AM",
-                                    style: const TextStyle(
-                                      color: Color(0xFF545454),
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  )
-                                ],
-                              ),
-                              const SizedBox(height: 12),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "clean_up_walk".tr,
-                                    style: TextStyle(
-                                      color: AppColors.textColor,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                  Container(
-                                    width: 60,
-                                    height: 60,
-                                    decoration: const BoxDecoration(
-                                        borderRadius: BorderRadius.all(Radius.circular(8)),
-                                        image: DecorationImage(
-                                            image: AssetImage('assets/image/profile.jpg'),
-                                            fit: BoxFit.cover)),
-                                  )
-                                ],
-                              ),
-                              const SizedBox(height: 10),
-                              Row(
-                                children: [
-                                  const Icon(
-                                    Icons.favorite,
-                                    color: Colors.red,
-                                  ),
-                                  Text(
-                                    "25",
-                                    style: TextStyle(
-                                      color: AppColors.textColor,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 15),
-                                  SvgPicture.asset('assets/icons/comment.svg'),
-                                  Text(
-                                    "25",
-                                    style: TextStyle(
-                                      color: AppColors.textColor,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                    separatorBuilder: (__, index) => const SizedBox(height: 10),
-                    itemCount: 5)),
+           Obx(()=> _communityController.isCommunityPostLoading.value?
+           Center(child: CustomPageLoading()):
+           Expanded(
+               child: ListView.separated(
+                   physics: const AlwaysScrollableScrollPhysics(),
+                   itemBuilder: (context, index) {
+                     final post = _communityController.communityPosts.value[index];
+                     return InkWell(
+                       onTap: () {
+                         Get.to(() => CommunityDetailsScreen());
+                       },
+                       child: Container(
+                         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 20),
+                         width: double.infinity,
+                         decoration: BoxDecoration(
+                             color: Colors.white,
+                             borderRadius: BorderRadius.circular(8),
+                             border: Border.all(color: const Color(0xFFE6E6E6), width: 1)),
+                         child: Column(
+                           mainAxisAlignment: MainAxisAlignment.start,
+                           crossAxisAlignment: CrossAxisAlignment.start,
+                           children: [
+                             Row(
+                               children: [
+
+                                 CustomNetworkImage(
+                                     imageUrl: post.image,
+                                     boxShape: BoxShape.circle,
+                                     height: 32,
+                                     width: 32),
+
+                          
+                                 const SizedBox(width: 8),
+                                 Text(
+                                   post.userName,
+                                   style: const TextStyle(
+                                     color: Color(0xFF545454),
+                                     fontSize: 14,
+                                     fontWeight: FontWeight.w400,
+                                   ),
+                                 ),
+                                 const SizedBox(width: 14),
+                                 SvgPicture.asset('assets/icons/clock.svg'),
+                                 const SizedBox(width: 4),
+                                 Text(
+                                   customTimeDateEvent(post.createdAt.toString()),
+                                   style: const TextStyle(
+                                     color: Color(0xFF545454),
+                                     fontSize: 14,
+                                     fontWeight: FontWeight.w400,
+                                   ),
+                                 )
+                               ],
+                             ),
+                             const SizedBox(height: 12),
+                             Row(
+                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                               children: [
+                                 Text(
+                                   post.title ?? "",
+                                   style: TextStyle(
+                                     color: AppColors.textColor,
+                                     fontSize: 16,
+                                     fontWeight: FontWeight.w500,
+                                   ),
+                                 ),
+
+                                 CustomNetworkImage(
+                                     imageUrl: post.image,
+                                     borderRadius: BorderRadius.circular(8),
+                                     height: 60,
+                                     width: 60),
+
+                                 // Container(
+                                 //   width: 60,
+                                 //   height: 60,
+                                 //   decoration: const BoxDecoration(
+                                 //       borderRadius: BorderRadius.all(Radius.circular(8)),
+                                 //       image: DecorationImage(
+                                 //           image: AssetImage('assets/image/profile.jpg'),
+                                 //           fit: BoxFit.cover)),
+                                 // )
+                               ],
+                             ),
+                             const SizedBox(height: 10),
+                             Row(
+                               children: [
+                                 const Icon(
+                                   Icons.favorite,
+                                   color: Colors.red,
+                                 ),
+                                 Text(
+                                   post.likesCount.toString(),
+                                   style: TextStyle(
+                                     color: AppColors.textColor,
+                                     fontSize: 14,
+                                     fontWeight: FontWeight.w400,
+                                   ),
+                                 ),
+                                 const SizedBox(width: 15),
+                                 SvgPicture.asset('assets/icons/comment.svg'),
+                                 Text(
+                                   post.commentsCount.toString(),
+                                   style: TextStyle(
+                                     color: AppColors.textColor,
+                                     fontSize: 14,
+                                     fontWeight: FontWeight.w400,
+                                   ),
+                                 ),
+                               ],
+                             )
+                           ],
+                         ),
+                       ),
+                     );
+                   },
+                   separatorBuilder: (_, index) => const SizedBox(height: 10),
+                   itemCount: _communityController.communityPosts.value.length))),
             CustomButton(
                 onTap: () {
                   Get.to(() => CreatePostScreen());
