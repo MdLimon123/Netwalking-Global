@@ -20,5 +20,10 @@ class ApiConstant{
   static String joinEventEndPoint({required int id}) => "/api/v1/event/events/join/$id/";
   static String getAllCommunityEndPoint = "/api/v1/community/posts/";
   static String findBookingCoachEndPoint = "/api/v1/auth/bookings/user/";
+  static String allCategoryEndPoint = "/api/v1/auth/coach-categories/";
+  static String coachFilterEndPoint = "/api/v1/auth/coaches/filter/";
+  static String coachProfileEndPoint({required int id}) => "/api/v1/auth/user/$id/";
+  static String coachBookingEndPoint = "/api/v1/auth/bookings/create/";
+  static String sessionDetailsEndPoint({required int id}) => "/api/v1/auth/bookings/user/$id/";
 
 }

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:netwalking_global/controllers/find_book_coach_controller.dart';
 import 'package:netwalking_global/utils/app_colors.dart';
 import 'package:netwalking_global/views/base/custom_appbar.dart';
 import 'package:netwalking_global/views/base/custom_button.dart';
 import 'package:netwalking_global/views/base/custom_dropdown.dart';
 import 'package:netwalking_global/views/base/custom_dropdown_checkbox.dart';
+import 'package:netwalking_global/views/base/custom_page_loading.dart';
 import 'package:netwalking_global/views/base/custom_text_field.dart';
 import 'package:netwalking_global/views/screen/Home/AllSubScreen/FindACoach/coach_filter_result_screen.dart';
 
@@ -20,49 +22,15 @@ class _FindNewCoachScreenState extends State<FindNewCoachScreen> {
 
   final textController = TextEditingController();
 
-  List<String> gender = [
-    "Man",
-    "Women",
-    "Non-binary",
-    "Prefer not to say",
-    "Self-describe"
-  ];
+  final _findCoachController = Get.put(FindBookCoachController());
 
-  List<String> language = [
-    "English",
-    "Bangla",
-    "Hindi",
-    "Spanish"
-  ];
 
-  List<String> coachFocus = [
-    "Mental Health & Wellbeing",
-    "Professional Growth",
-    "Networking Support",
-    "Life Transitions",
-    "Inclusion & Accessibility",
-    "Purpose & Values",
-    "Movement-Based Coaching"
-  ];
 
-  List<String> preferredCoach =[
-    "In-Person",
-    "Online (Video/Call)",
-    "Walk-Based Sessions (Netwalking style)"
-  ];
-
-  List<String> coachLevel = [
-    "Beginner",
-    "Intermediate",
-    "Expert",
-    "Certified / Accredited"
-  ];
-
-  List<String> coachAvailability = [
-    "Morning",
-    "Afternoon",
-    "Evening"
-  ];
+  @override
+  void initState() {
+    _findCoachController.fetchAllCategory();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -106,25 +74,36 @@ class _FindNewCoachScreenState extends State<FindNewCoachScreen> {
             bgColor: Colors.white,
             showCheckbox: false,
             leadingIcon: SvgPicture.asset('assets/icons/gender.svg'),
-            options: gender,
+            options: _findCoachController.gender,
             onChanged: (val){
-
+              _findCoachController.selectedGender.value = val.first;
             }),
           SizedBox(height: 12,),
           CustomDropdownCheckbox(
               title: "Language",
-              options: language,
+              options: _findCoachController.language,
               bgColor: Colors.white,
               showCheckbox: false,
               leadingIcon: SvgPicture.asset('assets/icons/language.svg',
                 height: 24,
                 width: 24,),
               onChanged: (val){
+                _findCoachController.selectedLanguage.value = val.first;
               }),
           SizedBox(height: 12,),
-          CustomDropdownCheckbox(
+          Obx(() {
+            if (_findCoachController.isAllCategoryLoading.value) {
+              return Center(child: CustomPageLoading());
+            }
+            if (_findCoachController.allCategoryList.isEmpty) {
+              return Text("No categories found");
+            }
+
+            return CustomDropdownCheckbox(
               title: "Coaching Focus",
-              options: coachFocus,
+              options: _findCoachController.allCategoryList
+                  .map((e) => e.name)
+                  .toList(),
               bgColor: Colors.white,
               showCheckbox: false,
               leadingIcon: Container(
@@ -133,19 +112,25 @@ class _FindNewCoachScreenState extends State<FindNewCoachScreen> {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   gradient: LinearGradient(
-                    colors: [
-                      Color(0xFF094EBE),
-                      Color(0xFF15AABA)
-                    ]
-                  )
+                    colors: [Color(0xFF0061FF), Color(0xFF60EFFF)],
+                  ),
                 ),
               ),
-              onChanged: (val){
-              }),
+              onChanged: (val) {
+                final selected = _findCoachController.allCategoryList
+                    .firstWhereOrNull((cat) => cat.name == val);
+                if (selected != null) {
+                  print("Selected Category ID: ${selected.id}");
+                  print("Selected Category Name: ${selected.name}");
+                }
+              },
+            );
+          }),
+
           SizedBox(height: 12,),
           CustomDropdownCheckbox(
               title: "Preferred Coaching Format",
-              options: preferredCoach,
+              options: _findCoachController.preferredCoach,
               bgColor: Colors.white,
               showCheckbox: false,
               leadingIcon: Container(
@@ -162,11 +147,12 @@ class _FindNewCoachScreenState extends State<FindNewCoachScreen> {
                 ),
               ),
               onChanged: (val){
+                _findCoachController.selectedFormat.value = val.first;
               }),
           SizedBox(height: 12,),
           CustomDropdownCheckbox(
               title: "Coach Experience Level",
-              options: coachLevel,
+              options: _findCoachController.coachLevel,
               bgColor: Colors.white,
               showCheckbox: false,
               leadingIcon: Container(
@@ -183,11 +169,12 @@ class _FindNewCoachScreenState extends State<FindNewCoachScreen> {
                 ),
               ),
               onChanged: (val){
+                _findCoachController.selectedLevel.value = val.first;
               }),
           SizedBox(height: 12,),
           CustomDropdownCheckbox(
               title: "Coach Availability",
-              options: coachAvailability,
+              options: _findCoachController.coachAvailability,
               bgColor: Colors.white,
               showCheckbox: false,
               leadingIcon: Container(
@@ -204,6 +191,7 @@ class _FindNewCoachScreenState extends State<FindNewCoachScreen> {
                 ),
               ),
               onChanged: (val){
+                _findCoachController.selectedAvailability.value = val.first;
               }),
           SizedBox(height: 50,),
 
@@ -229,7 +217,9 @@ class _FindNewCoachScreenState extends State<FindNewCoachScreen> {
                 ),
               ),
               SizedBox(width: 24,),
-              Expanded(child: CustomButton(onTap: (){
+              Expanded(
+                  child: CustomButton(onTap: (){
+                _findCoachController.fetchCoachFilter();
                 Get.to(()=>CoachFilterResultScreen());
               },
                   text: 'Apply Now'))

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:netwalking_global/controllers/find_book_coach_controller.dart';
 import 'package:netwalking_global/utils/app_colors.dart';
 import 'package:netwalking_global/views/base/custom_appbar.dart';
+import 'package:netwalking_global/views/base/custom_network_image.dart';
+import 'package:netwalking_global/views/base/custom_page_loading.dart';
 import 'package:netwalking_global/views/screen/Home/AllSubScreen/FindACoach/coach_profile_details.dart';
 
 class CoachFilterResultScreen extends StatefulWidget {
@@ -12,6 +15,14 @@ class CoachFilterResultScreen extends StatefulWidget {
 }
 
 class _CoachFilterResultScreenState extends State<CoachFilterResultScreen> {
+
+  final _findCoachController = Get.find<FindBookCoachController>();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,12 +40,17 @@ class _CoachFilterResultScreenState extends State<CoachFilterResultScreen> {
               fontWeight: FontWeight.w500,
               color: AppColors.textColor
             ),),
+            Obx(()=> _findCoachController.isCoachFilterLoading.value?
+            Center(child: CustomPageLoading()):
             Expanded(
               child: ListView.separated(
                   itemBuilder: (context, index){
+                    final data = _findCoachController.coachFilterList[index];
                     return InkWell(
                       onTap: (){
-                        Get.to(()=> CoachProfileDetailsScreen());
+                        Get.to(()=> CoachProfileDetailsScreen(
+                          id: data.userId,
+                        ));
                       },
                       child: Container(
                         width: double.infinity,
@@ -50,17 +66,15 @@ class _CoachFilterResultScreenState extends State<CoachFilterResultScreen> {
 
                             Row(
                               children: [
-                                Container(
-                                    height: 24,
-                                    width: 24,
-                                    decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        image: DecorationImage(image: AssetImage('assets/image/profile.jpg'),
-                                            fit: BoxFit.cover)
 
-                                    )),
+                                CustomNetworkImage(
+                                    imageUrl: data.image,
+                                    height: 24,
+                                    boxShape: BoxShape.circle,
+                                    width: 24),
+
                                 SizedBox(width: 8,),
-                                Text("Dr. Amela Harper",
+                                Text(data.fullName,
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w500,
@@ -72,7 +86,7 @@ class _CoachFilterResultScreenState extends State<CoachFilterResultScreen> {
                             Row(
                               children: [
                                 Expanded(
-                                  child: Text("Specialty: Communication & Conflict Resolution",
+                                  child: Text("Specialty: ${data.coachingAreaNames}",
                                     style: TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w400,
@@ -97,8 +111,8 @@ class _CoachFilterResultScreenState extends State<CoachFilterResultScreen> {
                     );
                   },
                   separatorBuilder: (_, _)=>SizedBox(height: 12,) ,
-                  itemCount: 10),
-            )
+                  itemCount: _findCoachController.coachFilterList.length),
+            ))
           ],
         ),
       ),

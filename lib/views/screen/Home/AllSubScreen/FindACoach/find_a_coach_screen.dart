@@ -14,6 +14,7 @@ import 'package:netwalking_global/views/screen/Coach/start_coach_profile_screen.
 import 'package:netwalking_global/views/screen/Home/AllSubScreen/FindACoach/book_a_coach_screen.dart';
 import 'package:netwalking_global/views/screen/Home/AllSubScreen/FindACoach/coach_profile_details.dart';
 import 'package:netwalking_global/views/screen/Home/AllSubScreen/FindACoach/find_new_coach_screen.dart';
+import 'package:netwalking_global/views/screen/Home/AllSubScreen/FindACoach/session_booking_details_screen.dart';
 
 class FindACoachScreen extends StatefulWidget {
   const FindACoachScreen({super.key});
@@ -82,7 +83,9 @@ class _FindACoachScreenState extends State<FindACoachScreen> {
                     return InkWell(
                       onTap: (){
                         /// session details screen
-
+                        Get.to(()=> SessionBookingDetailsScreen(
+                          id: coach.bookingId,
+                        ));
                       },
                       child: Container(
                         width: double.infinity,
