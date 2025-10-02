@@ -25,5 +25,7 @@ class ApiConstant{
   static String coachProfileEndPoint({required int id}) => "/api/v1/auth/user/$id/";
   static String coachBookingEndPoint = "/api/v1/auth/bookings/create/";
   static String sessionDetailsEndPoint({required int id}) => "/api/v1/auth/bookings/user/$id/";
+  static String findPartnerWalkEndPoint = "/api/v1/auth/invitations/";
+  static String searchForPartnerWalkEndPoint = "/api/v1/auth/walking_partner/search/";
 
 }

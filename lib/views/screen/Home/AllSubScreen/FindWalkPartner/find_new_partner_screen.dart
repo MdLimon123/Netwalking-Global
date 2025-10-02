@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:netwalking_global/controllers/find_patner_walk_controller.dart';
 import 'package:netwalking_global/utils/app_colors.dart';
 import 'package:netwalking_global/views/base/custom_appbar.dart';
+import 'package:netwalking_global/views/base/custom_button.dart';
 import 'package:netwalking_global/views/base/custom_dropdown_checkbox.dart';
 import 'package:netwalking_global/views/base/custom_text_field.dart';
+import 'package:netwalking_global/views/screen/Home/AllSubScreen/FindWalkPartner/find_partner_walk_filter_screen.dart';
 import 'package:netwalking_global/views/screen/Profile/AllSubScreen/user_profile_screen.dart';
 
 class FindNewPartnerScreen extends StatefulWidget {
@@ -16,7 +20,10 @@ class FindNewPartnerScreen extends StatefulWidget {
 
 class _FindNewPartnerScreenState extends State<FindNewPartnerScreen> {
 
+  final _findPartnerWalkController = Get.put(FindPartnerWalkController());
+
   final locationController = TextEditingController();
+  final dateController = TextEditingController();
 
   List<String> distance = [
     "Distance",
@@ -43,6 +50,23 @@ class _FindNewPartnerScreenState extends State<FindNewPartnerScreen> {
     "Dyslexic",
     "Evening",
   ];
+
+
+
+
+  void pickDate() async {
+    DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2100),
+    );
+
+    if (pickedDate != null) {
+      String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
+      dateController.text = formattedDate;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +113,7 @@ class _FindNewPartnerScreenState extends State<FindNewPartnerScreen> {
                 options: distance,
                 leadingIcon: SvgPicture.asset('assets/icons/hekabeka_location.svg'),
                 onChanged: (val){
-
+                  _findPartnerWalkController.selectedDistance.value = val.first;
                 }),
             SizedBox(height: 16,),
             Row(
@@ -104,6 +128,7 @@ class _FindNewPartnerScreenState extends State<FindNewPartnerScreen> {
                         height: 24,
                         width: 24,),
                       onChanged: (val){
+                        _findPartnerWalkController.selectedCost.value = val.first;
                       }),
                 ),
                 SizedBox(width: 12,),
@@ -115,7 +140,7 @@ class _FindNewPartnerScreenState extends State<FindNewPartnerScreen> {
                       options: type,
                       leadingIcon: SvgPicture.asset('assets/icons/single_person.svg'),
                       onChanged: (val){
-                  
+                        _findPartnerWalkController.selectedType.value = val.first;
                       }),
                 ),
               ],
@@ -131,13 +156,17 @@ class _FindNewPartnerScreenState extends State<FindNewPartnerScreen> {
                       bgColor: Colors.white,
                       leadingIcon: SvgPicture.asset('assets/icons/morning.svg'),
                       onChanged: (val){
-
+                        _findPartnerWalkController.selectedAvailability.value = val.first;
                       }),
                 ),
                 SizedBox(width: 12,),
                 Expanded(
-                  child: CustomTextField(controller: locationController,
+                  child: CustomTextField(controller: dateController,
                   filColor: Colors.white,
+                  readOnly: true,
+                  onTap: (){
+                    pickDate();
+                  },
                   suffixIcon: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: SvgPicture.asset('assets/icons/calender_fill.svg'),
@@ -150,119 +179,17 @@ class _FindNewPartnerScreenState extends State<FindNewPartnerScreen> {
                 ),
               ],
             ),
-            SizedBox(height: 16,),
-            Text("Walk Partner Recommendations",
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-              color: AppColors.textColor
 
-            ),),
-            SizedBox(height: 16,),
-            Expanded(
-              child: ListView.separated(
-                  itemBuilder: (context, index){
-                    return Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(12)
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-
-                          Row(
-                            children: [
-                              Container(
-                                  height: 24,
-                                  width: 24,
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      image: DecorationImage(image: AssetImage('assets/image/profile.jpg'),
-                                          fit: BoxFit.cover)
-
-                                  )),
-                              SizedBox(width: 8,),
-                              Text("0.8 Km away",
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColors.textColor
-                                ),),
-
-                            ],
-                          ),
-                          SizedBox(height: 6,),
-
-                          Padding(
-                            padding: const EdgeInsets.only(left: 30.0),
-                            child: Text("Mike Rodriguez",
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w400,
-                                  color: Color(0xFF545454)
-                              ),),
-                          ),
+            SizedBox(height: 160,),
 
 
-                          SizedBox(height: 6,),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 30.0),
-                            child: Row(
-                              children: [
-                                Text("Student",
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400,
-                                      color: AppColors.textColor
-                                  ),),
+            CustomButton(onTap: (){
+              _findPartnerWalkController.fetchSearchForPartnerWalk();
+              Get.to(()=> FindPartnerWalkFilterScreen());
+            },
+                text: "Apply Now"),
 
-                                Spacer(),
 
-                                InkWell(
-                                  onTap: (){
-                                    Get.to(()=> UserProfileScreen());
-                                  },
-                                  child: Text("See Profile",
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    decoration: TextDecoration.underline,
-                                    decorationColor: AppColors.textColor,
-                                    color: AppColors.textColor
-                                  ),),
-                                ),
-                                SizedBox(width: 16,),
-                                Container(
-                                  width: 60,
-                                  height: 24,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(4),
-                                      color: Color(0xFFE8F2ED)
-                                  ),
-                                  child: Center(
-                                    child: Text("Accept",
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w500,
-                                          color: Color(0xFF545454)
-                                      ),),
-                                  ),
-                                )
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    );
-
-                  },
-                  separatorBuilder: (__, index)=> SizedBox(height: 8),
-                  itemCount: 10),
-            )
           ],
         ),
       ),
