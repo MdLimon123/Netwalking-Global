@@ -90,7 +90,9 @@ class _CommunityScreenState extends State<CommunityScreen> {
                      final post = _communityController.communityPosts.value[index];
                      return InkWell(
                        onTap: () {
-                         Get.to(() => CommunityDetailsScreen());
+                         Get.to(() => CommunityDetailsScreen(
+                           id: post.id,
+                         ));
                        },
                        child: Container(
                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 20),
@@ -139,30 +141,39 @@ class _CommunityScreenState extends State<CommunityScreen> {
                              Row(
                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                children: [
-                                 Text(
-                                   post.title ?? "",
-                                   style: TextStyle(
-                                     color: AppColors.textColor,
-                                     fontSize: 16,
-                                     fontWeight: FontWeight.w500,
+                                 Expanded(
+                                   child: Column(
+                                     mainAxisAlignment: MainAxisAlignment.start,
+                                     crossAxisAlignment: CrossAxisAlignment.start,
+                                     children: [
+                                       Text(
+                                         post.title ?? "",
+                                         style: TextStyle(
+                                           color: AppColors.textColor,
+                                           fontSize: 16,
+                                           fontWeight: FontWeight.w500,
+                                         ),
+                                       ),
+                                       SizedBox(height: 5,),
+                                       Text(
+                                         post.content ?? "",
+                                         style: TextStyle(
+                                           color: AppColors.textColor,
+                                           fontSize: 12,
+                                           fontWeight: FontWeight.w400,
+                                         ),
+                                       ),
+                                     ],
                                    ),
                                  ),
 
                                  CustomNetworkImage(
-                                     imageUrl: post.image,
+                                     imageUrl: post.postImage.toString(),
                                      borderRadius: BorderRadius.circular(8),
                                      height: 60,
                                      width: 60),
 
-                                 // Container(
-                                 //   width: 60,
-                                 //   height: 60,
-                                 //   decoration: const BoxDecoration(
-                                 //       borderRadius: BorderRadius.all(Radius.circular(8)),
-                                 //       image: DecorationImage(
-                                 //           image: AssetImage('assets/image/profile.jpg'),
-                                 //           fit: BoxFit.cover)),
-                                 // )
+
                                ],
                              ),
                              const SizedBox(height: 10),

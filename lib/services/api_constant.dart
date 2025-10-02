@@ -28,5 +28,8 @@ class ApiConstant{
   static String findPartnerWalkEndPoint = "/api/v1/auth/invitations/";
   static String searchForPartnerWalkEndPoint = "/api/v1/auth/walking_partner/search/";
   static String singleUserProfileEndPoint({required int id}) => "/api/v1/auth/user/$id/";
+  static String postTopicEndPoint = "/api/v1/community/topics/";
+  static String addNewPostEndPoint = "/api/v1/community/posts/";
+  static String singlePostDetails({required int id}) => "/api/v1/community/posts/$id/";
 
 }

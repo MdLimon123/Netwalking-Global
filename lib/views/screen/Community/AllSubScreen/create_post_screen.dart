@@ -6,6 +6,7 @@ import 'package:netwalking_global/utils/app_colors.dart';
 import 'package:netwalking_global/views/base/custom_appbar.dart';
 import 'package:netwalking_global/views/base/custom_button.dart';
 import 'package:netwalking_global/views/base/custom_dropdown_checkbox.dart';
+import 'package:netwalking_global/views/base/custom_page_loading.dart';
 import 'package:netwalking_global/views/base/custom_text_field.dart';
 
 class CreatePostScreen extends StatefulWidget {
@@ -17,7 +18,7 @@ class CreatePostScreen extends StatefulWidget {
 
 class _CreatePostScreenState extends State<CreatePostScreen> {
   final titleController = TextEditingController();
-  final descriptionController = TextEditingController();
+  final contentController = TextEditingController();
 
   final _communityController = Get.put(CommunityController());
 
@@ -31,6 +32,12 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
     "professional_networking".tr,
     "wellness".tr
   ];
+
+  @override
+  void initState() {
+    _communityController.fetchAllCommunityTopics();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,13 +56,30 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
             ),
           ),
           SizedBox(height: 36),
-          CustomDropdownCheckbox(
-            title: "category".tr,
-            options: categories,
-            showCheckbox: false,
-            bgColor: Colors.white,
-            onChanged: (val) {},
-          ),
+
+          Obx(() {
+            if (_communityController.isTopicLoading.value) {
+              return Center(child: CustomPageLoading());
+            }
+
+            return CustomDropdownCheckbox(
+              title: "Category",
+              options: _communityController.communityTopics
+                  .map((e) => e.name)
+                  .toList(),
+              bgColor: Colors.white,
+              showCheckbox: false,
+              onChanged: (val) {
+                final selected = _communityController.communityTopics
+                    .firstWhereOrNull((cat) => cat.name == val);
+                if (selected != null) {
+                  print("Selected Category ID: ${selected.id}");
+                  print("Selected Category Name: ${selected.name}");
+                }
+              },
+            );
+          }),
+
           SizedBox(height: 12),
           Container(
             width: double.infinity,
@@ -103,7 +127,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                 ),
                 SizedBox(height: 12),
                 CustomTextField(
-                  controller: descriptionController,
+                  controller: contentController,
                   borderColor: Color(0xFFB3CBE5),
                   filColor: Colors.white,
                   maxLines: 5,
@@ -167,9 +191,18 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
 
           }),
           SizedBox(height: 24),
-          CustomButton(
-            onTap: () {},
-            text: "post_now".tr,
+          Obx(
+            ()=> CustomButton(
+              loading: _communityController.isPostLoading.value,
+              onTap: () {
+                _communityController.addNewPost(
+                  id: _communityController.id.value,
+                    postImage: _communityController.postImageFile.value!.path,
+                    title: titleController.text,
+                    content: contentController.text);
+              },
+              text: "post_now".tr,
+            ),
           )
         ],
       ),
