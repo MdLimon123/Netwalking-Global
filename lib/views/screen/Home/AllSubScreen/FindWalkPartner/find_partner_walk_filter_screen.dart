@@ -89,7 +89,9 @@ class _FindPartnerWalkFilterScreenState extends State<FindPartnerWalkFilterScree
 
                       InkWell(
                         onTap: (){
-                          Get.to(()=> UserProfileScreen());
+                          Get.to(()=> UserProfileScreen(
+                            id: data.userId,
+                          ));
                         },
                         child: Text("See Profile",
                           style: TextStyle(

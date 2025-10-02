@@ -103,16 +103,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ],
                 ),
                 const SizedBox(height: 8),
-                _dataController.profileImage.value != null?  Obx(
+                Obx(
                       ()=> CustomNetworkImage(
                     height: 50,
                     width: 50,
                     imageUrl: _dataController.profileImage.value,
                     boxShape: BoxShape.circle,
                   ),
-                ):CircleAvatar(
-                  radius: 36,
-                  backgroundImage: AssetImage("assets/image/profile.jpg"),
                 ),
                 SizedBox(height: 8),
                 Obx(()=>
