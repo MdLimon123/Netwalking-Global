@@ -6,6 +6,7 @@ import 'package:netwalking_global/controllers/data_controller.dart';
 import 'package:netwalking_global/models/all_community_post_model.dart';
 import 'package:netwalking_global/models/community_topic_model.dart';
 import 'package:netwalking_global/models/single_post_details_model.dart';
+import 'package:netwalking_global/models/topic_wish_model.dart';
 import 'package:netwalking_global/services/api_client.dart';
 import 'package:netwalking_global/services/api_constant.dart';
 import 'package:netwalking_global/views/base/custom_snackbar.dart';
@@ -20,6 +21,7 @@ class CommunityController extends GetxController{
    final isTopicLoading = false.obs;
 
    final isPostLoading = false.obs;
+   final isTopicWishLoading = false.obs;
 
    final isSinglePostDetailsLoading = false.obs;
 
@@ -27,6 +29,8 @@ class CommunityController extends GetxController{
    var communityTopics = <CommunityTopic>[].obs;
 
    Rxn<SinglePostModel> singlePost = Rxn<SinglePostModel>();
+
+   RxList<TopicWishData> topicWishPosts = <TopicWishData>[].obs;
 
    final _dataController = Get.find<DataController>();
 
@@ -62,6 +66,24 @@ class CommunityController extends GetxController{
     isCommunityPostLoading(false);
   }
 
+  /// Topic Wish Post
+
+   Future<void> fetchTopicWishPosts({required int id})async{
+
+    isCommunityPostLoading(true);
+
+    final response = await ApiClient.getData(ApiConstant.topicWishSinglePostDetails(id: id));
+    if(response.statusCode == 200 || response.statusCode == 201){
+      List<dynamic> data = response.body['data'];
+
+      communityPosts.value = data.map((e) => AllCommunityPost.fromJson(e)).toList();
+
+    }else{
+      showCustomSnackBar("Something we want to wrong", isError: true);
+    }
+    isCommunityPostLoading(false);
+
+   }
   /// Community Topic
  Future<void> fetchAllCommunityTopics()async{
     isTopicLoading(true);
@@ -155,8 +177,8 @@ Future<void> fetchSinglePostDetails({required int id}) async {
 
  }
 
-
-   Future<void> likeSinglePost({required int id}) async {
+ /// send like
+ Future<void> likeSinglePost({required int id}) async {
      if (singlePost.value == null) return;
 
      final post = singlePost.value!;
@@ -182,14 +204,4 @@ Future<void> fetchSinglePostDetails({required int id}) async {
 
 }
 
-//
-// Future<void> likePost({required int id})async{
-//
-//     final response = await ApiClient.postData(ApiConstant.likePostEndPoint(id: id), null);
-//     if(response.statusCode == 200 || response.statusCode == 201){
-//       showCustomSnackBar(response.body['message'], isError: false);
-//     }else{
-//       showCustomSnackBar(response.body['message'], isError: true);
-//     }
-// }
 

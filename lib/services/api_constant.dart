@@ -33,5 +33,6 @@ class ApiConstant{
   static String singlePostDetails({required int id}) => "/api/v1/community/posts/$id/";
   static String commentPostEndPoint({required int id}) => "/api/v1/community/posts/$id/comments/";
   static String likePostEndPoint({required int id}) => "/api/v1/community/posts/$id/like/";
+  static String topicWishSinglePostDetails ({required int id}) => "/api/v1/community/topic_wise_post/$id/";
 
 }
