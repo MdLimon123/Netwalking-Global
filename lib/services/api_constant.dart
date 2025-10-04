@@ -34,5 +34,7 @@ class ApiConstant{
   static String commentPostEndPoint({required int id}) => "/api/v1/community/posts/$id/comments/";
   static String likePostEndPoint({required int id}) => "/api/v1/community/posts/$id/like/";
   static String topicWishSinglePostDetails ({required int id}) => "/api/v1/community/topic_wise_post/$id/";
+  static String bestSuggestedMatchEndPoint = "/api/v1/auth/best-matches/";
+  static String sendInvitationEndPoint = "/api/v1/auth/invitations/";
 
 }
