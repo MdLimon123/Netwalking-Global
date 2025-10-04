@@ -179,10 +179,11 @@ class _CommunityScreenState extends State<CommunityScreen> {
                              const SizedBox(height: 10),
                              Row(
                                children: [
-                                 const Icon(
+                                 post.isLiked?  const Icon(
                                    Icons.favorite,
                                    color: Colors.red,
-                                 ),
+                                 ): Icon(Icons.favorite_border,
+                                  color: Color(0xFF545454)),
                                  Text(
                                    post.likesCount.toString(),
                                    style: TextStyle(

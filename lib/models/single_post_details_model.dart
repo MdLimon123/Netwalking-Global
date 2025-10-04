@@ -10,8 +10,8 @@ class SinglePostModel {
   final DateTime createdAt;
   final int commentsCount;
   final List<SingleCommentData> comments;
-  final int likesCount;
-  final bool isLiked;
+   int likesCount;
+   bool isLiked;
 
   SinglePostModel({
     required this.id,

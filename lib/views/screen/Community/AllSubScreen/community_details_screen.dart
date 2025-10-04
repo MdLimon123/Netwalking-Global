@@ -40,222 +40,6 @@ class _CommunityDetailsScreenState extends State<CommunityDetailsScreen> {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: CustomAppbar(title: "community_details".tr),
-      // body: Obx(()=>
-      // _communityController.isSinglePostDetailsLoading.value?
-      // Center(child: CustomPageLoading()):
-      //
-      // Column(
-      //   mainAxisAlignment: MainAxisAlignment.start,
-      //   crossAxisAlignment: CrossAxisAlignment.start,
-      //   children: [
-      //     Padding(
-      //       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 18),
-      //       child: Text(
-      //         "post_details".tr,
-      //         style: TextStyle(
-      //           color: AppColors.textColor,
-      //           fontSize: 16,
-      //           fontWeight: FontWeight.w500,
-      //         ),
-      //       ),
-      //     ),
-      //     Expanded(
-      //       child: SingleChildScrollView(
-      //         child: Container(
-      //           padding: EdgeInsets.symmetric(horizontal: 18, vertical: 12),
-      //           width: double.infinity,
-      //           decoration: BoxDecoration(
-      //             color: Color(0xFFFFFFFF),
-      //             borderRadius: BorderRadius.only(
-      //               topLeft: Radius.circular(8),
-      //               topRight: Radius.circular(8),
-      //             ),
-      //           ),
-      //           child: Column(
-      //             crossAxisAlignment: CrossAxisAlignment.start,
-      //             children: [
-      //               Row(
-      //                 children: [
-      //
-      //                   CustomNetworkImage(
-      //                       imageUrl: _communityController.singlePostList[0].image,
-      //                       boxShape: BoxShape.circle,
-      //                       height: 36,
-      //                       width: 36),
-      //
-      //                   Container(
-      //                     height: 36,
-      //                     width: 36,
-      //                     decoration: BoxDecoration(
-      //                       shape: BoxShape.circle,
-      //                       image: DecorationImage(
-      //                         image: AssetImage('assets/image/profile.jpg'),
-      //                         fit: BoxFit.cover,
-      //                       ),
-      //                     ),
-      //                   ),
-      //                   SizedBox(width: 8),
-      //                   Column(
-      //                     crossAxisAlignment: CrossAxisAlignment.start,
-      //                     children: [
-      //                       Text(getTimeAgo(_communityController.singlePostList[0].createdAt.toString()),
-      //                           style: TextStyle(
-      //                               color: Color(0xFF545454),
-      //                               fontSize: 14,
-      //                               fontWeight: FontWeight.w400)),
-      //                       SizedBox(height: 4),
-      //                       Text(_communityController.singlePostList[0].userName,
-      //                           style: TextStyle(
-      //                               color: Color(0xFF545454),
-      //                               fontSize: 16,
-      //                               fontWeight: FontWeight.w500)),
-      //                     ],
-      //                   )
-      //                 ],
-      //               ),
-      //               SizedBox(height: 16),
-      //               Text(_communityController.singlePostList[0].title,
-      //                   style: TextStyle(
-      //                       color: AppColors.textColor,
-      //                       fontSize: 16,
-      //                       fontWeight: FontWeight.w500)),
-      //               SizedBox(height: 8),
-      //               Text(
-      //                 _communityController.singlePostList[0].content,
-      //                 style: TextStyle(
-      //                     color: Color(0xFF545454),
-      //                     fontSize: 14,
-      //                     fontWeight: FontWeight.w400),
-      //               ),
-      //               SizedBox(height: 8),
-      //
-      //               CustomNetworkImage(
-      //                   imageUrl: _communityController.singlePostList[0].postImage,
-      //                   height: 154,
-      //                   width: double.infinity),
-      //
-      //               SizedBox(height: 20),
-      //               Row(
-      //                 children: [
-      //                   Icon(Icons.favorite, color: Colors.red),
-      //                   SizedBox(width: 4),
-      //                   Text(_communityController.singlePostList[0].likesCount.toString(),
-      //                       style: TextStyle(
-      //                           color: AppColors.textColor,
-      //                           fontSize: 14,
-      //                           fontWeight: FontWeight.w400)),
-      //                   SizedBox(width: 15),
-      //                   SvgPicture.asset('assets/icons/comment.svg'),
-      //                   SizedBox(width: 4),
-      //                   Text(_communityController.singlePostList[0].commentsCount.toString(),
-      //                       style: TextStyle(
-      //                           color: AppColors.textColor,
-      //                           fontSize: 14,
-      //                           fontWeight: FontWeight.w400)),
-      //                 ],
-      //               ),
-      //               SizedBox(height: 12),
-      //               Text("comment".tr,
-      //                   style: TextStyle(
-      //                       color: AppColors.textColor,
-      //                       fontSize: 16,
-      //                       fontWeight: FontWeight.w600)),
-      //               SizedBox(height: 20),
-      //               ListView.separated(
-      //                   shrinkWrap: true,
-      //                   physics: NeverScrollableScrollPhysics(),
-      //                   itemBuilder: (context, index) {
-      //                     final comment = _communityController.singlePostList[0].comments[index];
-      //                     return Row(
-      //                       children: [
-      //
-      //                         CustomNetworkImage(
-      //                             imageUrl: comment.image,
-      //                             height: 28,
-      //                             boxShape: BoxShape.circle,
-      //                             width: 28),
-      //                         SizedBox(width: 12),
-      //                         Expanded(
-      //                           child: Container(
-      //                             width: double.infinity,
-      //                             padding: EdgeInsets.all(8),
-      //                             decoration: BoxDecoration(
-      //                               borderRadius: BorderRadius.circular(16),
-      //                               color: Color(0xFFEFF9EE),
-      //                             ),
-      //                             child: Column(
-      //                               crossAxisAlignment:
-      //                               CrossAxisAlignment.start,
-      //                               children: [
-      //                                 Text(getTimeAgo(comment.createdAt.toString()),
-      //                                     style: TextStyle(
-      //                                         color: Color(0xFF545454),
-      //                                         fontSize: 14,
-      //                                         fontWeight: FontWeight.w400)),
-      //                                 SizedBox(height: 4),
-      //                                 Text(comment.userName,
-      //                                     style: TextStyle(
-      //                                         color: AppColors.textColor,
-      //                                         fontSize: 16,
-      //                                         fontWeight: FontWeight.w500)),
-      //                                 SizedBox(height: 8),
-      //                                 Text(
-      //                                   comment.content,
-      //                                   style: TextStyle(
-      //                                       color: Color(0xFF272727),
-      //                                       fontSize: 14,
-      //                                       fontWeight: FontWeight.w400),
-      //                                 )
-      //                               ],
-      //                             ),
-      //                           ),
-      //                         ),
-      //                       ],
-      //                     );
-      //                   },
-      //                   separatorBuilder: (_, index) => SizedBox(height: 16),
-      //                   itemCount: _communityController.singlePostList[0].comments.length)
-      //             ],
-      //           ),
-      //         ),
-      //       ),
-      //     ),
-      //     Container(
-      //       padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      //       decoration: BoxDecoration(
-      //         color: Color(0xFFFFFFFF),
-      //         borderRadius: BorderRadius.only(
-      //           topLeft: Radius.circular(8),
-      //           topRight: Radius.circular(8),
-      //         ),
-      //       ),
-      //       child: Row(
-      //         children: [
-      //           Expanded(
-      //             child: CustomTextField(
-      //               controller: sendController,
-      //               hintText: "send_message".tr,
-      //             ),
-      //           ),
-      //           SizedBox(width: 8),
-      //           Container(
-      //             height: 35,
-      //             width: 72,
-      //             decoration: BoxDecoration(
-      //               gradient: LinearGradient(
-      //                 colors: [Color(0xFF094EBE), Color(0xFF15AABA)],
-      //               ),
-      //               borderRadius: BorderRadius.circular(8),
-      //             ),
-      //             child: Center(
-      //               child: Icon(Icons.send, color: Colors.white, size: 20),
-      //             ),
-      //           ),
-      //         ],
-      //       ),
-      //     ),
-      //   ],
-      // )),
 
         body: Obx(() {
           if (_communityController.isSinglePostDetailsLoading.value) {
@@ -355,28 +139,37 @@ class _CommunityDetailsScreenState extends State<CommunityDetailsScreen> {
                           width: double.infinity,
                         ),
                         SizedBox(height: 20),
-                        Row(
-                          children: [
-                            Icon(Icons.favorite, color: Colors.red),
-                            SizedBox(width: 4),
-                            Text(
-                              post.likesCount.toString(),
-                              style: TextStyle(
-                                  color: AppColors.textColor,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400),
-                            ),
-                            SizedBox(width: 15),
-                            SvgPicture.asset('assets/icons/comment.svg'),
-                            SizedBox(width: 4),
-                            Text(
-                              post.commentsCount.toString(),
-                              style: TextStyle(
-                                  color: AppColors.textColor,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400),
-                            ),
-                          ],
+                        InkWell(
+                          onTap: (){
+                            _communityController.likeSinglePost(id: post.id);
+                          },
+                          child: Row(
+                            children: [
+                            post.isLiked?  Icon(Icons.favorite, color: Colors.red)
+                                : Icon(
+                           Icons.favorite_border,
+                          color: Color(0xFF545454),
+                                               ),
+                              SizedBox(width: 4),
+                              Text(
+                                post.likesCount.toString(),
+                                style: TextStyle(
+                                    color: AppColors.textColor,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                              SizedBox(width: 15),
+                              SvgPicture.asset('assets/icons/comment.svg'),
+                              SizedBox(width: 4),
+                              Text(
+                                post.commentsCount.toString(),
+                                style: TextStyle(
+                                    color: AppColors.textColor,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                            ],
+                          ),
                         ),
                         SizedBox(height: 12),
                         Text(
@@ -387,7 +180,7 @@ class _CommunityDetailsScreenState extends State<CommunityDetailsScreen> {
                               fontWeight: FontWeight.w600),
                         ),
                         SizedBox(height: 20),
-                        ListView.separated(
+                     ListView.separated(
                           shrinkWrap: true,
                           physics: NeverScrollableScrollPhysics(),
                           itemBuilder: (context, index) {
@@ -444,7 +237,7 @@ class _CommunityDetailsScreenState extends State<CommunityDetailsScreen> {
                               ],
                             );
                           },
-                          separatorBuilder: (_, __) => SizedBox(height: 16),
+                          separatorBuilder: (_, _) => SizedBox(height: 16),
                           itemCount: post.comments.length,
                         ),
                       ],
@@ -480,8 +273,18 @@ class _CommunityDetailsScreenState extends State<CommunityDetailsScreen> {
                         ),
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: Center(
-                        child: Icon(Icons.send, color: Colors.white, size: 20),
+                      child: InkWell(
+                        onTap: (){
+                          _communityController.sendComment(id: widget.id,
+                              content: sendController.text);
+                          setState(() {
+
+                          });
+                          sendController.clear();
+                        },
+                        child: Center(
+                          child: Icon(Icons.send, color: Colors.white, size: 20),
+                        ),
                       ),
                     ),
                   ],
@@ -494,3 +297,4 @@ class _CommunityDetailsScreenState extends State<CommunityDetailsScreen> {
     );
   }
 }
+

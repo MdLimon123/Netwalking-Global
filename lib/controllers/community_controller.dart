@@ -1,6 +1,8 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:get/get.dart';
+import 'package:netwalking_global/controllers/data_controller.dart';
 import 'package:netwalking_global/models/all_community_post_model.dart';
 import 'package:netwalking_global/models/community_topic_model.dart';
 import 'package:netwalking_global/models/single_post_details_model.dart';
@@ -25,6 +27,8 @@ class CommunityController extends GetxController{
    var communityTopics = <CommunityTopic>[].obs;
 
    Rxn<SinglePostModel> singlePost = Rxn<SinglePostModel>();
+
+   final _dataController = Get.find<DataController>();
 
 
    Rx<File?> postImageFile = Rx<File?>(null);
@@ -75,7 +79,6 @@ class CommunityController extends GetxController{
  }
 
  /// Add New Post for Community
-
 Future<void> addNewPost({required int id, required String postImage, required String title, required String content,})async{
 
     isPostLoading(true);
@@ -107,6 +110,7 @@ Future<void> addNewPost({required int id, required String postImage, required St
 
 }
 
+/// Fetch Single Post Details
 Future<void> fetchSinglePostDetails({required int id}) async {
      isSinglePostDetailsLoading(true);
 
@@ -123,6 +127,69 @@ Future<void> fetchSinglePostDetails({required int id}) async {
      isSinglePostDetailsLoading(false);
    }
 
+   /// send comment
+ Future<void> sendComment({required int id, required String content})async{
+
+    final payload =  {
+      "content": content
+    };
+
+
+     singlePost.value!.comments.add(SingleCommentData(
+       id: _dataController.id.value,
+       userName: _dataController.name.value,
+       image: _dataController.profileImage.value,
+       content: content,
+       createdAt: DateTime.now(),
+     ));
+    final response = await ApiClient.postData(ApiConstant.commentPostEndPoint(id: id), jsonEncode(payload));
+
+    if(response.statusCode == 200 || response.statusCode == 201){
+
+
+
+    }else{
+      singlePost.value!.comments.removeWhere((val)=> val.content == content);
+      showCustomSnackBar("Something went wrong", isError: true);
+    }
+
+ }
+
+
+   Future<void> likeSinglePost({required int id}) async {
+     if (singlePost.value == null) return;
+
+     final post = singlePost.value!;
+
+
+     post.isLiked = !post.isLiked;
+     post.isLiked ? post.likesCount++ : post.likesCount--;
+     singlePost.refresh();
+
+     try {
+       await ApiClient.postData(ApiConstant.likePostEndPoint(id: id), {});
+
+     } catch (e) {
+
+       post.isLiked = !post.isLiked;
+       post.isLiked ? post.likesCount++ : post.likesCount--;
+       singlePost.refresh();
+       showCustomSnackBar("Failed to like/unlike post", isError: true);
+     }
+   }
+
 
 
 }
+
+//
+// Future<void> likePost({required int id})async{
+//
+//     final response = await ApiClient.postData(ApiConstant.likePostEndPoint(id: id), null);
+//     if(response.statusCode == 200 || response.statusCode == 201){
+//       showCustomSnackBar(response.body['message'], isError: false);
+//     }else{
+//       showCustomSnackBar(response.body['message'], isError: true);
+//     }
+// }
+
