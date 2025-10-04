@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:netwalking_global/models/best_suggest_match_model.dart';
+import 'package:netwalking_global/models/upcoming_event_model.dart';
 import 'package:netwalking_global/services/api_checker.dart';
 import 'package:netwalking_global/services/api_client.dart';
 import 'package:netwalking_global/services/api_constant.dart';
@@ -14,6 +15,11 @@ class HomeController extends GetxController{
   final isSuggestedLoading = false.obs;
 
   final isInvitationLoading = false.obs;
+  final isUpcomingLoading = false.obs;
+
+  final isEventLoading = false.obs;
+
+  RxList<UpcomingEventData> upcomingEventList = <UpcomingEventData>[].obs;
 
 
   Future<void> fetchBestSuggestMatch()async{
@@ -54,6 +60,19 @@ class HomeController extends GetxController{
       ApiChecker.checkApi(response);
     }
     isInvitationLoading(false);
+
+  }
+
+  Future<void> fetchUpcomingEvent()async{
+    isUpcomingLoading(true);
+
+    final response = await ApiClient.getData(ApiConstant.upcomingEventEndPoint);
+    if(response.statusCode == 200){
+      upcomingEventList.value = UpcomingEventModel.fromJson(response.body).upcomingEvents;
+    }else{
+      ApiChecker.checkApi(response);
+    }
+    isUpcomingLoading(false);
 
   }
 }

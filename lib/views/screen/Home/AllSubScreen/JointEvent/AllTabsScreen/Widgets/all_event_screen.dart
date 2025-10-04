@@ -69,7 +69,7 @@ class _AllEventScreenState extends State<AllEventScreen> {
                           id: allEvent.id,
                         ));
                       }else{
-
+                        Get.to(()=> EventDetailsScreen(id: allEvent.id,));
                       }
 
 

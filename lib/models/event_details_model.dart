@@ -18,6 +18,8 @@ class EventDetailsModel {
   final List<Participant> participants;
   final String status;
   final DateTime createdAt;
+  final bool isStarted;
+  final bool isCompleted;
 
   EventDetailsModel({
     required this.id,
@@ -39,6 +41,8 @@ class EventDetailsModel {
     required this.participants,
     required this.status,
     required this.createdAt,
+    required this.isStarted,
+    required this.isCompleted,
   });
 
   factory EventDetailsModel.fromJson(Map<String, dynamic> json) {
@@ -65,6 +69,8 @@ class EventDetailsModel {
           [],
       status: json['status'] ?? '',
       createdAt: DateTime.tryParse(json['created_at'] ?? '') ?? DateTime.now(),
+      isStarted: json['is_started'] ?? false,
+      isCompleted: json['is_completed'] ?? false,
     );
   }
 
@@ -89,6 +95,8 @@ class EventDetailsModel {
       'participants': participants.map((e) => e.toJson()).toList(),
       'status': status,
       'created_at': createdAt.toIso8601String(),
+      'is_started': isStarted,
+      'is_completed': isCompleted,
     };
   }
 }

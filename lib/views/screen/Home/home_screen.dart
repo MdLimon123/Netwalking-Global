@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:netwalking_global/controllers/chat_controller.dart';
 import 'package:netwalking_global/controllers/community_controller.dart';
 import 'package:netwalking_global/controllers/home_controller.dart';
 import 'package:netwalking_global/utils/app_colors.dart';
@@ -9,6 +10,7 @@ import 'package:netwalking_global/views/base/custom_network_image.dart';
 import 'package:netwalking_global/views/base/custom_page_loading.dart';
 import 'package:netwalking_global/views/base/custom_text_field.dart';
 import 'package:netwalking_global/views/base/custom_time_date_event.dart';
+import 'package:netwalking_global/views/screen/Chat/chat_screen.dart';
 import 'package:netwalking_global/views/screen/Community/AllSubScreen/community_details_screen.dart';
 import 'package:netwalking_global/views/screen/Home/AllSubScreen/FindACoach/find_a_coach_screen.dart';
 import 'package:netwalking_global/views/screen/Home/AllSubScreen/FindWalkPartner/find_walk_partner_screen.dart';
@@ -28,11 +30,13 @@ class _HomeScreenState extends State<HomeScreen> {
   final searchController = TextEditingController();
   final _communityController = Get.put(CommunityController());
   final _homeController = Get.put(HomeController());
+  final _chatController = Get.put(ChatController());
 
   @override
   void initState() {
     _communityController.fetchAllCommunityPosts();
     _homeController.fetchBestSuggestMatch();
+    _homeController.fetchUpcomingEvent();
     super.initState();
   }
 
@@ -446,6 +450,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
+                  final event = _homeController.upcomingEventList[index];
                   return Container(
                     width: double.infinity,
                     padding: EdgeInsets.symmetric(horizontal: 8, vertical: 15),
@@ -458,14 +463,17 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         Row(
                           children: [
-                            Container(
-                              height: 24,
-                              width: 24,
-                              child: SvgPicture.asset('assets/icons/show.svg'),
-                            ),
+                            
+                            CustomNetworkImage(
+                                imageUrl: event.image, 
+                                boxShape: BoxShape.circle,
+                                height: 24, 
+                                width: 24),
+                            
+                      
                             SizedBox(width: 8),
                             Text(
-                              "morning_walking".tr,
+                             event.eventType,
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
@@ -478,7 +486,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 32),
                           child: Text(
-                            "today".tr,
+                            customTimeDateEvent(event.date),
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w400,
@@ -504,23 +512,20 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: Stack(
                                 clipBehavior: Clip.none,
                                 children: [
+
+                                  for(int i = 0; i < event.participants.length; i++)
+
                                   // 1st avatar
                                   Positioned(
                                     left: 0,
-                                    child: CircleAvatar(
-                                      radius: 16,
-                                      backgroundImage: AssetImage("assets/image/profile.jpg"),
-                                    ),
+                                    child: CustomNetworkImage(
+                                        imageUrl: event.participants[i].image,
+                                        boxShape: BoxShape.circle,
+                                        height: 32,
+                                        width: 32)
                                   ),
 
-                                  // 2nd avatar (overlap)
-                                  Positioned(
-                                    left: 20,
-                                    child: CircleAvatar(
-                                      radius: 16,
-                                      backgroundImage: AssetImage("assets/image/profile.jpg"),
-                                    ),
-                                  ),
+
 
                                   // Badge (12+)
                                   Positioned(
@@ -529,13 +534,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                       height: 32,
                                       width: 32,
                                       decoration: BoxDecoration(
-                                        color: Color(0xFFE59A2F), // গোল্ডেন ব্যাকগ্রাউন্ড
+                                        color: Color(0xFFE59A2F),
                                         shape: BoxShape.circle,
-                                        border: Border.all(color: Colors.white, width: 2), // border যেন সুন্দর লাগে
+                                        border: Border.all(color: Colors.white, width: 2),
                                       ),
                                       child: Center(
                                         child: Text(
-                                          "12+",
+                                          event.totalParticipants.toString(),
                                           style: TextStyle(
                                             fontSize: 12,
                                             fontWeight: FontWeight.w600,
@@ -552,13 +557,21 @@ class _HomeScreenState extends State<HomeScreen> {
                             Spacer(),
 
                             Spacer(),
-                            Text(
-                              "message_now".tr,
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: AppColors.textColor,
-                                decoration: TextDecoration.underline,
+                            InkWell(
+                              onTap:(){
+                               _chatController.createChat(
+                                   id: event.userId,
+                                   name: event.userName,
+                                   image: event.image);
+                              },
+                              child: Text(
+                                "message_now".tr,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                  color: AppColors.textColor,
+                                  decoration: TextDecoration.underline,
+                                ),
                               ),
                             )
                           ],
@@ -567,8 +580,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   );
                 },
-                separatorBuilder: (__, index) => SizedBox(height: 8),
-                itemCount: 2,
+                separatorBuilder: (_, index) => SizedBox(height: 8),
+                itemCount: _homeController.upcomingEventList.length,
               )
             ],
           ),

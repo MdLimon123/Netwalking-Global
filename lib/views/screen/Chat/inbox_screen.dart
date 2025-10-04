@@ -42,7 +42,7 @@ class _InboxScreenState extends State<InboxScreen> {
           itemBuilder: (context, index){
             return InkWell(
               onTap: (){
-                Get.to(()=> ChatScreen());
+               // Get.to(()=> ChatScreen());
               },
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),

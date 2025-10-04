@@ -23,6 +23,8 @@ class ProfileController extends GetxController{
 
   Rx<File?> profileImage = Rx<File?>(null);
 
+  final isChangePasswordLoading = false.obs;
+
   var isCheck = List.generate(8, (_) => false).obs;
 
   final isUpdateLoading = false.obs;
@@ -140,5 +142,47 @@ class ProfileController extends GetxController{
     }
   }
 
+
+
+  /// change password
+
+  Future<void> changePassword({
+    required String oldPassword,
+    required String newPassword,
+    required String confirmPassword
+  }) async {
+
+    isChangePasswordLoading(true);
+
+    final body = {
+      "old_password": oldPassword,
+      "new_password": newPassword,
+      "confirm_password": confirmPassword
+    };
+
+    final response = await ApiClient.postData(ApiConstant.changePasswordEndPoint, jsonEncode(body));
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+
+      String message;
+      if (response.body['message'] is String) {
+        message = response.body['message'];
+      } else {
+        message = response.body['message'].toString();
+      }
+      showCustomSnackBar(message, isError: false);
+      Get.back();
+    } else {
+      String message;
+      if (response.body['message'] is String) {
+        message = response.body['message'];
+      } else {
+        message = response.body['message'].toString();
+      }
+      showCustomSnackBar(message, isError: true);
+    }
+
+    isChangePasswordLoading(false);
+  }
 
 }

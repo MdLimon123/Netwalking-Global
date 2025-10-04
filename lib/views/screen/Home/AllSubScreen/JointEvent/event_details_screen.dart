@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
+import 'package:netwalking_global/controllers/chat_controller.dart';
+import 'package:netwalking_global/controllers/data_controller.dart';
 import 'package:netwalking_global/controllers/join_event_controller.dart';
 import 'package:netwalking_global/utils/app_colors.dart';
 import 'package:netwalking_global/views/base/custom_appbar.dart';
@@ -10,6 +12,7 @@ import 'package:netwalking_global/views/base/custom_network_image.dart';
 import 'package:netwalking_global/views/base/custom_page_loading.dart';
 import 'package:netwalking_global/views/base/custom_time_date_event.dart';
 import 'package:netwalking_global/views/base/formate_even_time.dart';
+import 'package:netwalking_global/views/screen/Chat/chat_screen.dart';
 import 'package:netwalking_global/views/screen/Home/AllSubScreen/JointEvent/joint_book_a_coach_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -26,6 +29,10 @@ class EventDetailsScreen extends StatefulWidget {
 class _EventDetailsScreenState extends State<EventDetailsScreen> {
 
   final _joinEventController = Get.put(JoinEventController());
+
+  final _dataController = Get.find<DataController>();
+
+  final _chatController = Get.put(ChatController());
 
   Future<void> openMap(String location) async {
     try {
@@ -49,17 +56,26 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
     }
   }
 
+   String status = "";
+  int id = 0;
+  String name = "";
+  String image = "";
+
 
   @override
   void initState() {
     _joinEventController.fetchEventDetails(id: widget.id);
+    for(int i =0; i<_joinEventController.eventDetailsList.length; i++){
+      status = _joinEventController.eventDetailsList[i].status;
+      id = _joinEventController.eventDetailsList[i].id;
+      name = _joinEventController.eventDetailsList[i].userName;
+      image = _joinEventController.eventDetailsList[i].image;
+    }
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-
-
 
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
@@ -162,12 +178,15 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
                         SizedBox(height: 20),
                         Row(
                           children: [
-                            _customContainer(text: eventDetails.location, image: 'assets/icons/location.svg'),
+                            _customContainer(
+                                text: eventDetails.location,
+                                image: 'assets/icons/location.svg'),
                             SizedBox(width: 12),
                             Expanded(
                               child: InkWell(
                                 onTap: (){
                                   openMap(eventDetails.location);
+
                                 },
                                 child: Container(
                                   padding: EdgeInsets.all(12),
@@ -227,38 +246,143 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
                       ],
                     );
                   }),),
-            Container(
-              height: 48,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Color(0xFFFFFFFF),
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: Color(0xFF8EB2D8), width: 0.5),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SvgPicture.asset('assets/icons/chat.svg'),
-                  SizedBox(width: 8),
-                  Text("chat_now".tr, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: AppColors.textColor))
-                ],
+            InkWell(
+              onTap: (){
+                _chatController.createChat(id: id, name: name, image: image);
+              },
+              child: Container(
+                height: 48,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Color(0xFFFFFFFF),
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: Color(0xFF8EB2D8), width: 0.5),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset('assets/icons/chat.svg'),
+                    SizedBox(width: 8),
+                    Text(
+                      "Chat Now",
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.textColor,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-            SizedBox(height: 24),
-            Obx(
-                ()=> CustomButton(
+            SizedBox(height: 10,),
+            buildActionSection(status, widget.id,
+                _dataController.id.value,
+                _joinEventController.eventDetailsList[0].userId,
+                _joinEventController.eventDetailsList[0].isStarted,
+              _joinEventController.eventDetailsList[0].isCompleted
+              ),
 
-                loading: _joinEventController.isJoinLoading.value,
-                  onTap: () {
-                    _joinEventController.joinEventNow(id: widget.id);
-                    },
-                  text: "joint_event".tr),
-            ),
+            // status == 'join now'?
+            // Container(
+            //   height: 48,
+            //   width: double.infinity,
+            //   decoration: BoxDecoration(
+            //     color: Color(0xFFFFFFFF),
+            //     borderRadius: BorderRadius.circular(8),
+            //     border: Border.all(color: Color(0xFF8EB2D8), width: 0.5),
+            //   ),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.center,
+            //     children: [
+            //       SvgPicture.asset('assets/icons/chat.svg'),
+            //       SizedBox(width: 8),
+            //       Text("chat_now".tr, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: AppColors.textColor))
+            //     ],
+            //   ),
+            // ): SizedBox(),
+            // SizedBox(height: 24),
+            // status == 'join now'?
+            // Obx(
+            //     ()=> CustomButton(
+            //
+            //     loading: _joinEventController.isJoinLoading.value,
+            //       onTap: () {
+            //         _joinEventController.joinEventNow(id: widget.id);
+            //         },
+            //       text: "joint_event".tr),
+            // ): SizedBox(),
           ],
         ),
       )),
     );
   }
+
+  Widget buildActionSection(String status, int id, int loginUserId, int eventOwnerId, bool isStarted, bool isCompleted) {
+
+
+    if(isCompleted && isStarted){
+      return CustomButton(
+        loading: _joinEventController.isJoinLoading.value,
+        color: Colors.transparent,
+        onTap: () {},
+        text: "Completed",
+      );
+    }
+
+
+    if(loginUserId == eventOwnerId) {
+      if (!isStarted) {
+        return Obx(
+          ()=> CustomButton(
+            loading: _joinEventController.isStartEventLoading.value,
+            onTap: () {
+              _joinEventController.startEvent(id: id);
+            },
+            text: "Start Now",
+          ),
+        );
+      }
+     return Obx(
+       ()=> CustomButton(
+          loading: _joinEventController.isCompletedEventLoading.value,
+          onTap: () {
+              _joinEventController.markAsCompletedEvent(id: id);
+          },
+          text: "Mark As Complete",
+        ),
+     );
+
+    }
+    else if (isStarted) {
+      return Obx(
+            () => Column(
+          children: [
+
+            CustomButton(
+              loading: _joinEventController.isJoinLoading.value,
+              onTap: () {
+                _joinEventController.joinEventNow(id: id);
+              },
+              text: "Join Now",
+            ),
+
+
+
+          ],
+        ),
+      );
+    }
+
+    return SizedBox();
+
+  }
+
+
+
+
+
+
 
   Widget _customContainer({required String text, required String image}) {
     return Expanded(
@@ -269,7 +393,11 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
           children: [
             SvgPicture.asset(image),
             SizedBox(width: 8),
-            Text(text, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: AppColors.textColor)),
+            Expanded(
+              child: Text(text, style: TextStyle(fontSize: 14,
+                  fontWeight: FontWeight.w400, color: AppColors.textColor),
+              overflow: TextOverflow.ellipsis,),
+            ),
           ],
         ),
       ),

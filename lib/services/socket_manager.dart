@@ -181,59 +181,6 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
-
-// class SocketApi {
-//   static WebSocketChannel? _channel;
-//   static bool _connected = false;
-//
-//   static final StreamController<String> _messageController =
-//   StreamController<String>.broadcast();
-//
-//   static Stream<String> get messageStream => _messageController.stream;
-//
-//   static void init(int roomId) {
-//     if (_connected) return;
-//
-//     final uri = Uri.parse("ws://192.168.10.18:8004/ws/chat/$roomId/");
-//     try {
-//       _channel = WebSocketChannel.connect(uri);
-//       _connected = true;
-//
-//       _channel!.stream.listen(
-//             (data) {
-//           debugPrint('Socket Received: \$data');
-//           _messageController.add(data);
-//         },
-//         onError: (error) {
-//           debugPrint('Socket error: \$error');
-//           _connected = false;
-//         },
-//         onDone: () {
-//           debugPrint('Socket closed');
-//           _connected = false;
-//         },
-//       );
-//     } catch (e) {
-//       debugPrint('Failed to connect to socket: \$e');
-//     }
-//   }
-//
-//   static void emit(Map<String, dynamic> message) {
-//     if (_connected && _channel != null) {
-//       final encoded = jsonEncode(message);
-//       _channel!.sink.add(encoded);
-//     }
-//   }
-//
-//   static void disconnect() {
-//     if (_connected && _channel != null) {
-//       _channel!.sink.close();
-//       _connected = false;
-//     }
-//   }
-// }
-
-
 class SocketApi {
   static WebSocketChannel? _channel;
   static bool _connected = false;
@@ -249,7 +196,7 @@ class SocketApi {
 
 
 
-    final uri = Uri.parse("ws://172.252.13.79:3213/ws/chat/$roomId/");
+    final uri = Uri.parse("ws://10.10.12.49:8002/ws/chat/$roomId/");
     try {
       _channel = WebSocketChannel.connect(uri);
       _connected = true;

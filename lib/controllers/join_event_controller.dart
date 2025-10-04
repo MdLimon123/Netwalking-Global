@@ -16,6 +16,8 @@ import 'package:netwalking_global/views/screen/Home/AllSubScreen/JointEvent/join
 class JoinEventController extends GetxController{
 
   final isJoinEventLoading = false.obs;
+  final isStartEventLoading = false.obs;
+  final isCompletedEventLoading = false.obs;
 
   final isJoinLoading = false.obs;
 
@@ -122,9 +124,7 @@ class JoinEventController extends GetxController{
     required List<String> pace,
     required String participants,
     required List<String> language,
-    required int price,
-
-})async{
+    required int price,})async{
     isJoinEventLoading(true);
 
     List<MultipartBody> multipartBody = [];
@@ -171,6 +171,39 @@ class JoinEventController extends GetxController{
     }
     isJoinLoading(false);
 
+  }
+
+  Future<void> startEvent({required int id})async{
+    isStartEventLoading(true);
+    final body = {
+      "is_started": true,
+    };
+
+    final response = await ApiClient.patchData(ApiConstant.completedEventEndPoint(id: id), body);
+    if(response.statusCode == 200 || response.statusCode == 201){
+      showCustomSnackBar("Event Started", isError: false);
+      Get.back();
+    }else{
+      showCustomSnackBar("Something went wrong", isError: true);
+
+    }
+    isStartEventLoading(false);
+  }
+  Future<void> markAsCompletedEvent({required int id})async{
+    isCompletedEventLoading(true);
+    final body = {
+      "is_started": true,
+    };
+
+    final response = await ApiClient.patchData(ApiConstant.completedEventEndPoint(id: id), body);
+    if(response.statusCode == 200 || response.statusCode == 201){
+      showCustomSnackBar("Event Completed", isError: false);
+      Get.back();
+    }else{
+      showCustomSnackBar("Something went wrong", isError: true);
+
+    }
+    isCompletedEventLoading(false);
   }
 
 }

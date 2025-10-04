@@ -25,8 +25,10 @@ class _CommunityScreenState extends State<CommunityScreen> {
   final _communityController = Get.put(CommunityController());
   @override
   void initState() {
+  WidgetsBinding.instance.addPostFrameCallback((_){
     _communityController.fetchAllCommunityTopics();
-   _communityController.fetchAllCommunityPosts();
+    _communityController.fetchAllCommunityPosts();
+  });
     super.initState();
   }
 

@@ -36,5 +36,11 @@ class ApiConstant{
   static String topicWishSinglePostDetails ({required int id}) => "/api/v1/community/topic_wise_post/$id/";
   static String bestSuggestedMatchEndPoint = "/api/v1/auth/best-matches/";
   static String sendInvitationEndPoint = "/api/v1/auth/invitations/";
+  static String changePasswordEndPoint = "/api/v1/auth/change-password/";
+  static String upcomingEventEndPoint = "/api/v1/auth/upcomming_eventwalk/";
+  static String completedEventEndPoint({required int id}) => "/api/v1/event/events/$id/";
 
+  /// chat
+ static String createChatRoomEndPoint = "/api/v1/chat/rooms/";
+ static String allMessageEndPoint({required int id}) => "/api/v1/chat/messages/$id/";
 }

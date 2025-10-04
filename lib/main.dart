@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:netwalking_global/helpers/route.dart';
+import 'package:netwalking_global/services/socket_manager.dart';
 import 'package:netwalking_global/themes/light_theme.dart';
 import 'package:netwalking_global/utils/app_constants.dart';
 import 'package:netwalking_global/utils/message.dart';
@@ -12,6 +13,9 @@ import 'helpers/di.dart' as di ;
 
 void main()async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  SocketApi.init;
+
   Map<String, Map<String, String>> _languages = await di.init();
   runApp( MyApp(languages:_languages,));
 }
