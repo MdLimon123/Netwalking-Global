@@ -113,7 +113,7 @@ class _CoachViewAllUsersScreenState extends State<CoachViewAllUsersScreen> {
                         const Padding(
                           padding: EdgeInsets.only(left: 30.0),
                           child: Text(
-                            "Mike Rodriguez", // 👈 ডায়নামিক হলে এটাও json থেকে আনতে পারো
+                            "Mike Rodriguez",
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w500,

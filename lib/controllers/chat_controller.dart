@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:netwalking_global/controllers/data_controller.dart';
+import 'package:netwalking_global/models/all_inbox_model.dart';
 import 'package:netwalking_global/models/all_message_model.dart';
 import 'package:netwalking_global/services/api_client.dart';
 import 'package:netwalking_global/services/api_constant.dart';
@@ -17,6 +18,10 @@ class ChatController extends GetxController{
   RxList<AllMessageModel> allChatMessage = <AllMessageModel>[].obs;
   final isFirstLoading = false.obs;
   final _dataController = Get.put(DataController());
+
+  final allInboxLoading = false.obs;
+
+  final allInboxMessage = <InboxMessageModel>[].obs;
 
   final messageController = TextEditingController();
 
@@ -133,9 +138,6 @@ class ChatController extends GetxController{
     messageController.clear();
   }
 
-
-
-
 /// create chat room
   Future<void> createChat({required int id, required String name, required String image})async{
 
@@ -153,6 +155,23 @@ class ChatController extends GetxController{
       showCustomSnackBar("Something went wrong", isError: true);
     }
     isFirstChatLoading(false);
+
+  }
+
+  Future<void> fetchAllInbox()async{
+
+    allInboxLoading(true);
+
+    final response = await ApiClient.getData(ApiConstant.allRoomEndPoint);
+    if(response.statusCode == 200 || response.statusCode == 201){
+      final List<dynamic> data = response.body;
+      final List<InboxMessageModel> message = data.map((e) => InboxMessageModel.fromJson(e)).toList();
+      allInboxMessage.addAll(message);
+    }else{
+      showCustomSnackBar("Something went wrong", isError: true);
+
+    }
+    allInboxLoading(false);
 
   }
 

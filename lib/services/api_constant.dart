@@ -40,7 +40,10 @@ class ApiConstant{
   static String upcomingEventEndPoint = "/api/v1/auth/upcomming_eventwalk/";
   static String completedEventEndPoint({required int id}) => "/api/v1/event/events/$id/";
 
+  static String coachCategoriesEndPoint = "/api/v1/auth/coach-sub-categories/";
+
   /// chat
  static String createChatRoomEndPoint = "/api/v1/chat/rooms/";
  static String allMessageEndPoint({required int id}) => "/api/v1/chat/messages/$id/";
+ static String allRoomEndPoint = "/api/v1/chat/rooms/";
 }

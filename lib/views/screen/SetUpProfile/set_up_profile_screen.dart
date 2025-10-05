@@ -57,6 +57,14 @@ class _SetUpProfileScreenState extends State<SetUpProfileScreen> {
   final _setupProfileController = Get.put(SetupProfileController());
 
 
+  @override
+  void initState() {
+
+
+    super.initState();
+  }
+
+
 
   @override
   Widget build(BuildContext context) {

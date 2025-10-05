@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:netwalking_global/controllers/data_controller.dart';
 import 'package:netwalking_global/helpers/route.dart';
+import 'package:netwalking_global/models/category_and_subcategory_model.dart';
 import 'package:netwalking_global/services/api_client.dart';
 import 'package:netwalking_global/services/api_constant.dart';
 import 'package:netwalking_global/utils/image_utils.dart';
@@ -20,8 +21,9 @@ class SetupProfileController extends GetxController{
 
   var selectedDisabilities = <String>[].obs;
 
-  var walkingAvailability = ''.obs;  // RxString
-  var walkingDistance    = ''.obs;   // RxString
+
+  var walkingAvailability = ''.obs;
+  var walkingDistance    = ''.obs;  
   var paceSelection      = ''.obs;
 
   var isWalkingLoading = false.obs;
@@ -50,65 +52,6 @@ class SetupProfileController extends GetxController{
 
   }
 
-  //
-  // Future<void> submitProfile({required String profileImage,})async{
-  //
-  //   isSubmitLoading(true);
-  //
-  //   final Map<String, bool> privateFieldsMap = {
-  //     "full_name": !isCheck[0],
-  //     "location": !isCheck[1],
-  //     "profession": !isCheck[2],
-  //     "bio": !isCheck[3],
-  //     "age": !isCheck[4],
-  //     "gender": !isCheck[5],
-  //     "ethnicity": !isCheck[6],
-  //     "sexual_orientation": !isCheck[7],
-  //   };
-  //
-  //   final Map<String, String> body = {};
-  //
-  //   void addIfNotEmpty(String key, String? value){
-  //     if(value != null && value.trim().isNotEmpty){
-  //       body[key] = value.trim();
-  //     }
-  //   }
-  //
-  //   addIfNotEmpty("full_name", nameController.text);
-  //   addIfNotEmpty("location", locationController.text);
-  //   addIfNotEmpty("profession", professionController.text);
-  //   addIfNotEmpty("bio", bioController.text);
-  //   addIfNotEmpty("age", ageController.text);
-  //   addIfNotEmpty("gender", selectedGender.value);
-  //   addIfNotEmpty("ethnicity", selectedEthnicity.value);
-  //   addIfNotEmpty("sexual_orientation", selectedOrientation.value);
-  //
-  //   body['private_fields'] = jsonEncode(privateFieldsMap);
-  //
-  //
-  //
-  //   List<MultipartBody> multipartBody = [];
-  //   if (profileImage.isNotEmpty) {
-  //     multipartBody.add(MultipartBody('image', File(profileImage)));
-  //   }
-  //
-  //   print(" body ===============> $body");
-  //
-  //   final response = await ApiClient.patchMultipartData(ApiConstant.profileSetupEndPoint,
-  //       {"data":jsonEncode(body)}, multipartBody: multipartBody);
-  //   print("response body ===============> ${response.body}");
-  //   if(response.statusCode == 200 || response.statusCode == 201){
-  //     final data = jsonDecode(response.body);
-  //     showCustomSnackBar(data['message'], isError: false);
-  //     Get.offAllNamed(AppRoutes.disabilityAccessibilityScreen);
-  //   }else{
-  //     showCustomSnackBar("Something went wrong", isError: true);
-  //
-  //   }
-  //   isSubmitLoading(false);
-  //
-  //
-  // }
 
   Future<void> submitProfile({required String profileImage}) async {
     isSubmitLoading(true);
@@ -242,6 +185,8 @@ class SetupProfileController extends GetxController{
 
     isWalkingLoading(false);
   }
+  
+
 
 
   @override
