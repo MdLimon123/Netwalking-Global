@@ -64,5 +64,6 @@ class CommonData{
   static const faithBased = 'faithBased';
   static const coachDateJoined = 'dateJoined';
   static const coachLastLogin = 'lastLogin';
+  static const isProfileSetup = 'isProfileSetup';
 
 }

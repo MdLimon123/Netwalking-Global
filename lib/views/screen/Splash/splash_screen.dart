@@ -20,6 +20,10 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(Duration(seconds: 3), () async{
 
       print("All Data ==========> ${_dataController.getUserData()}");
+      await _dataController.getCoachData();
+
+      print("Coach name ==========> ${_dataController.fullName}");
+      print("User name ==========> ${_dataController.name}");
 
       var token = await PrefsHelper.getString(AppConstants.bearerToken);
       print("token =============> ${token}");

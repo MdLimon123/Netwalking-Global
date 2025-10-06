@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:netwalking_global/controllers/data_controller.dart';
 import 'package:netwalking_global/controllers/find_book_coach_controller.dart';
 import 'package:netwalking_global/utils/app_colors.dart';
 import 'package:netwalking_global/views/base/custom_appbar.dart';
@@ -10,6 +11,7 @@ import 'package:netwalking_global/views/base/custom_switch.dart';
 import 'package:netwalking_global/views/base/custom_time_date_event.dart';
 import 'package:netwalking_global/views/base/formate_even_time.dart';
 import 'package:netwalking_global/views/base/time_date.dart';
+import 'package:netwalking_global/views/screen/Coach/coach_view_all_users_screen.dart';
 import 'package:netwalking_global/views/screen/Coach/start_coach_profile_screen.dart';
 import 'package:netwalking_global/views/screen/Home/AllSubScreen/FindACoach/book_a_coach_screen.dart';
 import 'package:netwalking_global/views/screen/Home/AllSubScreen/FindACoach/coach_profile_details.dart';
@@ -28,14 +30,29 @@ class _FindACoachScreenState extends State<FindACoachScreen> {
    bool isSwitched = false;
 
    final _findBookingCoachController = Get.put(FindBookCoachController());
+   final _dataController = Get.put(DataController());
 
    @override
   void initState() {
+     _initializeCoachData();
     _findBookingCoachController.fetchFindBookingCoach();
     super.initState();
   }
 
-  @override
+   Future<void> _initializeCoachData() async {
+     _dataController.resetCoachData();
+     await _dataController.getCoachData();
+
+     setState(() {
+
+       isSwitched = _dataController.isProfileSetup.value;
+     });
+   }
+
+
+
+
+   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
@@ -60,18 +77,34 @@ class _FindACoachScreenState extends State<FindACoachScreen> {
                   color: AppColors.textColor
                 ),),
                 SizedBox(width: 8,),
-                CustomSwitch(
-                    value: isSwitched,
-                    onChanged: (val){
-                      setState(() {
-                        isSwitched = val;
-                      });
-                      if(val == true){
-                        Get.to(()=> StartCoachProfileScreen(), transition: Transition.noTransition);
-                      }
 
-                    })
-              ],
+        CustomSwitch(
+          value: isSwitched,
+          onChanged: (val) async {
+            setState(() {
+              isSwitched = val;
+            });
+
+            print("coach id =========> ${_dataController.coachId.value}");
+            print("coach name =========> ${_dataController.fullName.value}");
+
+            if (val) {
+
+              if (_dataController.isProfileSetup.value) {
+                Get.to(() => CoachViewAllUsersScreen());
+              } else {
+
+                Get.to(
+                      () => StartCoachProfileScreen(),
+                  transition: Transition.noTransition,
+                );
+              }
+            }
+          },
+        )
+
+
+        ],
             ),
             SizedBox(height: 16,),
             Obx(()=> _findBookingCoachController.isFindCoachLoading.value ?

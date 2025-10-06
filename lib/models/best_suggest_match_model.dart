@@ -73,46 +73,55 @@ class BestSuggestMatchModel {
 
   factory BestSuggestMatchModel.fromJson(Map<String, dynamic> json) {
     return BestSuggestMatchModel(
-      userId: json['user_id'],
-      application: json['application'],
-      role: json['role'],
-      fullName: json['full_name'],
-      email: json['email'],
-      image: json['image'],
-      googleImageUrl: json['google_image_url'],
-      facebookId: json['facebook_id'],
-      facebookImageUrl: json['facebook_image_url'],
-      age: json['age'],
-      location: json['location'],
-      bio: json['bio'],
-      ethnicity: json['ethnicity'],
-      gender: json['gender'],
-      sexualOrientation: json['sexual_orientation'],
+      userId: json['user_id'] ?? 0,
+      application: json['application'] ?? "",
+      role: json['role'] ?? "",
+      fullName: json['full_name'] ?? "",
+      email: json['email'] ?? "",
+      image: json['image'] ?? "",
+      googleImageUrl: json['google_image_url'] ?? "",
+      facebookId: json['facebook_id'] ?? "",
+      facebookImageUrl: json['facebook_image_url'] ?? "",
+      age: json['age'] ?? 0,
+      location: json['location'] ?? "",
+      bio: json['bio'] ?? "",
+      ethnicity: json['ethnicity'] ?? "",
+      gender: json['gender'] ?? "", // <-- must pass a value here
+      sexualOrientation: json['sexual_orientation'] ?? "",
       neurotypes: List<String>.from(json['neurotypes'] ?? []),
-      profession: json['profession'],
-      socialMediaLink: json['social_media_link'],
-      interestsAndProjects: json['interests_and_projects'],
-      anythingElse: json['anything_else'],
-      privateFields: PrivateFields.fromJson(json['private_fields']),
-      isSubscribed: json['is_subscribed'],
-      subscriptionType: json['subscription_type'],
+      profession: json['profession'] ?? "",
+      socialMediaLink: json['social_media_link'] ?? "",
+      interestsAndProjects: json['interests_and_projects'] ?? "",
+      anythingElse: json['anything_else'] ?? "",
+      privateFields: json['private_fields'] != null
+          ? PrivateFields.fromJson(json['private_fields'])
+          : PrivateFields(),
+
+      isSubscribed: json['is_subscribed'] ?? false,
+      subscriptionType: json['subscription_type'] ?? "",
       subscriptionStart: json['subscription_start'] != null
           ? DateTime.parse(json['subscription_start'])
           : null,
       subscriptionEnd: json['subscription_end'] != null
           ? DateTime.parse(json['subscription_end'])
           : null,
-      walkingAvailability: json['walking_availability'],
-      wakingDistance: json['waking_distance'],
-      paceSelection: json['pace_selection'],
-      totalEventJoin: json['total_event_join'],
-      totalWalk: json['total_walk'],
-      totalDayStreak: json['total_day_streak'],
-      viewAsUser: json['view_as_user'],
-      dateJoined: DateTime.parse(json['date_joined']),
-      lastLogin: DateTime.parse(json['last_login']),
+      walkingAvailability: json['walking_availability'] ?? "",
+      wakingDistance: json['waking_distance'] ?? 0,
+      paceSelection: json['pace_selection'] ?? "",
+      totalEventJoin: json['total_event_join'] ?? 0,
+      totalWalk: json['total_walk'] ?? 0,
+      totalDayStreak: json['total_day_streak'] ?? 0,
+      viewAsUser: json['view_as_user'] ?? false,
+      dateJoined: json['date_joined'] != null
+          ? DateTime.parse(json['date_joined'])
+          : DateTime.now(),
+      lastLogin: json['last_login'] != null
+          ? DateTime.parse(json['last_login'])
+          : DateTime.now(),
     );
   }
+
+
 
   Map<String, dynamic> toJson() {
     return {
@@ -155,10 +164,10 @@ class BestSuggestMatchModel {
 }
 
 class PrivateFields {
-  final bool gender;
-  final bool location;
+  final bool? gender;
+  final bool? location;
 
-  PrivateFields({required this.gender, required this.location});
+  PrivateFields({ this.gender,  this.location});
 
   factory PrivateFields.fromJson(Map<String, dynamic> json) {
     return PrivateFields(

@@ -2,7 +2,10 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:get/get.dart';
+import 'package:netwalking_global/controllers/data_controller.dart';
+import 'package:netwalking_global/models/booking_all_user_model.dart';
 import 'package:netwalking_global/models/category_and_subcategory_model.dart';
+import 'package:netwalking_global/models/upcoming_session_model.dart';
 import 'package:netwalking_global/services/api_client.dart';
 import 'package:netwalking_global/services/api_constant.dart';
 import 'package:netwalking_global/utils/image_utils.dart';
@@ -15,7 +18,15 @@ class CoachProfileSetupProfile extends GetxController{
   final isSubCategoryLoading = false.obs;
   final isSubmitLoading = false.obs;
 
+  final isBookingLoading = false.obs;
+  final isUpcomingSessionLoading = false.obs;
+
   RxList<Category> categoryAndSubCategory = <Category>[].obs;
+  RxList<UpcomingSessionData> upcomingSessionList = <UpcomingSessionData>[].obs;
+
+  final _dataController = Get.put(DataController());
+
+  RxList<BookingData> bookingAllUser = <BookingData>[].obs;
 
 
   Rx<File?> coachImageFile = Rx<File?>(null);
@@ -117,6 +128,8 @@ class CoachProfileSetupProfile extends GetxController{
     }
 
     if (response.statusCode == 200 || response.statusCode == 201) {
+      await _dataController.setCoachData(responseData['data'] ?? {});
+      _dataController.isProfileSetup.value = true;
       showCustomSnackBar(responseData['message'] ?? "Success", isError: false);
       Get.to(()=> CoachViewAllUsersScreen());
     } else {
@@ -125,6 +138,32 @@ class CoachProfileSetupProfile extends GetxController{
 
     isSubmitLoading(false);
 
+  }
+
+  Future<void> fetchBookingAllUser() async {
+    isBookingLoading(true);
+
+    final response = await ApiClient.getData(ApiConstant.bookingAllUserEndPoint);
+    if(response.statusCode == 200){
+      List<dynamic> data = response.body['data'];
+      bookingAllUser.assignAll(data.map((e) => BookingData.fromJson(e)).toList());
+    }else{
+      showCustomSnackBar("Something went wrong", isError: true);
+    }
+    isBookingLoading(false);
+  }
+
+  Future<void> fetchUpcomingSession() async {
+    isUpcomingSessionLoading(true);
+    final response = await ApiClient.getData(ApiConstant.upcomingSessionEndPoint);
+    if(response.statusCode == 200){
+      List<dynamic> data = response.body['data'];
+      upcomingSessionList.assignAll(data.map((e) => UpcomingSessionData.fromJson(e)).toList());
+    }else{
+      showCustomSnackBar("Something went wrong", isError: true);
+
+    }
+    isUpcomingSessionLoading(false);
   }
 
 
