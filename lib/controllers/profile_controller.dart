@@ -8,6 +8,7 @@ import 'package:netwalking_global/services/api_client.dart';
 import 'package:netwalking_global/services/api_constant.dart';
 import 'package:netwalking_global/utils/image_utils.dart';
 import 'package:netwalking_global/views/base/custom_snackbar.dart';
+import 'package:netwalking_global/views/screen/Auth/login_screen.dart';
 
 class ProfileController extends GetxController{
 
@@ -25,9 +26,14 @@ class ProfileController extends GetxController{
 
   final isChangePasswordLoading = false.obs;
 
+  final isDeleteLoading = false.obs;
+
+
   var isCheck = List.generate(8, (_) => false).obs;
 
   final isUpdateLoading = false.obs;
+
+  final isReportLoading = false.obs;
 
   final _dataController = Get.put(DataController());
 
@@ -142,6 +148,28 @@ class ProfileController extends GetxController{
     }
   }
 
+  Future<void> deleteAccountForUser({required int id})async{
+
+    isDeleteLoading(true);
+
+    final response = await ApiClient.deleteData(ApiConstant.deleteUserEndPoint(id: id));
+    if(response.statusCode == 200 || response.statusCode == 201){
+
+      String message;
+      if(response.body['message'] is String){
+        message = response.body['message'];
+        showCustomSnackBar(message, isError: false);
+        Get.to(()=> LoginScreen());
+      }else{
+        message = response.body['message'].toString();
+      }
+      showCustomSnackBar(message, isError: true);
+    }
+    isDeleteLoading(false);
+
+
+  }
+
 
 
   /// change password
@@ -184,5 +212,49 @@ class ProfileController extends GetxController{
 
     isChangePasswordLoading(false);
   }
+
+  Future<void> submitReportProblem({
+    required String name,
+  required String email,
+  required String phone,
+  required String comment
+})async{
+
+    isReportLoading(true);
+
+    final body = {
+      "name": name,
+      "email": email,
+      "phone_number": phone,
+      "comment": comment
+    };
+
+
+    final response = await ApiClient.postData(ApiConstant.reportProblemEndPoint, jsonEncode(body));
+    if(response.statusCode == 200 || response.statusCode == 201){
+      String message;
+      if(response.body['message'] is String){
+        message = response.body['message'];
+      }else{
+        message = response.body['message'].toString();
+      }
+      showCustomSnackBar(message, isError: false);
+      Get.back();
+
+    }else{
+      String message;
+      if(response.body['message'] is String){
+        message = response.body['message'];
+      }else{
+        message = response.body['message'].toString();
+      }
+      showCustomSnackBar(message, isError: true);
+    }
+    isReportLoading(false);
+
+
+  }
+
+
 
 }

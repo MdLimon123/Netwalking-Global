@@ -1,14 +1,14 @@
 class InboxMessageModel {
   final int roomId;
   final User user;
-  final LastMessage lastMessage;
+   LastMessage? lastMessage;
   final int unseenCount;
   final DateTime createdAt;
 
   InboxMessageModel({
     required this.roomId,
     required this.user,
-    required this.lastMessage,
+     this.lastMessage,
     required this.unseenCount,
     required this.createdAt,
   });
@@ -17,8 +17,10 @@ class InboxMessageModel {
     return InboxMessageModel(
       roomId: json['room_id'],
       user: User.fromJson(json['user']),
-      lastMessage: LastMessage.fromJson(json['last_message']),
-      unseenCount: json['unseen_count'],
+      lastMessage: json['last_message'] != null
+          ? LastMessage.fromJson(json['last_message'])
+          : null,   // null handle
+      unseenCount: json['unseen_count'] ?? 0,
       createdAt: DateTime.parse(json['created_at']),
     );
   }
@@ -26,7 +28,7 @@ class InboxMessageModel {
   Map<String, dynamic> toJson() => {
     'room_id': roomId,
     'user': user.toJson(),
-    'last_message': lastMessage.toJson(),
+    'last_message': lastMessage?.toJson(),
     'unseen_count': unseenCount,
     'created_at': createdAt.toIso8601String(),
   };

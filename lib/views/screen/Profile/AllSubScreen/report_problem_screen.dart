@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:netwalking_global/controllers/profile_controller.dart';
 import 'package:netwalking_global/utils/app_colors.dart';
 import 'package:netwalking_global/views/base/custom_appbar.dart';
 import 'package:netwalking_global/views/base/custom_button.dart';
@@ -17,6 +18,8 @@ class _ReportProblemScreenState extends State<ReportProblemScreen> {
   final emailTextController = TextEditingController();
   final phoneTextController = TextEditingController();
   final commentTextController = TextEditingController();
+
+  final _profileController = Get.put(ProfileController());
 
   @override
   Widget build(BuildContext context) {
@@ -78,8 +81,19 @@ class _ReportProblemScreenState extends State<ReportProblemScreen> {
                 ),
                 SizedBox(height: 12,),
                 SizedBox(height: 74,),
-                CustomButton(onTap: (){},
-                    text: "submit".tr
+                Obx(
+                    ()=> CustomButton(
+                      loading: _profileController.isReportLoading.value,
+                      onTap: (){
+                    _profileController.submitReportProblem(
+                        name: nameTextController.text,
+                        email: emailTextController.text,
+                        phone: phoneTextController.text,
+                        comment: commentTextController.text
+                    );
+                  },
+                      text: "submit".tr
+                  ),
                 )
               ],
             ),

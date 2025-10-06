@@ -36,7 +36,53 @@ class ChatController extends GetxController{
 
   bool _socketInitialized = false;
 
+  String? lastSentMessage;
+
   /// initialize socket
+  // Future<void> initialize({required int userId, required int id}) async {
+  //   if (_socketInitialized) return;
+  //   _socketInitialized = true;
+  //
+  //   SocketApi.init(id);
+  //
+  //   SocketApi.messageStream.listen((data) {
+  //     try {
+  //       final Map<String, dynamic> map = jsonDecode(data) as Map<String, dynamic>;
+  //       final content = (map['content'] ?? map['message'] ?? '').toString();
+  //       final images = map['images'] != null ? List<String>.from(map['images']) : null;
+  //
+  //
+  //       if (content.trim().isEmpty && (images == null || images.isEmpty)) {
+  //         return;
+  //       }
+  //
+  //       final msg = AllMessageModel.fromJson(map);
+  //
+  //
+  //       allChatMessage.add(msg);
+  //
+  //
+  //       WidgetsBinding.instance.addPostFrameCallback((_) {
+  //         if (!scrollController.hasClients) return;
+  //
+  //
+  //         final isReversed = true;
+  //         final target = isReversed
+  //             ? scrollController.position.minScrollExtent
+  //             : scrollController.position.maxScrollExtent;
+  //
+  //         scrollController.animateTo(
+  //           target,
+  //           duration: const Duration(milliseconds: 300),
+  //           curve: Curves.easeOut,
+  //         );
+  //       });
+  //     } catch (e, st) {
+  //       print('Socket parse error: $e\n$st');
+  //     }
+  //   });
+  // }
+
   Future<void> initialize({required int userId, required int id}) async {
     if (_socketInitialized) return;
     _socketInitialized = true;
@@ -49,20 +95,27 @@ class ChatController extends GetxController{
         final content = (map['content'] ?? map['message'] ?? '').toString();
         final images = map['images'] != null ? List<String>.from(map['images']) : null;
 
-
         if (content.trim().isEmpty && (images == null || images.isEmpty)) {
           return;
         }
 
         final msg = AllMessageModel.fromJson(map);
 
+        // নিজের মেসেজ skip
+        if (map['sender'] == _dataController.id.value &&
+            content == lastSentMessage) {
+          return;
+        }
+
+        // duplicate skip (id দিয়ে)
+        if (allChatMessage.any((m) => m.id == msg.id)) {
+          return;
+        }
 
         allChatMessage.add(msg);
 
-
         WidgetsBinding.instance.addPostFrameCallback((_) {
           if (!scrollController.hasClients) return;
-
 
           final isReversed = true;
           final target = isReversed
@@ -81,6 +134,7 @@ class ChatController extends GetxController{
     });
   }
 
+
 /// all message fetch
   Future<void> fetchAllMessage({required int id})async{
     isFirstLoading(true);
@@ -88,6 +142,7 @@ class ChatController extends GetxController{
     if(response.statusCode == 200 || response.statusCode == 201){
       final List<dynamic> data = response.body;
       final List<AllMessageModel> message = data.map((e) => AllMessageModel.fromJson(e)).toList();
+      allChatMessage.clear();
       allChatMessage.addAll(message);
     }else{
       showCustomSnackBar("Something went wrong", isError: true);
@@ -97,10 +152,51 @@ class ChatController extends GetxController{
   }
 
   /// send message
+  // void sendMessage() {
+  //   final text = messageController.text.trim();
+  //   if (text.isEmpty) return;
+  //
+  //
+  //   final msg = AllMessageModel(
+  //     id: DateTime.now().millisecondsSinceEpoch,
+  //     room: roomId.value,
+  //     sender: _dataController.id.value,
+  //     content: text,
+  //     images: null,
+  //     isSeen: true,
+  //     timestamp: DateTime.now(),
+  //   );
+  //
+  //   allChatMessage.add(msg);
+  //
+  //
+  //   WidgetsBinding.instance.addPostFrameCallback((_) {
+  //     if (!scrollController.hasClients) return;
+  //     scrollController.animateTo(
+  //       scrollController.position.minScrollExtent,
+  //       duration: const Duration(milliseconds: 300),
+  //       curve: Curves.easeOut,
+  //     );
+  //   });
+  //
+  //
+  //   final payload = {
+  //     'sender': _dataController.id.value,
+  //     'message': text,
+  //     'room': roomId.value,
+  //   };
+  //
+  //
+  //   SocketApi.emit(payload);
+  //
+  //
+  //   messageController.clear();
+  // }
+
+
   void sendMessage() {
     final text = messageController.text.trim();
     if (text.isEmpty) return;
-
 
     final msg = AllMessageModel(
       id: DateTime.now().millisecondsSinceEpoch,
@@ -112,8 +208,8 @@ class ChatController extends GetxController{
       timestamp: DateTime.now(),
     );
 
-    allChatMessage.add(msg);
 
+    allChatMessage.add(msg);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!scrollController.hasClients) return;
@@ -131,9 +227,8 @@ class ChatController extends GetxController{
       'room': roomId.value,
     };
 
-
+    lastSentMessage = text;
     SocketApi.emit(payload);
-
 
     messageController.clear();
   }

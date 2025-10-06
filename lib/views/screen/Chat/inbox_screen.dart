@@ -121,22 +121,21 @@ class _InboxScreenState extends State<InboxScreen> {
                                     ),
                                   ),
                                   SizedBox(width: 150,),
-                                  Text(
-                                    formatTime(data.lastMessage.timestamp.toIso8601String()),
-                                    style: TextStyle(
-                                      color: AppColors.textColor,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                    textAlign: TextAlign.end,
-                                  ),
+                                  // Text(
+                                  //   formatTime(data.lastMessage?.timestamp.toIso8601String() ?? ""),
+                                  //   style: TextStyle(
+                                  //     color: AppColors.textColor,
+                                  //     fontSize: 12,
+                                  //     fontWeight: FontWeight.w400,
+                                  //   ),
+                                  //   textAlign: TextAlign.end,
+                                  // ),
                                 ],
                               ),
                               SizedBox(height: 4),
                               Text(
-                                data.lastMessage.content.isNotEmpty
-                                    ? data.lastMessage.content
-                                    : "No messages yet",
+                                data.lastMessage?.content ?? "No messages yet",
+
                                 style: TextStyle(
                                   color: AppColors.textColor,
                                   fontSize: 12,

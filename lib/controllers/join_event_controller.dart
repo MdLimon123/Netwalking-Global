@@ -12,6 +12,7 @@ import 'package:netwalking_global/views/base/custom_snackbar.dart';
 import 'package:netwalking_global/views/screen/Home/AllSubScreen/JointEvent/AllTabsScreen/Widgets/all_event_screen.dart';
 import 'package:netwalking_global/views/screen/Home/AllSubScreen/JointEvent/AllTabsScreen/Widgets/my_event_screen.dart';
 import 'package:netwalking_global/views/screen/Home/AllSubScreen/JointEvent/joint_book_a_coach_screen.dart';
+import 'package:netwalking_global/views/screen/Home/AllSubScreen/JointEvent/live_track_screen.dart';
 
 class JoinEventController extends GetxController{
 
@@ -164,7 +165,7 @@ class JoinEventController extends GetxController{
     final response = await ApiClient.postData(ApiConstant.joinEventEndPoint(id: id), null);
     if(response.statusCode == 200 || response.statusCode == 201){
       showCustomSnackBar(response.body['data']['message'], isError: false);
-      Get.to(() => JointBookACoachScreen());
+      Get.to(() => LiveTrackScreen());
     }else{
       showCustomSnackBar(response.body['data']['message'], isError: true);
 

@@ -41,6 +41,9 @@ class ApiConstant{
   static String completedEventEndPoint({required int id}) => "/api/v1/event/events/$id/";
 
   static String coachCategoriesEndPoint = "/api/v1/auth/coach-sub-categories/";
+  static String deleteUserEndPoint({required int id}) => "/api/v1/auth/user/$id/";
+
+  static String reportProblemEndPoint = "/api/v1/report-problem/";
 
   /// chat
  static String createChatRoomEndPoint = "/api/v1/chat/rooms/";

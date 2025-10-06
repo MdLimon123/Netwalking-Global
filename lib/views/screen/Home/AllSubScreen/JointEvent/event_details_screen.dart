@@ -283,35 +283,7 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
               _joinEventController.eventDetailsList[0].isCompleted
               ),
 
-            // status == 'join now'?
-            // Container(
-            //   height: 48,
-            //   width: double.infinity,
-            //   decoration: BoxDecoration(
-            //     color: Color(0xFFFFFFFF),
-            //     borderRadius: BorderRadius.circular(8),
-            //     border: Border.all(color: Color(0xFF8EB2D8), width: 0.5),
-            //   ),
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.center,
-            //     children: [
-            //       SvgPicture.asset('assets/icons/chat.svg'),
-            //       SizedBox(width: 8),
-            //       Text("chat_now".tr, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: AppColors.textColor))
-            //     ],
-            //   ),
-            // ): SizedBox(),
-            // SizedBox(height: 24),
-            // status == 'join now'?
-            // Obx(
-            //     ()=> CustomButton(
-            //
-            //     loading: _joinEventController.isJoinLoading.value,
-            //       onTap: () {
-            //         _joinEventController.joinEventNow(id: widget.id);
-            //         },
-            //       text: "joint_event".tr),
-            // ): SizedBox(),
+
           ],
         ),
       )),

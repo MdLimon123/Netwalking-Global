@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:netwalking_global/controllers/data_controller.dart';
+import 'package:netwalking_global/controllers/profile_controller.dart';
 import 'package:netwalking_global/helpers/route.dart';
 import 'package:netwalking_global/services/prefs_helper.dart';
 import 'package:netwalking_global/utils/app_colors.dart';
 import 'package:netwalking_global/utils/app_constants.dart';
 import 'package:netwalking_global/views/base/custom_network_image.dart';
+import 'package:netwalking_global/views/base/custom_page_loading.dart';
 import 'package:netwalking_global/views/base/custom_switch.dart';
 import 'package:netwalking_global/views/screen/Notification/notification_screen.dart';
 import 'package:netwalking_global/views/screen/Profile/AllSubScreen/about_us_screen.dart';
@@ -31,6 +33,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   bool isSwitch = false;
 
   final _dataController = Get.put(DataController());
+
+  final _profileController = Get.put(ProfileController());
 
   @override
   void initState() {
@@ -328,26 +332,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Row(
                     children: [
                       Expanded(
-                        child: InkWell(
-                          onTap: ()async{
+                        child: Obx(
+                      ()=> InkWell(
+                            onTap: ()async{
 
-                          },
-                          child: Container(
-                              height: 40,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
-                                  border:
-                                  Border.all(color: Color(0xFFFFFFFF), width: 1)),
-                              child: Center(
-                                child: Text(
-                                  "yes".tr,
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                              )),
+                              await PrefsHelper.remove(AppConstants.bearerToken);
+                            await _profileController.deleteAccountForUser(id: _dataController.id.value);
+
+                            },
+                            child: Container(
+                                height: 40,
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8),
+                                    border:
+                                    Border.all(color: Color(0xFFFFFFFF), width: 1)),
+                                child: Center(
+                                  child: _profileController.isDeleteLoading.value?
+                                  Center(child: CustomPageLoading()):Text(
+                                    "Yes",
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                )),
+                          ),
                         ),
                       ),
                       SizedBox(width: 24),
