@@ -44,6 +44,9 @@ class ApiConstant{
   static String deleteUserEndPoint({required int id}) => "/api/v1/auth/user/$id/";
 
   static String reportProblemEndPoint = "/api/v1/report-problem/";
+  static String termsOfServiceEndPoint = "/api/v1/settings/terms_conditions/";
+  static String aboutUsEndPoint = "/api/v1/settings/about_us/";
+  static String privacyPoliceEndPoint = "/api/v1/settings/privacy_policies/";
 
   /// chat
  static String createChatRoomEndPoint = "/api/v1/chat/rooms/";

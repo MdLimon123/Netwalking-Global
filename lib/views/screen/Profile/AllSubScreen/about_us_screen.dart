@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:netwalking_global/controllers/about_us_controller.dart';
 import 'package:netwalking_global/utils/app_colors.dart';
 import 'package:netwalking_global/views/base/custom_appbar.dart';
+import 'package:netwalking_global/views/base/custom_page_loading.dart';
 
 class AboutUsScreen extends StatefulWidget {
   const AboutUsScreen({super.key});
@@ -10,38 +13,51 @@ class AboutUsScreen extends StatefulWidget {
 }
 
 class _AboutUsScreenState extends State<AboutUsScreen> {
+
+  final _aboutUsController = Get.put(AboutUsController());
+
+  @override
+  void initState() {
+   _aboutUsController.fetchAboutUs();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: CustomAppbar(title: "About Us"),
-      body: ListView(
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 17),
-        children: [
-          Container(
-            width: double.infinity,
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(16)
+      body: Obx(()=> _aboutUsController.isAboutUsLoading.value?
+      Center(child: CustomPageLoading()):
+      ListView.builder(
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 17),
+          itemCount: _aboutUsController.aboutUsList.length,
+          itemBuilder: (context, index){
+            final data = _aboutUsController.aboutUsList[index];
+            return Container(
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(16)
 
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _headingText(text: "NetWalking Global"),
-                SizedBox(height: 8,),
-                _subText(text:"We believe meaningful connections begin with simple steps. Our mission is to help people find like-minded walking partners, build healthy habits, and enjoy uplifting conversations while staying active. Whether you're walking for health, friendship, or fresh air, we’re here to make every step count." )
-              ],
-            ),
-          )
-        ],
-      ),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _headingText(text: data.title),
+                  SizedBox(height: 8,),
+                  _subText(text: data.content )
+                ],
+              ),
+            );
+          }
+      )),
     );
   }
 
-  _subText({required String text}) {
+ Widget _subText({required String text}) {
     return Text(text,
       style: TextStyle(
           fontSize: 14,
@@ -50,7 +66,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
       ),);
   }
 
-  _headingText({required String text}) {
+ Widget _headingText({required String text}) {
     return Text(text,
       style: TextStyle(
           fontSize: 18,
