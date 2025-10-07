@@ -7,6 +7,7 @@ import 'package:netwalking_global/views/base/custom_page_loading.dart';
 import 'package:netwalking_global/views/base/custom_switch.dart';
 import 'package:get/get.dart';
 import 'package:netwalking_global/views/base/custom_time_date_event.dart';
+import 'package:netwalking_global/views/screen/Coach/session_details_screen.dart';
 
 class CoachViewAllUsersScreen extends StatefulWidget {
   const CoachViewAllUsersScreen({super.key});
@@ -224,29 +225,36 @@ class _CoachViewAllUsersScreenState extends State<CoachViewAllUsersScreen> {
                                 ),
                               ),
                               const Spacer(),
-                              Container(
-                                width: 103,
-                                height: 24,
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                    colors: [
-                                      Color(0xFFCC6F36),
-                                      Color(0xFFD7BA18),
-                                    ]
+                              InkWell(
+                                onTap: (){
+                                  Get.to(()=> SessionDetailsScreen(
+                                    id: item.bookingId,
+                                  ));
+                                },
+                                child: Container(
+                                  width: 103,
+                                  height: 24,
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        Color(0xFFCC6F36),
+                                        Color(0xFFD7BA18),
+                                      ]
+                                    ),
+                                    borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(11),
+                                      bottomRight: Radius.circular(11)
+                                    ),
+                                    border: Border.all(color: const Color(0xFFE6EEF7)),
                                   ),
-                                  borderRadius: BorderRadius.only(
-                                    topRight: Radius.circular(11),
-                                    bottomRight: Radius.circular(11)
-                                  ),
-                                  border: Border.all(color: const Color(0xFFE6EEF7)),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    "Sessions",
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.white,
+                                  child: Center(
+                                    child: Text(
+                                      "Sessions",
+                                      style: const TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.white,
+                                      ),
                                     ),
                                   ),
                                 ),

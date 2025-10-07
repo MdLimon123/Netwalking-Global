@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:netwalking_global/controllers/data_controller.dart';
 import 'package:netwalking_global/models/booking_all_user_model.dart';
 import 'package:netwalking_global/models/category_and_subcategory_model.dart';
+import 'package:netwalking_global/models/coach_session_details_model.dart';
 import 'package:netwalking_global/models/upcoming_session_model.dart';
 import 'package:netwalking_global/services/api_client.dart';
 import 'package:netwalking_global/services/api_constant.dart';
@@ -20,9 +21,13 @@ class CoachProfileSetupProfile extends GetxController{
 
   final isBookingLoading = false.obs;
   final isUpcomingSessionLoading = false.obs;
+  final isCoachSessionLoading = false.obs;
+
+  final isLinkLoading = false.obs;
 
   RxList<Category> categoryAndSubCategory = <Category>[].obs;
   RxList<UpcomingSessionData> upcomingSessionList = <UpcomingSessionData>[].obs;
+  RxList<CoachSessionData> coachSessionDetails = <CoachSessionData>[].obs;
 
   final _dataController = Get.put(DataController());
 
@@ -164,6 +169,39 @@ class CoachProfileSetupProfile extends GetxController{
 
     }
     isUpcomingSessionLoading(false);
+  }
+
+  Future<void> fetchCoachSessionDetails({required int id}) async {
+
+    isCoachSessionLoading(true);
+    final response = await ApiClient.getData(ApiConstant.coachSessionDetailsEndPoint(id: id));
+    if(response.statusCode == 200){
+      List<dynamic> data = response.body['data'];
+      coachSessionDetails.assignAll(data.map((e) => CoachSessionData.fromJson(e)).toList());
+    }else{
+      showCustomSnackBar("Something went wrong", isError: true);
+    }
+    isCoachSessionLoading(false);
+
+  }
+
+  Future<void> submitSessionLink({required int id, required String link}) async {
+
+    isLinkLoading(true);
+    final body = {
+      "session_link": link
+    };
+
+    final response = await ApiClient.patchData(ApiConstant.sessionLinkEndPoint(id: id), body);
+    if(response.statusCode == 200 || response.statusCode == 201){
+      showCustomSnackBar("Link Upload Successfully", isError: false);
+      Get.back();
+    }else{
+      showCustomSnackBar("Something went wrong", isError: true);
+    }
+    isLinkLoading(false);
+
+
   }
 
 

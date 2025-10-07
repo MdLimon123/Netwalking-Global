@@ -49,6 +49,8 @@ class ApiConstant{
   static String privacyPoliceEndPoint = "/api/v1/settings/privacy_policies/";
   static String bookingAllUserEndPoint = "/api/v1/auth/bookings/user/";
   static String upcomingSessionEndPoint = "/api/v1/auth/bookings/coach/upcomming_session/";
+  static String coachSessionDetailsEndPoint({required int id}) => "/api/v1/auth/bookings/user/$id/";
+  static String sessionLinkEndPoint({required int id}) => "/api/v1/auth/bookings/$id/status/";
 
   /// chat
  static String createChatRoomEndPoint = "/api/v1/chat/rooms/";
