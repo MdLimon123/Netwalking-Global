@@ -204,5 +204,41 @@ class CoachProfileSetupProfile extends GetxController{
 
   }
 
+  Future<void> acceptBooking({required int id})async{
+
+    final body = {
+      "status": "confirmed"
+    };
+
+    final response = await ApiClient.patchData(ApiConstant.confirmAndDeclineEndPoint(id: id), body);
+    if(response.statusCode == 200 || response.statusCode == 201){
+      showCustomSnackBar("Booking Accepted Successfully", isError: false);
+
+    }else{
+      showCustomSnackBar("Something went wrong", isError: true);
+
+    }
+
+  }
+
+  Future<void> declineBooking({required int id})async{
+
+    final body = {
+      "status": "canceled"
+    };
+
+    final response = await ApiClient.patchData(ApiConstant.confirmAndDeclineEndPoint(id: id), body);
+    if(response.statusCode == 200 || response.statusCode == 201){
+      showCustomSnackBar("Booking Cancelled Successfully", isError: false);
+
+    }else{
+      showCustomSnackBar("Something went wrong", isError: true);
+
+    }
+
+  }
+
+
+
 
 }

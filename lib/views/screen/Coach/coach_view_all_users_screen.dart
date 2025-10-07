@@ -105,20 +105,25 @@ class _CoachViewAllUsersScreenState extends State<CoachViewAllUsersScreen> {
                                 ),
                               ),
                               const Spacer(),
-                              Container(
-                                width: 60,
-                                height: 24,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(4),
-                                  border: Border.all(color: const Color(0xFFE6EEF7)),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    "decline".tr,
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500,
-                                      color: Color(0xFF545454),
+                              InkWell(
+                                onTap: (){
+                                  _coachProfileSetupProfile.declineBooking(id: item.bookingId);
+                                },
+                                child: Container(
+                                  width: 60,
+                                  height: 24,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(4),
+                                    border: Border.all(color: const Color(0xFFE6EEF7)),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "decline".tr,
+                                      style: const TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w500,
+                                        color: Color(0xFF545454),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -151,20 +156,25 @@ class _CoachViewAllUsersScreenState extends State<CoachViewAllUsersScreen> {
                                   ),
                                 ),
                                 const Spacer(),
-                                Container(
-                                  width: 60,
-                                  height: 24,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(4),
-                                    border: Border.all(color: const Color(0xFFE8F2ED)),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      "accept".tr,
-                                      style: const TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w500,
-                                        color: Color(0xFF545454),
+                                InkWell(
+                                  onTap: (){
+                                    _coachProfileSetupProfile.acceptBooking(id: item.bookingId);
+                                  },
+                                  child: Container(
+                                    width: 60,
+                                    height: 24,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4),
+                                      border: Border.all(color: const Color(0xFFE8F2ED)),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        "accept".tr,
+                                        style: const TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w500,
+                                          color: Color(0xFF545454),
+                                        ),
                                       ),
                                     ),
                                   ),
